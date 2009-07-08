@@ -1,0 +1,13 @@
+{% extends "main.html" %}
+{% load uni_form %}
+
+{% block title %} Registration form {% endblock %} 
+{% block body %}
+<h2>Sign up</h2>
+<form method="post" action="" class="uniForm">
+  <fieldset><legend>Registration form</legend>
+  {{ form|as_uni_form }}
+  <input type="submit" value="Submit" />
+  </fieldset>
+</form>
+{% endblock %}
