@@ -23,9 +23,3 @@ class TwitterSearch(django_pipes.Pipe):
                 result.text ) )
         rv.append('</ul>')
         return SafeUnicode(u''.join(rv))
-
-class GoogleSearch(django_pipes.Pipe):
-    uri = "http://ajax.googleapis.com/ajax/services/search/web"
-    parameters = { 'q' : None,
-                   }
-    name = 'Google Search'
