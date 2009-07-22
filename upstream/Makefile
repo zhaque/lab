@@ -1,6 +1,7 @@
 DJANGO_REGISTRATION_RELEASE=b360801eae96 # 2009-06-16 tip http://bitbucket.org/ubernostrum/django-registration/
 PYTHON_OPENID_VERSION=2.2.4
 DJANGO_AUTHOPENID_RELEASE=1.0.1		 # release tag
+DJANGO_AUTOSLUG_RELEASE=94c27c427c80	 # 2009-07-22 tip
 XLRD_VERSION=0.6.1
 DJANGO_BATCHIMPORT_RELEASE=17
 DJANGO_CONTACT_FORM_RELEASE=1d3791fa4dfb
@@ -18,6 +19,7 @@ SOUTH_RELEASE=64cde35ab459
 
 init: _submodules.stamp \
 	django-authopenid.stamp \
+	django-autoslug.stamp \
 	django-batchimport.stamp \
 	django-contact-form.stamp \
 	django-page-cms.stamp \
@@ -49,6 +51,12 @@ python-openid.stamp: $(PYTHON_OPENID_ARCHIVE)
 django-authopenid.stamp: python-openid.stamp
 	hg clone -r $(DJANGO_AUTHOPENID_RELEASE) http://bitbucket.org/benoitc/django-authopenid/
 	date > $@
+
+
+django-autoslug.stamp:
+	hg clone -r $(DJANGO_AUTOSLUG_RELEASE) http://bitbucket.org/neithere/django-autoslug/
+	date > $@
+
 
 XLRD_FILE=xlrd-$(XLRD_VERSION).zip
 XLRD_URL=http://www.lexicon.net/sjmachin/$(XLRD_FILE)

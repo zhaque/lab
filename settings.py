@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     # third-party
     #ab 'ab',
     'ajax_validation',
+    'autoslug',
     #batchimport 'batchimport',
     'compress',
     'debug_toolbar',

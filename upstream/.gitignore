@@ -16,3 +16,4 @@ sorl-thumbnail
 xlrd*
 django-batchimport
 south
+django-autoslug
