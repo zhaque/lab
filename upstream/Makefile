@@ -13,6 +13,7 @@ DJANGO_PISTON_RELEASE=0.2.2
 DJANGO_ROSETTA_RELEASE=67
 DJANGO_SSO_RELEASE=3
 SORL_THUMBNAIL_RELEASE=449
+SOUTH_RELEASE=64cde35ab459
 
 
 init: _submodules.stamp \
@@ -26,7 +27,8 @@ init: _submodules.stamp \
 	django-rosetta.stamp \
 	django-sso.stamp \
 	django-tagging.stamp \
-	sorl-thumbnail.stamp
+	sorl-thumbnail.stamp \
+	south.stamp
 
 .PHONY: _submodules.stamp
 _submodules.stamp:
@@ -111,4 +113,9 @@ django-tagging.stamp:
 
 sorl-thumbnail.stamp:
 	svn checkout -q -r $(SORL_THUMBNAIL_RELEASE) http://sorl-thumbnail.googlecode.com/svn/trunk/ sorl-thumbnail
+	date > $@
+
+
+south.stamp:
+	hg clone -r $(SOUTH_RELEASE) http://bitbucket.org/andrewgodwin/south/
 	date > $@

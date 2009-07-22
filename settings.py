@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'registration',
     'rosetta',
     'sorl.thumbnail',
+    'south',
     'sso',
     'tagging',
     'uni_form',
