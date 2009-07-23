@@ -63,7 +63,9 @@
                   [<a href="{% url tracker_edit slug=t.slug %}">edit</a>]
                   {% endifequal %}
                 </li>{% endfor %}</ul>
-              <a href="{% url tracker_create %}">Add more…</a>
+             {% ifequal user request.muaccount.owner %}
+             <a href="{% url tracker_create %}">Add more…</a>
+             {% endifequal %}
             </div>
           </div>
       </div>
