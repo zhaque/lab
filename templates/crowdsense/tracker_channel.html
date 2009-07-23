@@ -1,0 +1,9 @@
+{% extends "main.html" %}
+
+{% block title %}{{channel}} for {{tracker}}{% endblock %} 
+{% block body %}
+<h2>Latest updates</h2>
+<ul>{% for result in channel.render_result_list %}
+<li>{{result}}</li>
+{% endfor %}</ul>
+{% endblock %}
