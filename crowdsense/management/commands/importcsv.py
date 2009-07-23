@@ -43,7 +43,7 @@ class Command(BaseCommand):
                         _warn('user %s existed' % owner)
 
                     themedict = muaccounts.themes.DEFAULT_THEME_DICT.copy()
-                    for themespec in theme.split():
+                    for themespec in theme.strip().split(';'):
                         k, v = themespec.split(':',1)
                         if k in themedict:
                             if v in muaccounts.themes.THEMES_DICT[k][1]:
