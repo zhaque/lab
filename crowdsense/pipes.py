@@ -3,7 +3,9 @@ from django.utils.safestring import SafeUnicode
 
 import django_pipes
 
+
 # TODO: detailed multi-pipe query string API
+
 
 class TwitterSearch(django_pipes.Pipe):
     name = "Social Updates"
@@ -14,9 +16,10 @@ class TwitterSearch(django_pipes.Pipe):
     ## API for Tracker
 
     # Let's get around django-pipes API's unnecesarry model-likeness
+
     @classmethod
     def query(cls, query):
-        return cls.objects.get( { 'q' : query } )
+        return cls.objects.get({'q': query})
 
     def __unicode__(self):
         return self.name
@@ -26,6 +29,6 @@ class TwitterSearch(django_pipes.Pipe):
 
     def render_result_list(self):
         return ((
-            render_to_string('pipe/twitter/single-result.inc.html', {'object':r})
-            for r in self.get_result_list()
-            ))
+            render_to_string('pipe/twitter/single-result.inc.html',
+                             {'object': r})
+            for r in self.get_result_list()))

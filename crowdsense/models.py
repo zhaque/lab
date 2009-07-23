@@ -22,11 +22,11 @@ class Tracker(models.Model):
                                # field now.
 
     # temporarily hard-coded; eventually MUA's selected Channels will be used
-    channels = ( TwitterSearch, )
+    channels = (TwitterSearch, )
 
     @models.permalink
     def get_absolute_url(self):
-        return ( 'tracker_main', (), {'slug':self.slug} )
+        return ('tracker_main', (), {'slug': self.slug})
 
     def __unicode__(self):
         return self.name

@@ -22,7 +22,7 @@ ADMIN_MEDIA_PREFIX = '/media/admin/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '+*q3$z(d1@hi^p%645&636$n7r@=w!m)(z9@k9&9s9_7uh%a+s'
 
-MIDDLEWARE_CLASSES += ('muaccounts.middleware.MUAccountsMiddleware',)
+MIDDLEWARE_CLASSES += ('muaccounts.middleware.MUAccountsMiddleware', )
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

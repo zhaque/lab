@@ -110,9 +110,9 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'pages.context_processors.media',
     )
 
-TEMPLATE_DIRS = ( os.path.join(KIT_ROOT, 'templates'), )
+TEMPLATE_DIRS = (os.path.join(KIT_ROOT, 'templates'), )
 
-INTERNAL_IPS = ( '127.0.0.1', )
+INTERNAL_IPS = ('127.0.0.1', )
 
 AUTH_PROFILE_MODULE = 'crowdsense.UserProfile'
 
@@ -135,17 +135,17 @@ _default_css_files = ('yui-app-theme/yuiapp.css',
                       )
 
 COMPRESS_CSS = {                        # different themes for MUAs
-    'all' : {
-        'name' : 'Default theme',
-        'source_filenames' : _default_css_files,
-        'output_filename' : 'style.css'},
+    'all': {
+        'name': 'Default theme',
+        'source_filenames': _default_css_files,
+        'output_filename': 'style.css'},
     }
 COMPRESS_JS = {
-    'all' : {
-        'source_filenames' : ('authopenid/js/jquery-1.3.2.min.js',
-                              'uni_form/uni-form.jquery.js',
-                              ),
-        'output_filename' : 'scripts.js'},
+    'all': {
+        'source_filenames': ('authopenid/js/jquery-1.3.2.min.js',
+                             'uni_form/uni-form.jquery.js',
+                             ),
+        'output_filename': 'scripts.js'},
     }
 
 PAGE_TAGGING = True
@@ -168,11 +168,11 @@ ACCOUNT_ACTIVATION_DAYS=7
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/signin/'
 SUBSCRIPTION_PAYPAL_SETTINGS = {
-    'business' : PAYPAL_RECEIVER_EMAIL,
+    'business': PAYPAL_RECEIVER_EMAIL,
     }
 
 QUOTAS = {
-    'muaccount_members' : (3, 10, 50),
+    'muaccount_members': (3, 10, 50),
     }
 
 MUACCOUNTS_ROOT_DOMAIN = 'example.com'
@@ -213,9 +213,9 @@ MUACCOUNTS_THEMES = (
     )
 
 # Prepare CSS files for configured color schemes
-for codename, _, css_file in MUACCOUNTS_THEMES[0][2]:
-     COMPRESS_CSS[codename] = {
-         'source_filenames' : ( (_default_css_files[0], css_file,)
-                                + _default_css_files[1:] ),
-         'output_filename' : 'style.%s.css' % codename,
+for codename, _junk, css_file in MUACCOUNTS_THEMES[0][2]:
+    COMPRESS_CSS[codename] = {
+        'source_filenames': ((_default_css_files[0], css_file, )
+                             + _default_css_files[1:] ),
+         'output_filename': 'style.%s.css' % codename,
          }

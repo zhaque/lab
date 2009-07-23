@@ -26,7 +26,7 @@ from django.conf.urls.defaults import *
 
 from profiles import views
 
-params = { 'public_profile_field': 'is_public' }
+params = {'public_profile_field': 'is_public'}
 
 urlpatterns = patterns('',
                        url(r'^create/$',
