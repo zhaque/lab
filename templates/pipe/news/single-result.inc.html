@@ -1,0 +1,5 @@
+{% if object.BreakingNews %}<strong>{% endif %}
+  <p><a href="{{object.Url}}">{{object.Source}}: <em>{{object.Title}}</em></a>,
+    {{object.Date}}</p>
+  <blockquote><p>{{object.Snippet}}</p></blockquote>
+{% if object.BreakingNews %}</strong>{% endif %}

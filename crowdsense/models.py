@@ -9,7 +9,7 @@ from autoslug.fields import AutoSlugField
 
 from muaccounts.models import MUAccount
 
-from pipes import TwitterSearch
+from pipes import TwitterSearch, BingNews
 
 
 class Tracker(models.Model):
@@ -22,7 +22,7 @@ class Tracker(models.Model):
                                # field now.
 
     # temporarily hard-coded; eventually MUA's selected Channels will be used
-    channels = (TwitterSearch, )
+    channels = (TwitterSearch, BingNews)
 
     @models.permalink
     def get_absolute_url(self):

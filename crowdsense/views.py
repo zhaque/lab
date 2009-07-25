@@ -60,6 +60,7 @@ def tracker_channel(request, slug, channel_slug):
         channel = tracker.get_channel(channel_slug)
     except Tracker.DoesNotExist:
         return HttpResponseNotFound()
+    print tracker, channel
     return direct_to_template(
         request, 'crowdsense/tracker_channel.html',
         extra_context=dict(
