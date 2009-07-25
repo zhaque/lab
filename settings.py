@@ -95,7 +95,6 @@ INSTALLED_APPS = (
     'tagging',
     'uni_form',
     # own
-    'mashup.pipeadmin',
     'muaccounts',
     'prepaid',
     'quotas',

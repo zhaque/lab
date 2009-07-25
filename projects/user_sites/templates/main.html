@@ -37,9 +37,9 @@
           <ul id="user-navigation">
             {% if user.is_authenticated %}
             {% ifequal user request.muaccount.owner %}
-           <li><a href="{% url muaccounts_account_detail %}">manage site</a></li>
+            <li><a href="{% url muaccounts_account_detail %}">manage site</a></li>
             {% endifequal %}
-           <li><a href="{% url user_signout %}">logout</a></li>
+            <li><a href="{% url user_signout %}">logout</a></li>
             {% else %}
             <li><a href="{% url user_signin %}">log in or sign up</a></li>
             {% endif %}
@@ -52,7 +52,7 @@
               {% block body %} Body {% endblock %}
         </div></div></div>
 
-        <div id="sidebar" class="yui-b">
+       <div id="sidebar" class="yui-b">
           <div class="block">
             <div class="hd"><h2>Trackers</h2></div><div class="bd">
              <ul class="list">
@@ -70,7 +70,7 @@
           </div>
       </div>
 
-        <div id="ft"><div id="yui-main">
+       <div id="ft"><div id="yui-main">
             <p><a href="{% setting MUACCOUNTS_DEFAULT_URL %}">main page</a></p>
         </div></div>
 
