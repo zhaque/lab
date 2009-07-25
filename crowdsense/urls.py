@@ -9,5 +9,7 @@ urlpatterns = patterns(
         name='tracker_channel'),
     # dot character does not occur in slugs, we use it in special urls
     url(r'^.create/$', views.tracker_create, name='tracker_create'),
-    url(r'^.edit/(?P<slug>[-\w]+)/$', views.tracker_edit, name='tracker_edit'),
+    url(r'^(?P<slug>[-\w]+)/.edit/$', views.tracker_edit, name='tracker_edit'),
+    url(r'^(?P<slug>[-\w]+)/.delete/$', views.tracker_delete,
+        name='tracker_delete'),
     )

@@ -1,3 +1,5 @@
+import urlparse
+
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseNotFound, \
@@ -43,6 +45,23 @@ def tracker_edit(request, slug):
     return direct_to_template(
         request, 'crowdsense/tracker_edit.html',
         extra_context = dict(form=form, tracker=tracker))
+
+
+@login_required
+def tracker_delete(request, slug):
+    if request.user <> request.muaccount.owner:
+        return HttpResponseForbidden()
+    tracker = get_object_or_404(Tracker,
+                                muaccount=request.muaccount, slug=slug)
+    if request.method <> 'POST':
+        return HttpResponseForbidden()
+
+    referer = urlparse.urlparse(request.META.get('HTTP_REFERER', '/')).path
+    if referer.startswith(tracker.get_absolute_url()):
+        referer = '/'
+
+    tracker.delete()
+    return HttpResponseRedirect(referer)
 
 
 def tracker_main(request, slug):

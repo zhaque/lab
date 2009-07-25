@@ -60,8 +60,11 @@
                 <li{% if t = tracker %} style="font-weight: bold;"{% endif %}>
                   <a href="{{t.get_absolute_url}}">{{t}}</a>
                   {% ifequal user request.muaccount.owner %}
-                  [<a href="{% url tracker_edit slug=t.slug %}">edit</a>]
-                  {% endifequal %}
+                  <form action="{% url tracker_edit slug=t.slug %}" method="GET" class="inline-form">
+                    <p><input type="submit" value="edit"></p></form>
+                  <form action="{% url tracker_delete slug=t.slug %}" method="POST" class="inline-form">
+                    <p><input type="submit" value="delete"></p></form>
+                 {% endifequal %}
                 </li>{% endfor %}</ul>
              {% ifequal user request.muaccount.owner %}
              <a href="{% url tracker_create %}">Add more…</a>
