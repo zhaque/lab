@@ -15,6 +15,9 @@ from models import Tracker
 def tracker_create(request):
     if request.user <> request.muaccount.owner:
         return HttpResponseForbidden()
+    if Tracker.objects.filter(muaccount=request.muaccount).count() \
+           >= request.user.quotas.crowdsense_trackers:
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = TrackerForm(request.POST)
         if form.is_valid():

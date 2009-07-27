@@ -67,7 +67,11 @@
                  {% endifequal %}
                 </li>{% endfor %}</ul>
              {% ifequal user request.muaccount.owner %}
+             {% if request.muaccount.tracker_set.count < user.quotas.crowdsense_trackers %}
              <a href="{% url tracker_create %}">Add more…</a>
+             {% else %}
+             You have reached your limit of trackers.
+             {% endif %}
              {% endifequal %}
             </div>
           </div>

@@ -172,6 +172,7 @@ SUBSCRIPTION_PAYPAL_SETTINGS = {
 
 QUOTAS = {
      'muaccount_members': (3, 10, 50),
+     'crowdsense_trackers': (2, 5, 10),
      }
 
 MUACCOUNTS_ROOT_DOMAIN = 'example.com'
