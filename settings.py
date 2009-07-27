@@ -167,12 +167,12 @@ ACCOUNT_ACTIVATION_DAYS=7
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/signin/'
 SUBSCRIPTION_PAYPAL_SETTINGS = {
-    'business': PAYPAL_RECEIVER_EMAIL,
-    }
+     'business': PAYPAL_RECEIVER_EMAIL,
+     }
 
 QUOTAS = {
-    'muaccount_members': (3, 10, 50),
-    }
+     'muaccount_members': (3, 10, 50),
+     }
 
 MUACCOUNTS_ROOT_DOMAIN = 'example.com'
 MUACCOUNTS_DEFAULT_URL = 'http://www.example.com:8001/'
@@ -214,11 +214,11 @@ MUACCOUNTS_THEMES = (
 
 # Prepare CSS files for configured color schemes
 for codename, _junk, css_file in MUACCOUNTS_THEMES[0][2]:
-    COMPRESS_CSS[codename] = {
-        'source_filenames': ((_default_css_files[0], css_file, )
-                             + _default_css_files[1:] ),
-         'output_filename': 'style.%s.css' % codename,
-         }
+     COMPRESS_CSS[codename] = {
+         'source_filenames': ((_default_css_files[0], css_file, )
+                              + _default_css_files[1:] ),
+          'output_filename': 'style.%s.css' % codename,
+          }
 
 # Local settings for development / production
 try:
