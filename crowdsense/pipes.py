@@ -13,25 +13,36 @@ class CSPipeBase(django_pipes.Pipe):
     def __unicode__(self):
         return self.name
 
+    @classmethod
+    def has_slug(cls, slug):
+        return cls.slug == slug
+
     # Let's get around django-pipes API's unnecesarry model-likeness
 
     @classmethod
     def query(cls, query):
         raise NotImplementedError
 
-    def get_result_list(self):
+    def get_results(self):
         raise NotImplementedError
 
-    def render_result_list(self):
-        return ((
-            render_to_string('pipe/%s/single-result.inc.html' % self.slug,
-                             {'object': r})
-            for r in self.get_result_list()))
+
+class IdenticaSearch(CSPipeBase):
+    name = 'Identi.ca'
+    slug = 'identica'
+    uri = 'http://identi.ca/api/search.json'
+
+    @classmethod
+    def query(cls, query):
+        return cls.objects.get({'q': query})
+
+    def get_results(self):
+        return self.results
 
 
 class TwitterSearch(CSPipeBase):
-    name = "Social Updates"
-    slug = "social-updates"            # used in template and url path
+    name = "Twitter"
+    slug = "twitter"
     uri = "http://search.twitter.com/search.json"
     cache_expiry = 30                   # in seconds
 
@@ -39,7 +50,7 @@ class TwitterSearch(CSPipeBase):
     def query(cls, query):
         return cls.objects.get({'q': query})
 
-    def get_result_list(self):
+    def get_results(self):
         return self.results
 
 
@@ -61,5 +72,5 @@ class BingNews(CSPipeBase):
         q.update(Query=query)
         return cls.objects.get(q)
 
-    def get_result_list(self):
+    def get_results(self):
         return self.SearchResponse.News.Results
