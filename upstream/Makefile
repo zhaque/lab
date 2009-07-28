@@ -144,3 +144,5 @@ apache-solr.stamp: apache-solr-$(APACHE_SOLR_VERSION).tgz
 
 pysolr.stamp:
 	svn co -r $(PYSOLR_RELEASE) http://pysolr.googlecode.com/svn/trunk/ pysolr
+	date > $@
+
