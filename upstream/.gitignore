@@ -17,3 +17,4 @@ xlrd*
 django-batchimport
 south
 django-autoslug
+apache-solr*
