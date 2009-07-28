@@ -22,7 +22,7 @@ class TwitterSearch(Source):
                 *rfc822.parsedate(data.created_at)[:6])
 
         def __cmp__(self, other):
-            # sourt by reverse timestamp
+            # sort by reverse timestamp
             return -cmp(self.timestamp, other.timestamp)
 
     @classmethod
