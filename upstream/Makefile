@@ -17,6 +17,7 @@ SORL_THUMBNAIL_RELEASE=449
 SOUTH_RELEASE=64cde35ab459
 APACHE_SOLR_VERSION=1.3.0
 PYSOLR_RELEASE=25
+DATEUTIL_VERSION=1.4.1
 
 init: _submodules.stamp \
 	django-authopenid.stamp \
@@ -33,7 +34,8 @@ init: _submodules.stamp \
 	sorl-thumbnail.stamp \
 	south.stamp \
 	apache-solr.stamp \
-	pysolr.stamp
+	pysolr.stamp \
+	dateutils.stamp
 
 .PHONY: _submodules.stamp
 _submodules.stamp:
@@ -146,3 +148,13 @@ pysolr.stamp:
 	svn co -r $(PYSOLR_RELEASE) http://pysolr.googlecode.com/svn/trunk/ pysolr
 	date > $@
 
+
+DATEUTIL_FILE=python-dateutil-$(DATEUTIL_VERSION).tar.gz
+DATEUTIL_URL=http://labix.org/download/python-dateutil/$(DATEUTIL_FILE)
+$(DATEUTIL_FILE):
+	wget -O $@ $(DATEUTIL_URL)
+
+dateutils.stamp: $(DATEUTIL_FILE)
+	tar -xzvf $<
+	ln -sfv python-dateutil-$(DATEUTIL_VERSION) python-dateutil
+	date > $@

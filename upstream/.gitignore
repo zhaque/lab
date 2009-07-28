@@ -19,4 +19,4 @@ south
 django-autoslug
 apache-solr*
 pysolr
-
+python-dateutil*
