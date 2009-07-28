@@ -66,7 +66,6 @@ class SocialUpdatesChannel(CSChannelBase):
 
     def get_results(self):
         s = super(SocialUpdatesChannel, self).get_results()
-        print s
         
         if len(self.pipes) == 1:
             return s
