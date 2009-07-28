@@ -16,6 +16,7 @@ DJANGO_SSO_RELEASE=3
 SORL_THUMBNAIL_RELEASE=449
 SOUTH_RELEASE=64cde35ab459
 APACHE_SOLR_VERSION=1.3.0
+PYSOLR_RELEASE=25
 
 init: _submodules.stamp \
 	django-authopenid.stamp \
@@ -31,7 +32,8 @@ init: _submodules.stamp \
 	django-tagging.stamp \
 	sorl-thumbnail.stamp \
 	south.stamp \
-	apache-solr.stamp
+	apache-solr.stamp \
+	pysolr.stamp
 
 .PHONY: _submodules.stamp
 _submodules.stamp:
@@ -130,6 +132,7 @@ south.stamp:
 	hg clone -r $(SOUTH_RELEASE) http://bitbucket.org/andrewgodwin/south/
 	date > $@
 
+
 apache-solr-$(APACHE_SOLR_VERSION).tgz:
 	wget -O $@ http://www.apache.org/dist/lucene/solr/$(APACHE_SOLR_VERSION)/$@
 
@@ -137,3 +140,7 @@ apache-solr.stamp: apache-solr-$(APACHE_SOLR_VERSION).tgz
 	tar -xzvf $<
 	ln -sfv apache-solr-$(APACHE_SOLR_VERSION) apache-solr
 	date > $@
+
+
+pysolr.stamp:
+	svn co -r $(PYSOLR_RELEASE) http://pysolr.googlecode.com/svn/trunk/ pysolr

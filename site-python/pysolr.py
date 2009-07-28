@@ -1,0 +1,1 @@
+../upstream/pysolr/pysolr.py
