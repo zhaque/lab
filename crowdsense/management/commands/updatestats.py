@@ -30,7 +30,7 @@ class Command(BaseCommand):
                     try:
                         results.extend(((
                             result.get_indexing_data()
-                            for result in channel.get_results())))
+                            for result in channel.get_results(unsorted=True))))
                     except:
                         import traceback
                         print 'Tracker#%d (%s) channel %s failed:' % (

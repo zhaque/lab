@@ -63,8 +63,8 @@ class Source(django_pipes.Pipe):
                             u'<div class="error">%s not available: %s</div>'
                             % (cls.name, self.source.exception))
 
-                def get_raw_results(self):
-                    return (None, )
+                def get_results(self):
+                    return (_FakeSource.Result(self, None), )
             return _FakeSource()
 
     @classmethod
@@ -83,7 +83,7 @@ class Source(django_pipes.Pipe):
     def get_raw_results(self):
         raise NotImplementedError
 
-    def get_results(self):
+    def get_results(self, **kwargs):
         return ((self.Result(self, raw_result)
                  for raw_result in self.get_raw_results()))
 
@@ -130,9 +130,9 @@ class Channel(object):
                 if source.has_slug(subslug):
                     return source
 
-    def get_results(self):
+    def get_results(self, **kwargs):
         for source in self.sources:
-            for result in source.get_results():
+            for result in source.get_results(**kwargs):
                 yield result
 
     def render_tabs(self):
@@ -161,7 +161,9 @@ class Channel(object):
 
 class SortedChannel(Channel):
 
-    def get_results(self):
-        rv = list(super(SortedChannel, self).get_results())
+    def get_results(self, **kwargs):
+        if kwargs.get('unsorted', False):
+            return super(SortedChannel, self).get_results(**kwargs)
+        rv = list(super(SortedChannel, self).get_results(**kwargs))
         rv.sort()
         return rv
