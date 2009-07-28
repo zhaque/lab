@@ -98,9 +98,9 @@ class Channel(object):
                     return source
 
     def get_results(self):
-        for p in self.sources:
-            for r in p.get_results():
-                yield r
+        for source in self.sources:
+            for result in source.get_results():
+                yield result
 
     def render_tabs(self):
         rv = []
