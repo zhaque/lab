@@ -1,10 +1,8 @@
-import datetime
-import rfc822
-
 from django.utils.html import escape
 from django.utils.safestring import SafeUnicode
 
 from pipes import *
+
 
 class CSChannelBase(object):
 
@@ -16,8 +14,7 @@ class CSChannelBase(object):
         P = self.__class__.has_slug(slug)
         if P is True:
             self.pipes = tuple(((
-                Pipe.query(tracker.query) for Pipe in self.pipe_classes
-                )))
+                Pipe.query(tracker.query) for Pipe in self.pipe_classes)))
         elif P:
             self.pipes = (P.query(tracker.query), )
         else:
@@ -32,11 +29,11 @@ class CSChannelBase(object):
             for pipe in cls.pipe_classes:
                 if pipe.has_slug(subslug):
                     return pipe
-        
+
     def get_results(self):
         for p in self.pipes:
             for r in p.get_results():
-                yield (p, r)
+                yield r
 
     def render_tabs(self):
         rv = []
@@ -59,13 +56,6 @@ class CSChannelBase(object):
                     self.tracker.get_absolute_url(), self.slug,
                     pc.slug, escape(pc.name), ))
         return SafeUnicode(u''.join(rv))
-
-    def render_results(self):
-        return ((
-            render_to_string('pipe/%s/single-result.inc.html' % p.slug,
-                             {'object': r,
-                              'pipe': p})
-            for p, r in self.get_results()))
     
 
 class SocialUpdatesChannel(CSChannelBase):
@@ -81,11 +71,10 @@ class SocialUpdatesChannel(CSChannelBase):
         if len(self.pipes) == 1:
             return s
 
-        # more than one channel -> re-sort by time
-        rv = [ (datetime.datetime(*rfc822.parsedate(r.created_at)[:6]), p, r)
-               for p, r in s ]
-        rv.sort(key=lambda e: e[0], reverse=True)
-        return (( (p, r) for d, p, r in rv ))
+        # more than one channel -> re-sort by timestamp
+        rv = list(s)
+        rv.sort(key=lambda e: e.timestamp, reverse=True)
+        return rv
 
 
 

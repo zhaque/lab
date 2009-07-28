@@ -1,7 +1,7 @@
-{{pipe}}:
-<a href="http://twitter.com/{{object.from_user}}">
-  <img src="{{object.profile_image_url}}" alt="{{object.from_user}}">
-  {{object.from_user}}
+{{object.pipe}}:
+<a href="http://twitter.com/{{object.data.from_user}}">
+  <img src="{{object.data.profile_image_url}}" alt="{{object.data.from_user}}">
+  {{object.data.from_user}}
 </a>:
-<span lang="{{object.iso_language_code}}">{{object.text|urlize}}</span>
-{{object.created_at}}
+<span lang="{{object.data.iso_language_code}}">{{object.data.text|urlize}}</span>
+{{object.data.created_at}}

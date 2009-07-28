@@ -7,8 +7,8 @@
   <div class="hd">
     <ul>{{channel.render_tabs}}</ul><div class="clear"></div>
   </div><div class="bd">
-    <ul>{% for result in channel.render_results %}
-      <li>{{result}}</li>
+    <ul>{% for result in channel.get_results %}
+      <li>{{result.render}}</li>
       {% endfor %}
 </ul></div></div>
 {% endblock %}

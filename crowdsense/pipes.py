@@ -1,3 +1,6 @@
+import datetime
+import rfc822
+
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.safestring import SafeUnicode
@@ -9,6 +12,15 @@ import django_pipes
 
 
 class CSPipeBase(django_pipes.Pipe):
+    class Result(object):
+        def __init__(self, pipe, data):
+            self.pipe = pipe
+            self.data = data
+
+        def render(self):
+            return render_to_string(
+                'pipe/%s/single-result.inc.html' % self.pipe.slug,
+                {'object': self})
 
     def __unicode__(self):
         return self.name
@@ -17,41 +29,42 @@ class CSPipeBase(django_pipes.Pipe):
     def has_slug(cls, slug):
         return cls.slug == slug
 
-    # Let's get around django-pipes API's unnecesarry model-likeness
-
     @classmethod
     def query(cls, query):
         raise NotImplementedError
 
-    def get_results(self):
+    def get_raw_results(self):
         raise NotImplementedError
 
-
-class IdenticaSearch(CSPipeBase):
-    name = 'Identi.ca'
-    slug = 'identica'
-    uri = 'http://identi.ca/api/search.json'
-
-    @classmethod
-    def query(cls, query):
-        return cls.objects.get({'q': query})
-
     def get_results(self):
-        return self.results
+        return (( self.Result(self, raw_result)
+                  for raw_result in self.get_raw_results() ))
 
 
 class TwitterSearch(CSPipeBase):
     name = "Twitter"
     slug = "twitter"
     uri = "http://search.twitter.com/search.json"
-    cache_expiry = 30                   # in seconds
+    cache_expiry = 30
+
+    class Result(CSPipeBase.Result):
+        def __init__(self, pipe, data):
+            super(TwitterSearch.Result, self).__init__(pipe, data)
+            self.timestamp = datetime.datetime(
+                *rfc822.parsedate(data.created_at)[:6])
 
     @classmethod
     def query(cls, query):
         return cls.objects.get({'q': query})
 
-    def get_results(self):
+    def get_raw_results(self):
         return self.results
+
+
+class IdenticaSearch(TwitterSearch):
+    name = 'Identi.ca'
+    slug = 'identica'
+    uri = 'http://identi.ca/api/search.json'
 
 
 class BingNews(CSPipeBase):
@@ -72,5 +85,5 @@ class BingNews(CSPipeBase):
         q.update(Query=query)
         return cls.objects.get(q)
 
-    def get_results(self):
+    def get_raw_results(self):
         return self.SearchResponse.News.Results
