@@ -33,7 +33,29 @@ class Source(django_pipes.Pipe):
 
     @classmethod
     def query(cls, query):
-        return cls.objects.get(cls.query_dict(query))
+        try:
+            return cls.objects.get(cls.query_dict(query))
+        except Exception, e:
+            # return fake source object for this class to display
+            # error message
+
+            class _FakeSource(cls):
+                name = '%s [not available]' % cls.name
+                exception = e
+
+                class Result(Source.Result):
+
+                    def __cmp__(self, other):
+                        return -1
+
+                    def render(self):
+                        return SafeUnicode(
+                            u'<div class="error">%s not available: %s</div>'
+                            % (cls.name, self.source.exception))
+
+                def get_raw_results(self):
+                    return (None, )
+            return _FakeSource()
 
     @classmethod
     def query_dict(cls, query):
