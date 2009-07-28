@@ -11,6 +11,9 @@ from baseclasses import *
 class TwitterSearch(Source):
     name = "Twitter"
     slug = "twitter"
+    query_base = {
+        'rpp': 100,
+        }
     uri = "http://search.twitter.com/search.json"
     cache_expiry = 30
 
@@ -35,10 +38,6 @@ class TwitterSearch(Source):
                 'author_s': self.data.from_user,
                 }
 
-    @classmethod
-    def query_dict(cls, query):
-        return {'q': query}
-
     def get_raw_results(self):
         return self.results
 
@@ -59,6 +58,7 @@ class BingNews(Source):
         'Version': '2.2',
         'Sources': 'news',
         }
+    query_key = 'Query'
     cache_expiry = 1800
 
     class Result(Source.Result):
@@ -73,12 +73,6 @@ class BingNews(Source):
                 'title_s': self.data.Title,
                 'snippet_t': self.data.Snippet,
                 }
-
-    @classmethod
-    def query_dict(cls, query):
-        q = cls.query_base.copy()
-        q.update(Query=query)
-        return q
 
     def get_raw_results(self):
         if hasattr(self.SearchResponse, 'News'):

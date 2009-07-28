@@ -9,6 +9,8 @@ class Source(django_pipes.Pipe):
     name = None
     slug = None
     uri = None
+    query_base = {}
+    query_key = 'q'
 
     class Result(object):
 
@@ -67,7 +69,9 @@ class Source(django_pipes.Pipe):
 
     @classmethod
     def query_dict(cls, query):
-        raise NotImplementedError
+        qd = cls.query_base.copy()
+        qd[cls.query_key] = query
+        return qd
 
     def __unicode__(self):
         return self.name
