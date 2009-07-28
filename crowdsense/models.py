@@ -40,3 +40,6 @@ class Tracker(models.Model):
     def get_channel(self, slug):
         cls = self.get_channel_class(slug)
         return cls(slug, self)
+
+    def get_channels(self):
+        return ((cls(cls.slug, self) for cls in self.channels))

@@ -1,6 +1,8 @@
 import datetime
 import rfc822
 
+import dateutil.parser
+
 from django.conf import settings
 
 from baseclasses import *
@@ -24,6 +26,14 @@ class TwitterSearch(Source):
         def __cmp__(self, other):
             # sort by reverse timestamp
             return -cmp(self.timestamp, other.timestamp)
+
+        def indexing_data(self):
+            return {
+                'result_id': self.data.id,
+                'result_text': self.data.text,
+                'result_timestamp': self.timestamp,
+                'author_s': self.data.from_user,
+                }
 
     @classmethod
     def query_dict(cls, query):
@@ -51,6 +61,19 @@ class BingNews(Source):
         }
     cache_expiry = 1800
 
+    class Result(Source.Result):
+
+        def indexing_data(self):
+            return {
+                'result_id': self.data.Url,
+                'result_text': self.data.Title + "\n" + self.data.Snippet,
+                'result_timestamp': dateutil.parser.parse(self.data.Date),
+                'source_s': self.data.Url,
+                'breaking_b': bool(self.data.BreakingNews),
+                'title_s': self.data.Title,
+                'snippet_t': self.data.Snippet,
+                }
+
     @classmethod
     def query_dict(cls, query):
         q = cls.query_base.copy()
@@ -58,4 +81,6 @@ class BingNews(Source):
         return q
 
     def get_raw_results(self):
-        return self.SearchResponse.News.Results
+        if hasattr(self.SearchResponse, 'News'):
+            return self.SearchResponse.News.Results
+        return ()

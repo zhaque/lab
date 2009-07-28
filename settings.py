@@ -221,6 +221,8 @@ for codename, _junk, css_file in MUACCOUNTS_THEMES[0][2]:
           'output_filename': 'style.%s.css' % codename,
           }
 
+SOLR_URL='http://127.0.0.1:8983/solr/'
+
 # Local settings for development / production
 try:
      from local_settings import *

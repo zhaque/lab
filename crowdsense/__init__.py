@@ -4,8 +4,9 @@ from django.core.exceptions import ImproperlyConfigured
 
 try:
     settings.BING_APP_ID
-except:
-    raise ImproperlyConfigured("BING_APP_ID setting not found.")
+    settings.SOLR_URL
+except Exception, e:
+    raise ImproperlyConfigured("Misconfigured: %s" % e)
 
 # monkey-patch silence into django-pipes
 import django_pipes.main

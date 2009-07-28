@@ -16,16 +16,24 @@ class Source(django_pipes.Pipe):
             self.source = source
             self.data = data
 
-        def doc(self):
-            return {'source_id': self.source.slug}
+        def indexing_data(self):
+            raise NotImplementedError
+
+        def get_indexing_data(self):
+            data = self.source.get_indexing_data().copy()
+            data.update(self.indexing_data())
+            data['id'] = u'/'.join(((
+                unicode(data['tracker_id']),
+                unicode(data['channel_id']),
+                unicode(data['source_id']),
+                unicode(data['result_id']),
+                )))
+            return data
 
         def render(self):
             return render_to_string(
                 'source/%s/single-result.inc.html' % self.source.slug,
                 {'object': self})
-
-    def __unicode__(self):
-        return self.name
 
     @classmethod
     def has_slug(cls, slug):
@@ -61,12 +69,25 @@ class Source(django_pipes.Pipe):
     def query_dict(cls, query):
         raise NotImplementedError
 
+    def __unicode__(self):
+        return self.name
+
+    def __init__(self, *args, **kwargs):
+        super(Source, self).__init__(*args, **kwargs)
+        self.indexing_data = {'source_id': self.slug}
+
     def get_raw_results(self):
         raise NotImplementedError
 
     def get_results(self):
         return ((self.Result(self, raw_result)
                  for raw_result in self.get_raw_results()))
+
+    def get_indexing_data(self):
+        return self.indexing_data
+
+    def set_indexing_data(self, data):
+        self.indexing_data.update(data)
 
 
 class Channel(object):
@@ -79,13 +100,21 @@ class Channel(object):
         self.tracker = tracker
         if slug == self.slug:
             self.sources = tuple(((
-                Source.query(tracker.query) for Source in self.source_classes)))
+                cls.query(tracker.query) for cls in self.source_classes)))
         else:
             S = self.__class__.has_slug(slug)
             if S:
                 self.sources = (S.query(tracker.query), )
             else:
                 raise ValueError('invalid slug')
+
+        self.indexing_data = {
+            'channel_id': self.slug,
+            'tracker_id': self.tracker.id,
+            }
+
+        for s in self.sources:
+            s.set_indexing_data(self.indexing_data)
 
     @classmethod
     def has_slug(cls, slug):
