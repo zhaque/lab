@@ -49,8 +49,8 @@ class IdenticaSearch(TwitterSearch):
 
 
 class BingNews(Source):
-    name = "News"
-    slug = "news"
+    name = "Bing News"
+    slug = "bing-news"
 
     uri = 'http://api.bing.net/json.aspx'
     query_base = {
