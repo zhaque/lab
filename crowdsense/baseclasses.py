@@ -38,10 +38,6 @@ class Source(django_pipes.Pipe):
                 {'object': self})
 
     @classmethod
-    def has_slug(cls, slug):
-        return cls.slug == slug
-
-    @classmethod
     def query(cls, query):
         try:
             return cls.objects.get(cls.query_dict(query))
@@ -100,17 +96,24 @@ class Channel(object):
     def __unicode__(self):
         return self.name
 
-    def __init__(self, slug, tracker):
+    @classmethod
+    def get_source_class(cls, slug):
+        for sc in cls.source_classes:
+            if sc.slug == slug:
+                return sc
+        raise ValueError('invalid slug')
+
+    def __init__(self, tracker, slug=None):
         self.tracker = tracker
-        if slug == self.slug:
+
+        if slug:
+            self.sources = (
+                self.get_source_class(slug).query(tracker.query), )
+            self.single_source = True
+        else:
+            self.single_source = False
             self.sources = tuple(((
                 cls.query(tracker.query) for cls in self.source_classes)))
-        else:
-            S = self.__class__.has_slug(slug)
-            if S:
-                self.sources = (S.query(tracker.query), )
-            else:
-                raise ValueError('invalid slug')
 
         self.indexing_data = {
             'channel_id': self.slug,
@@ -120,16 +123,6 @@ class Channel(object):
         for s in self.sources:
             s.set_indexing_data(self.indexing_data)
 
-    @classmethod
-    def has_slug(cls, slug):
-        if slug == cls.slug:
-            return True
-        if slug.startswith(cls.slug+'/'):
-            subslug = slug[len(cls.slug)+1:]
-            for source in cls.source_classes:
-                if source.has_slug(subslug):
-                    return source
-
     def get_results(self, **kwargs):
         for source in self.sources:
             for result in source.get_results(**kwargs):
@@ -137,7 +130,7 @@ class Channel(object):
 
     def render_tabs(self):
         rv = []
-        if len(self.sources) == 1:
+        if self.single_source:
             rv.append(u'<li><a href="%s%s/">Overview</a></li>' % (
                 self.tracker.get_absolute_url(), self.slug, ))
             for pc in self.source_classes:

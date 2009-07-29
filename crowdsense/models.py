@@ -33,13 +33,16 @@ class Tracker(models.Model):
 
     def get_channel_class(self, slug):
         for channel in self.channels:
-            if channel.has_slug(slug):
+            if channel.slug == slug:
                 return channel
         raise self.__class__.DoesNotExist
 
-    def get_channel(self, slug):
+    def get_channel(self, slug, subslug=None):
         cls = self.get_channel_class(slug)
-        return cls(slug, self)
+        try:
+            return cls(self, subslug)
+        except ValueError:
+            raise self.__class__.DoesNotExist
 
     def get_channels(self):
-        return ((cls(cls.slug, self) for cls in self.channels))
+        return ((cls(self) for cls in self.channels))

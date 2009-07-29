@@ -75,11 +75,11 @@ def tracker_main(request, slug):
                                    'channel_slug': tracker.channels[0].slug}))
 
 
-def tracker_channel(request, slug, channel_slug):
+def tracker_channel(request, slug, channel_slug, source_slug=None):
     tracker = get_object_or_404(Tracker,
                                 muaccount=request.muaccount, slug=slug)
     try:
-        channel = tracker.get_channel(channel_slug)
+        channel = tracker.get_channel(channel_slug, source_slug)
     except Tracker.DoesNotExist:
         return HttpResponseNotFound()
     return direct_to_template(
