@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-import pysolr
-
+from crowdsense import solr
 from crowdsense.models import Tracker
 
 class Command(BaseCommand):
@@ -11,8 +10,6 @@ class Command(BaseCommand):
 
     def handle(self, *files, **options):
         self.validate()
-
-        solr = pysolr.Solr(settings.SOLR_URL)
 
         results = []
         for tracker in Tracker.objects.all():
