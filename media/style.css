@@ -5,3 +5,4 @@
 #site-logo { float: left; }
 #navigation { clear: both; }
 .inline-form, .inline-form p { display: inline; }
+table.stats { text-align: center; }

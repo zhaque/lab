@@ -122,6 +122,10 @@ class Channel(object):
         for s in self.sources:
             s.set_indexing_data(self.indexing_data)
 
+        self.facet = 'tracker_id:%d channel_id:%s' % (self.tracker.id, self.slug)
+        if self.source:
+            self.facet += ' source_id:%s' % self.source.slug
+
     def get_results(self, **kwargs):
         for source in self.sources:
             for result in source.get_results(**kwargs):
@@ -149,6 +153,19 @@ class Channel(object):
                     self.tracker.get_absolute_url(), self.slug,
                     pc.slug, escape(pc.name), ))
         return SafeUnicode(u''.join(rv))
+
+    def get_statistics(self):
+        return ((('a',1), ('b',2)),)
+
+    def render_statistics(self):
+        def _bits():
+            for line in self.get_statistics():
+                yield '<tr>'
+                for title, value in line:
+                    yield u'<td><p>%s</p><p><strong>%s</strong></p></td>' % (
+                        escape(title), escape(value))
+                yield '</tr>'
+        return SafeUnicode(u''.join(_bits()))
 
 
 class SortedChannel(Channel):
