@@ -2,13 +2,14 @@
 
 {% block title %}{{channel}} for {{tracker}}{% endblock %} 
 {% block body %}
-<h2>Latest updates</h2>
 <div class="block tabs spaces">
   <div class="hd">
     <ul>{{channel.render_tabs}}</ul><div class="clear"></div>
   </div><div class="bd">
-    <ul>{% for result in channel.get_results %}
-      <li>{{result.render}}</li>
-      {% endfor %}
-</ul></div></div>
+</div></div>
+
+<h2>Latest updates</h2>
+<ul>{% for result in channel.get_results %}
+  <li>{{result.render}}</li>
+  {% endfor %}</ul>
 {% endblock %}

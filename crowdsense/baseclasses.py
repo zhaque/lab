@@ -107,11 +107,10 @@ class Channel(object):
         self.tracker = tracker
 
         if slug:
-            self.sources = (
-                self.get_source_class(slug).query(tracker.query), )
-            self.single_source = True
+            self.source = self.get_source_class(slug).query(tracker.query)
+            self.sources = (self.source, )
         else:
-            self.single_source = False
+            self.source = None
             self.sources = tuple(((
                 cls.query(tracker.query) for cls in self.source_classes)))
 
@@ -130,11 +129,11 @@ class Channel(object):
 
     def render_tabs(self):
         rv = []
-        if self.single_source:
+        if self.source:
             rv.append(u'<li><a href="%s%s/">Overview</a></li>' % (
                 self.tracker.get_absolute_url(), self.slug, ))
             for pc in self.source_classes:
-                if pc == self.sources[0].__class__:
+                if pc == self.source.__class__:
                     cls = ' class="active"'
                 else:
                     cls = ''

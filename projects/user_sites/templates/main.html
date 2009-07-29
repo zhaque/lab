@@ -27,10 +27,11 @@
         <h1><a href="/">{{request.muaccount}}</a>{% if tracker %}: {{tracker}}{% endif %}</h1>
         <div id="navigation" style="clear:both;">
           {% if tracker %}
-          <ul id="primary-navigation">{% for channel in tracker.channels %}
-            {% url tracker_channel slug=tracker.slug channel_slug=channel.slug as channel_url%}
-            <li{% if request.path = channel_url%} class="active"{% endif %}>
-              <a href="{{channel_url}}">{{channel.name}}</a></li>
+          <ul id="primary-navigation">
+           {% for ch in tracker.channels %}
+            <li{% ifequal ch.slug channel.slug %} class="active"{% endifequal %}>
+              {% url tracker_channel slug=tracker.slug channel_slug=ch.slug as channel_url%}
+              <a href="{{channel_url}}">{{ch.name}}</a></li>
             {% endfor %}</ul>{% endif %}
 
 
