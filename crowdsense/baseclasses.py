@@ -63,6 +63,7 @@ class Source(django_pipes.Pipe):
                     return (_FakeSource.Result(self, None), )
             return _FakeSource()
 
+
     @classmethod
     def query_dict(cls, query):
         qd = cls.query_base.copy()
@@ -75,8 +76,6 @@ class Source(django_pipes.Pipe):
     def __init__(self, *args, **kwargs):
         super(Source, self).__init__(*args, **kwargs)
         self.indexing_data = {'source_id': self.slug}
-        if 'indexing_data' in kwargs:
-            self.indexing_data.update(kwargs['indexing_data'])
 
     def get_raw_results(self):
         raise NotImplementedError
@@ -84,6 +83,12 @@ class Source(django_pipes.Pipe):
     def get_results(self, **kwargs):
         return ((self.Result(self, raw_result)
                  for raw_result in self.get_raw_results()))
+
+    def get_indexing_data(self):
+        return self.indexing_data
+
+    def set_indexing_data(self, data):
+        self.indexing_data.update(data)
 
 
 class Channel(object):
@@ -109,14 +114,15 @@ class Channel(object):
             }
 
         if slug:
-            self.source = self.get_source_class(slug).query(
-                tracker.query, indexing_data=self.indexing_data)
+            self.source = self.get_source_class(slug).query(tracker.query)
+            self.source.set_indexing_data(self.indexing_data)
             self.sources = (self.source, )
         else:
             self.source = None
             self.sources = tuple(((
-                cls.query(tracker.query, indexing_data=self.indexing_data)
-                for cls in self.source_classes)))
+                cls.query(tracker.query) for cls in self.source_classes)))
+            for source in self.sources:
+                source.set_indexing_data(self.indexing_data)
 
         self.filter = 'tracker_id:%d channel_id:%s' % (self.tracker.id, self.slug)
         if self.source:
