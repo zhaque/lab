@@ -12,8 +12,8 @@ class SocialUpdatesChannel(SortedChannel):
     source_classes = (sources.TwitterSearch, sources.IdenticaSearch, )
 
     def get_statistics(self):
-        today = solr.search('result_timestamp:[NOW-1DAY TO NOW]', rows=0, fq=self.facet).hits
-        yesterday = solr.search('result_timestamp:[NOW-2DAY TO NOW-1DAY]', rows=0, fq=self.facet).hits
+        today = solr.search('result_timestamp:[NOW-1DAY TO NOW]', rows=0, fq=self.filter).hits
+        yesterday = solr.search('result_timestamp:[NOW-2DAY TO NOW-1DAY]', rows=0, fq=self.filter).hits
 
         if yesterday:
             change = '%.02f%%' % (
@@ -31,8 +31,8 @@ class NewsChannel(Channel):
     source_classes = (sources.BingNews, )
 
     def get_statistics(self):
-        today = solr.search('result_timestamp:[NOW-1DAY TO NOW]', rows=0, fq=self.facet).hits
-        yesterday = solr.search('result_timestamp:[NOW-2DAY TO NOW-1DAY]', rows=0, fq=self.facet).hits
+        today = solr.search('result_timestamp:[NOW-1DAY TO NOW]', rows=0, fq=self.filter).hits
+        yesterday = solr.search('result_timestamp:[NOW-2DAY TO NOW-1DAY]', rows=0, fq=self.filter).hits
 
         if yesterday:
             change = '%.02f%%' % (

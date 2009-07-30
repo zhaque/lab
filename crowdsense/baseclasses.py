@@ -18,11 +18,8 @@ class Source(django_pipes.Pipe):
             self.source = source
             self.data = data
 
-        def indexing_data(self):
-            raise NotImplementedError
-
         def get_indexing_data(self):
-            data = self.source.get_indexing_data().copy()
+            data = self.source.indexing_data.copy()
             data.update(self.indexing_data())
             data['id'] = u'/'.join(((
                 unicode(data['tracker_id']),
@@ -31,6 +28,9 @@ class Source(django_pipes.Pipe):
                 unicode(data['result_id']),
                 )))
             return data
+
+        def indexing_data(self):
+            raise NotImplementedError
 
         def render(self):
             return render_to_string(
@@ -75,6 +75,8 @@ class Source(django_pipes.Pipe):
     def __init__(self, *args, **kwargs):
         super(Source, self).__init__(*args, **kwargs)
         self.indexing_data = {'source_id': self.slug}
+        if 'indexing_data' in kwargs:
+            self.indexing_data.update(kwargs['indexing_data'])
 
     def get_raw_results(self):
         raise NotImplementedError
@@ -83,14 +85,10 @@ class Source(django_pipes.Pipe):
         return ((self.Result(self, raw_result)
                  for raw_result in self.get_raw_results()))
 
-    def get_indexing_data(self):
-        return self.indexing_data
-
-    def set_indexing_data(self, data):
-        self.indexing_data.update(data)
-
 
 class Channel(object):
+    name = None
+    slug = None
     source_classes = ()
 
     def __unicode__(self):
@@ -105,26 +103,24 @@ class Channel(object):
 
     def __init__(self, tracker, slug=None):
         self.tracker = tracker
-
-        if slug:
-            self.source = self.get_source_class(slug).query(tracker.query)
-            self.sources = (self.source, )
-        else:
-            self.source = None
-            self.sources = tuple(((
-                cls.query(tracker.query) for cls in self.source_classes)))
-
         self.indexing_data = {
             'channel_id': self.slug,
             'tracker_id': self.tracker.id,
             }
 
-        for s in self.sources:
-            s.set_indexing_data(self.indexing_data)
+        if slug:
+            self.source = self.get_source_class(slug).query(
+                tracker.query, indexing_data=self.indexing_data)
+            self.sources = (self.source, )
+        else:
+            self.source = None
+            self.sources = tuple(((
+                cls.query(tracker.query, indexing_data=self.indexing_data)
+                for cls in self.source_classes)))
 
-        self.facet = 'tracker_id:%d channel_id:%s' % (self.tracker.id, self.slug)
+        self.filter = 'tracker_id:%d channel_id:%s' % (self.tracker.id, self.slug)
         if self.source:
-            self.facet += ' source_id:%s' % self.source.slug
+            self.filter += ' source_id:%s' % self.source.slug
 
     def get_results(self, **kwargs):
         for source in self.sources:
@@ -155,7 +151,7 @@ class Channel(object):
         return SafeUnicode(u''.join(rv))
 
     def get_statistics(self):
-        return ((('a',1), ('b',2)),)
+        raise NotImplementedError
 
     def render_statistics(self):
         def _bits():
