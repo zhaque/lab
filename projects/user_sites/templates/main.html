@@ -28,7 +28,7 @@
         <div id="navigation" style="clear:both;">
           {% if tracker %}
           <ul id="primary-navigation">
-           {% for ch in tracker.channels %}
+           {% for ch in tracker.get_channel_classes %}
             <li{% ifequal ch.slug channel.slug %} class="active"{% endifequal %}>
               {% url tracker_channel slug=tracker.slug channel_slug=ch.slug as channel_url%}
               <a href="{{channel_url}}">{{ch.name}}</a></li>

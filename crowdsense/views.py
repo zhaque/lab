@@ -7,9 +7,31 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound, \
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
 
-from forms import TrackerForm
+from muaccounts.models import MUAccount
+from muaccounts.views import account_detail
+
+from forms import TrackerForm, ChannelsForm
 from models import Tracker
 
+
+@login_required
+def account_detail_override(request, return_to=None):
+    # We edit current user's MUAccount
+    account = get_object_or_404(MUAccount, owner=request.user)
+
+    # but if we're inside a MUAccount, we only allow editing that muaccount.
+    if getattr(request, 'muaccount', account) <> account:
+        return HttpResponseForbidden()
+
+    if 'is_channels_form' in request.POST:
+        cf = ChannelsForm(account, request.POST)
+        if cf.is_valid():
+            cf.save()
+    else:
+        cf = ChannelsForm(account)
+
+    return account_detail(request,
+                          extra_context={'channels_form': cf})
 
 @login_required
 def tracker_create(request):
@@ -71,8 +93,9 @@ def tracker_main(request, slug):
     tracker = get_object_or_404(Tracker,
                                 muaccount=request.muaccount, slug=slug)
     return HttpResponseRedirect(reverse(
-        'tracker_channel', kwargs={'slug': tracker.slug,
-                                   'channel_slug': tracker.channels[0].slug}))
+        'tracker_channel', kwargs={
+            'slug': tracker.slug,
+            'channel_slug': tracker.get_channel_classes()[0].slug}))
 
 
 def tracker_channel(request, slug, channel_slug, source_slug=None):

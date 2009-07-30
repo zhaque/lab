@@ -42,3 +42,9 @@ class NewsChannel(Channel):
 
         return ((('Today', today), ('Yesterday', yesterday), ('Change', change)),
                 )
+
+
+ALL_CHANNELS = (
+    SocialUpdatesChannel,
+    NewsChannel,
+    )

@@ -25,6 +25,14 @@
 </div></div></div>
 <div class="yui-u">
   <div class="block">
+    <div class="hd"><h2>Channels</h2></div><div class="bd">
+      <p>You may select {{user.quotas.crowdsense_channels|default:"no"}} channels.</p>
+      <form action="" method="POST" class="uniForm">
+       {{channels_form|as_uni_form}}
+       <input type="submit" value="Set">
+      </form>
+  </div></div>
+  <div class="block">
     <div class="hd"><h2>Members</h2></div><div class="bd">
      <ol class="list">{% for member in object.members.all %}
        <li>{{ member }}
