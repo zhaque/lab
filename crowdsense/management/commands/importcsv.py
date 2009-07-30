@@ -7,7 +7,8 @@ from django.template.defaultfilters import slugify
 
 from muaccounts.models import MUAccount
 import muaccounts.themes
-from crowdsense.models import Tracker
+from crowdsense.channels import ALL_CHANNELS
+from crowdsense.models import Channekls, Tracker
 
 LEGEND = ['name', 'subdomain', 'theme', 'tracker_name', 'query']
 
@@ -55,6 +56,9 @@ class Command(BaseCommand):
                         is_public=True,
                         theme=themedict,
                         )
+                    channels = Channels.objects.create(muaccount=mua)
+                    channels.channel_slugs = ' '.join(c.slug for c in ALL_CHANNELS)
+                    channels.save()
                 elif subdomain or theme:
                     raise ValueError("At least the plan name is required for account creation.")
                 if not mua:
