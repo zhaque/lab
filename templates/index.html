@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% load pages_tags %}
+{% load oembed_tags %}
 
 {% block title %}{% show_content "main-page" "title" %}{% endblock %} 
 {% block body %}
@@ -8,7 +9,7 @@
   {% show_content "main-page" "body" %}
 </div></div></div>
 
-<div id="sidebar" class="yui-b">
+ <!--<div id="sidebar" class="yui-b">
   <div class="block">
     {% if user.is_authenticated %}
     <div class="hd"><h2>Logged in as <em>{{user}}</em></h2></div><div class="bd">
@@ -22,12 +23,20 @@
         {% endfor %}
       </ul>
     </div>
-    {% else %}
+	{% else %}
     <div class="hd"><h2>Not logged in</h2></div><div class="bd">
       <p>Please <a href="{% url user_signin %}">log in or sign
           up</a>.</p>
     </div>
     {% endif %}
   </div>
+</div> 
+-->
+
+<div id="bg">
+	<h1>LARGE TEXT! LARGE TEXT</h1>
+	{% oembed 200x160 %}
+	http://www.youtube.com/watch?v=rLTjIoNUGyI
+	{% endoembed %}
 </div>
 {% endblock %}

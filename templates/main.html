@@ -1,9 +1,10 @@
 {% load compressed %}
 {% load class_if_reverse %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{% block title %}Title{% endblock %}</title>
+	<link rel="shortcut icon" href="/media/img/favicon.ico">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
     {% compressed_css 'all' %}
@@ -11,52 +12,57 @@
     {% endblock %}
  </head>
   <body class="rounded">
-    <div id="doc3" class="yui-t6">
+    <div id="doc3">
       <div id="hd">
-        {% if user.is_authenticated %}
-        <div id="logged-in-user">
-          Logged in: <a href="#">{{user}}</a>
-        </div>
+		<img src="/media/img/143x59.png"></img>
+        <div id="user-nav">
+		<ul id="user-nav">
+		{% if user.is_authenticated %}
+           <li>Logged in as: <a href="#">{{user}}</a></li> | 
+		   <li><a href="{% url profiles_create_profile %}">Profile</a></li> | 
+		   <li><a href="{% url auth_password_change %}">Settings</a></li> | 
+		   <li><a href="{% url user_signout %}">Logout</a></li>
+		{% else %}
+			<li><a href="{% url user_signin %}">Login</a></li>
         {% endif %}
-        <h1><a href="/">CrowdSense Project Kit</a></h1>
+		</ul>
+        </div>
         <div id="navigation">
-          <ul id="primary-navigation">
-            <li{% class_if_reverse subscription_list active %}><a href="{% url subscription_list %}">Available subscriptions</a></li>
-            <li{% class_if_reverse profiles_profile_list active %}><a href="{% url profiles_profile_list %}">Public profiles</a></li>
-            <li{% class_if_reverse contact_form active %}><a href="{% url contact_form %}">Contact us</a></li>
-            <li{% class_if_reverse notification_notices active %}><a href="{% url notification_notices %}">Dashboard</a></li>
-         </ul>
-
           <ul id="user-navigation">
-            {% if user.is_authenticated %}
-           {% if user.get_profile %}
-            <li><a href="{% url profiles_edit_profile %}">profile</a></li>
-            {% else %}
-            <li><a href="{% url profiles_create_profile %}">profile</a></li>
-            {% endif %}
-            <li><a href="{% url auth_password_change %}">password</a></li>
-            {% if not user.muaccount %}
-            <li><a href="{% url muaccounts.views.create_account %}">create site</a></li>
-            {% else %}
-            <li><a href="{% url sso %}?next={{user.muaccount.get_absolute_url}}">your site</a></li>
-            {% endif %}
-            <li><a href="{% url user_signout %}">logout</a></li>
-            {% else %}
-            <li><a href="{% url user_signin %}">log in or sign up</a></li>
-            {% endif %}
-         </ul>
+			<li><a href="/">Home</a></li>
+			{% if user.is_authenticated %}
+			<li{% class_if_reverse contact_form active %}><a href="{% url notification_notices %}">Dashboard</a></li>
+			<li{% class_if_reverse subscription_list active %}><a href="{% url subscription_list %}">Upgrade</a></li>
+			{% else %}
+			<li{% class_if_reverse contact_form active %}><a href="/testdrive">Test Drive</a></li>
+			<li{% class_if_reverse subscription_list active %}><a href="{% url subscription_list %}">Plans</a></li>
+			<li{% class_if_reverse subscription_list active %}><a href="{% url user_signin %}">Sign Up</a></li>
+			{% endif %}                        
+            <li{% class_if_reverse contact_form active %}><a href="/support">Support</a></li>
+			<li{% class_if_reverse contact_form active %}><a href="/about">About Us</a></li>
+          </ul>
+
         </div>
       </div>
 
       <div id="bd">
         {% block body %} Body {% endblock %}
       </div>
-
-      <div id="ft"><div id="yui-main">
-        <p><a href="/admin/">admin</a></p>
-      </div></div>
-
+		<div id="ft">
+        	<div class="footer-navigation">
+            	<ul>
+                	<li><a href="/">About CrowdSense</a></li> | 
+                    <li><a href="/">Services</a></li> | 
+                    <li><a href="/">Support</a></li> |                 
+					<li><a href="{% url contact_form %}">Contact Us</a></li>
+                </ul>
+            </div>     
+			<div class="pseudo-footer">
+				<li><a href="/">Privacy & Copyright</a></li>
+			</div>
+        </div>
     {% compressed_js 'all' %}
     {% block extra_scripts %}{% endblock %}
+	</div>
   </body>
 </html>
