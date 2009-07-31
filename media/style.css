@@ -1,12 +1,3 @@
-/*#hd { color: #ddd; }
-#hd a { color: #fff; text-decoration: none; }
-#hd a:hover { text-decoration: underline; }
-#logged-in-user { float: right; }
-#site-logo { float: left; }
-#navigation { clear: both; }
-.inline-form, .inline-form p { display: inline; }
-*/
-
 html, body { 
 	background-color:#e5e5e5;
 	/*padding-top: .3em;*/
