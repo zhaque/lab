@@ -185,9 +185,18 @@ MUACCOUNTS_THEMES = (
     # color css
     ('color_scheme', 'Color scheme', (
         ('aqua', 'Aqua', 'yui-app-theme/aqua.css'),
-        ('green', 'Green', 'yui-app-theme/green.css'),
+		('default', 'Default', 'media/css/default.css'),
+		('fireflynight', 'Firefly Night', 'media/css/fireflynight.css'),
+        ('freshair', 'Fresh Air', 'media/css/freshair.css'),
+		('girly', 'Girly', 'media/css/girly.css'),
+		('grayscale', 'Grayscale', 'media/css/grayscale.css'),
+		('grayscalem', 'Grayscale Modified', 'media/css/grayscalemodified.css'),
+		('green', 'Green', 'yui-app-theme/green.css'),
+		('overcast', 'Overcast', 'media/css/overcast.css'),
+		('pepper', 'Pepper', 'media/css/pepper.css'),
         ('purple', 'Purple', 'yui-app-theme/purple.css'),
         ('red', 'Red', 'yui-app-theme/red.css'),
+		('sunshine', 'Sunshine', 'media/css/sunshine.css'),
         ('tan-blue', 'Tan Blue', 'yui-app-theme/tan_blue.css'),
         )),
     # <body> id

@@ -54,12 +54,12 @@ Table of Contents
 	2. cd projects/main
 	3. python manage.py syncdb
 	4. python manage.py loaddata ../../exampledata.json
-	5. python manage.py synccompres
+	5. python manage.py synccompress
 	6. python manage.py runserver 8001
 
 	(in other shell)
 	7. cd projects/user_sites
-	8. python manage.py synccompres	
+	8. python manage.py synccompress	
 	9. python manage.py runserver
 
 	Project includes as Git sumodules or downloads from
@@ -188,7 +188,7 @@ Table of Contents
     Most templates are shared between two projects (apps actually 
 	used by both are distinct, and main theme is common). Shared 
 	templates live in  templates/ dir, project-specific ones to 
-	override things live in project’s template/ subdir.
+	override things live in project's template/ subdir.
 
 	In some instances, full override of template makes no sense as
 	change between sites is small. In such case, I used shared template 
@@ -199,12 +199,12 @@ Table of Contents
 	It contains the root theme, CSS, HTML header and so on. 
 	It is very simple, defining only a handful of blocks for child 
 	templates to fill in. Here is also defined the footer, 
-	in case of main project the sidebar “your sites”, main tabs,
+	in case of main project the sidebar 'your sites', main tabs,
 	right-side navigation.
 
 3.4.3 Static files
 ------------------
-	Static files for each project is in project’s media/ subdir. 
+	Static files for each project is in project's media/ subdir. 
 	Most of these are symlinks, and (in case of user_sites project) 
 	uploaded site logos. Site logos are available only for user_sites.
 
@@ -214,8 +214,8 @@ Table of Contents
 	the cloud, or at least out of the application server.
 
 	The root media/ directory contains shared static files (currently,
-	only a bit of local CSS). It is linked as ‘crowdsense’ subdirectory
-	of both projects’ media dirs.
+	only a bit of local CSS). It is linked as 'crowdsense' subdirectory
+	of both projects' media dirs.
 
 3.4.4 Sites
 -----------
@@ -261,6 +261,11 @@ Table of Contents
     settings,
   - Documenting it in README.org and README.
   
+  For backing up your pages execute the following command from your console:
+  
+  python manage.py dumpdata pages > pages.json 
+  Store pages.json for later use or in a repo.
+  
 4.1 Adding CMS Content Example
 ==============================
 
@@ -275,19 +280,19 @@ Table of Contents
 	4. If it exists, remember its name. If it does not, create new template
        with correct number and names of placeholders, based on existing ones 
 	   (only placeholders count, other content is not used anywhere; 
-	   they also define what kind of widget – WYMEditor, plain textarea, 
-	   some else WYSIWYG JS editor – will be used in admin panel in CMS). 
+	   they also define what kind of widget WYMEditor, plain textarea, 
+	   some else WYSIWYG JS editor will be used in admin panel in CMS). 
 	   Add it to PAGE_TEMPLATES in settings.py. Information about 
 	   page template placeholders: 
 	   http://code.google.com/p/django-page-cms/wiki/PlaceHolders
 	5. Choose unique (not used yet) slug for the CMS page 
-	   (here: “registration-form”), remember it.
-	   Add {% load pages_tags } after { extends “main.html” } in the template.
+	   (here: 'registration-form'), remember it.
+	   Add {% load pages_tags } after { extends 'main.html' } in the template.
 	   Add { show_content %} tags where CMS content should be included, 
 	   using slug chosen in step 4, and placeholder names defined by page 
 	   template from step 3. 
 	   See also http://code.google.com/p/django-page-cms/wiki/DisplayContentInTemplates
-	6. In admin panel, go to “Pages” ? “Add page”. Choose title, set slug to 
+	6. In admin panel, go to 'Pages' ? 'Add page'. Choose title, set slug to 
 	   slug chosen in step 4, template to template chosen in step 3. 
 	   In Sites, choose appropriate Site object (unfortunately Pages shows 
 	   only domain, not name of Site; in example data, www.example.com is
@@ -308,8 +313,8 @@ Table of Contents
 
 	Pages not related to any template can be edited in CMS only, they will be
 	visible under /pages/hierarchy/slug URLs and their addresses can be 
-	inserted in templates as {% show_absolute_url “slug” } 
-	(with { load pages_tags }), or with { url pages-details-by-slug “slug” %} 
+	inserted in templates as {% show_absolute_url 'slug } 
+	(with { load pages_tags }), or with { url pages-details-by-slug 'slug' %} 
 	(without pages_tags). They will be also visible in page navigation.
 	
 	By default, templates/page.html is used to display; you may add other 
