@@ -18,16 +18,15 @@ Table of Contents
 4 Django-pages-cms integration
 	4.1 Adding CMS Content Example
 	4.2 CMS Only Pages
-5 Django- compress commands
-6 Default data set
-7 List of third party code
-    7.1 Django applications
-        7.1.1 Used
-        7.1.2 Currently unused
-    7.2 Other code
-        7.2.1 yui-app-theme
-8 Runtime environment
-    8.1 Warnings at startup
+5 Default data set
+6 List of third party code
+    6.1 Django applications
+        6.1.1 Used
+        6.1.2 Currently unused
+    6.2 Other code
+        6.2.1 yui-app-theme
+7 Runtime environment
+    7.1 Warnings at startup
 
 
 1 Getting started
@@ -55,11 +54,13 @@ Table of Contents
 	2. cd projects/main
 	3. python manage.py syncdb
 	4. python manage.py loaddata ../../exampledata.json
-	5. python manage.py runserver 8001
+	5. python manage.py synccompres
+	6. python manage.py runserver 8001
 
 	(in other shell)
-	6. cd projects/user_sites
-	7. python manage.py runserver
+	7. cd projects/user_sites
+	8. python manage.py synccompres	
+	9. python manage.py runserver
 
 	Project includes as Git sumodules or downloads from
 	upstream/Makefile all needed Django applications
@@ -187,7 +188,7 @@ Table of Contents
     Most templates are shared between two projects (apps actually 
 	used by both are distinct, and main theme is common). Shared 
 	templates live in  templates/ dir, project-specific ones to 
-	override things live in project’s template/ subdir.
+	override things live in project's template/ subdir.
 
 	In some instances, full override of template makes no sense as
 	change between sites is small. In such case, I used shared template 
@@ -198,12 +199,12 @@ Table of Contents
 	It contains the root theme, CSS, HTML header and so on. 
 	It is very simple, defining only a handful of blocks for child 
 	templates to fill in. Here is also defined the footer, 
-	in case of main project the sidebar “your sites”, main tabs,
+	in case of main project the sidebar 'your sites', main tabs,
 	right-side navigation.
 
 3.4.3 Static files
 ------------------
-	Static files for each project is in project’s media/ subdir. 
+	Static files for each project is in project's media/ subdir. 
 	Most of these are symlinks, and (in case of user_sites project) 
 	uploaded site logos. Site logos are available only for user_sites.
 
@@ -213,8 +214,8 @@ Table of Contents
 	the cloud, or at least out of the application server.
 
 	The root media/ directory contains shared static files (currently,
-	only a bit of local CSS). It is linked as ‘crowdsense’ subdirectory
-	of both projects’ media dirs.
+	only a bit of local CSS). It is linked as 'crowdsense' subdirectory
+	of both projects' media dirs.
 
 3.4.4 Sites
 -----------
@@ -260,6 +261,11 @@ Table of Contents
     settings,
   - Documenting it in README.org and README.
   
+  For backing up your pages execute the following command from your console:
+  
+  python manage.py dumpdata pages > pages.json 
+  Store pages.json for later use or in a repo.
+  
 4.1 Adding CMS Content Example
 ==============================
 
@@ -274,19 +280,19 @@ Table of Contents
 	4. If it exists, remember its name. If it does not, create new template
        with correct number and names of placeholders, based on existing ones 
 	   (only placeholders count, other content is not used anywhere; 
-	   they also define what kind of widget – WYMEditor, plain textarea, 
-	   some else WYSIWYG JS editor – will be used in admin panel in CMS). 
+	   they also define what kind of widget WYMEditor, plain textarea, 
+	   some else WYSIWYG JS editor will be used in admin panel in CMS). 
 	   Add it to PAGE_TEMPLATES in settings.py. Information about 
 	   page template placeholders: 
 	   http://code.google.com/p/django-page-cms/wiki/PlaceHolders
 	5. Choose unique (not used yet) slug for the CMS page 
-	   (here: “registration-form”), remember it.
-	   Add {% load pages_tags } after { extends “main.html” } in the template.
+	   (here: 'registration-form'), remember it.
+	   Add {% load pages_tags } after { extends 'main.html' } in the template.
 	   Add { show_content %} tags where CMS content should be included, 
 	   using slug chosen in step 4, and placeholder names defined by page 
 	   template from step 3. 
 	   See also http://code.google.com/p/django-page-cms/wiki/DisplayContentInTemplates
-	6. In admin panel, go to “Pages” ? “Add page”. Choose title, set slug to 
+	6. In admin panel, go to 'Pages' ? 'Add page'. Choose title, set slug to 
 	   slug chosen in step 4, template to template chosen in step 3. 
 	   In Sites, choose appropriate Site object (unfortunately Pages shows 
 	   only domain, not name of Site; in example data, www.example.com is
@@ -307,8 +313,8 @@ Table of Contents
 
 	Pages not related to any template can be edited in CMS only, they will be
 	visible under /pages/hierarchy/slug URLs and their addresses can be 
-	inserted in templates as {% show_absolute_url “slug” } 
-	(with { load pages_tags }), or with { url pages-details-by-slug “slug” %} 
+	inserted in templates as {% show_absolute_url 'slug } 
+	(with { load pages_tags }), or with { url pages-details-by-slug 'slug' %} 
 	(without pages_tags). They will be also visible in page navigation.
 	
 	By default, templates/page.html is used to display; you may add other 
@@ -316,11 +322,7 @@ Table of Contents
 	and use them instead. In this setup, the template actual contents will be used,
 	and placeholders will be replaced with the dynamic content.
 	
-5 Django-Compress commands
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-6 Default data set
+5 Default data set
 ~~~~~~~~~~~~~~~~~~
   By loading exampledata.json, data is populated with:
   - Silver Membership monthly recurring plan, linked to Silver Member group,
@@ -341,13 +343,13 @@ Table of Contents
   - test3 user, password "test", with no plan selected, member of
     "gold" account
 
-7 List of third party code
+6 List of third party code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-7.1 Django applications
+6.1 Django applications
 =======================
 
-7.1.1 Used
+6.1.1 Used
 ----------
     Apps actually used by sample code.
 * django-authopenid
@@ -360,6 +362,14 @@ Table of Contents
   + python-openid
     Python library for OpenID, used internally by django-authopenid.
     - [http://openidenabled.com/python-openid/]
+* django-batchimport
+  Importing data using custom forms from Excel files also
+  - [http://code.google.com/p/django-batchimport/]
+  - [http://github.com/erikankrom/django-batchimport/]  
+  + XLRD Library 
+    John Machin's library to read Microsoft Excel Files
+	- [http://www.lexicon.net/sjmachin/xlrd.htm]
+	- [http://pypi.python.org/pypi/xlrd]
 * django-contact-form
   Contact Us form for the website
   - [http://bitbucket.org/ubernostrum/django-contact-form/wiki/Home]
@@ -379,6 +389,11 @@ Table of Contents
 * django-muaccounts
   Used for multi-user SAAS accounts.
   - [http://github.com/CrowdSense/django-muaccounts/]
+* django-oembed
+  Used for embedding obejects
+  - [http://code.google.com/p/django-oembed/]
+  - [http://code.google.com/p/django-oembed/wiki/HowToUseIt]
+  - [http://github.com/ericflo/django-oembed/tree/master]
 * django-page-cms
   Used for content management.
   - [http://code.google.com/p/django-page-cms/]
@@ -398,11 +413,22 @@ Table of Contents
   A perfect 404 page, based on A List Apart's article.
   Used only when `DEBUG=False'.
   - [http://github.com/svetlyak40wt/django-perfect404/]
+* django-pipes
+  Used for external API consumption, by (TBD) django-mashup.
+  - [http://github.com/mallipeddi/django-pipes/]
+* django-prepaid
+  Used to support consumable, separately paid quotas (think prepaid
+  phone minutes).
+  - [http://github.com/CrowdSense/django-prepaid/tree/master]
 * django-profiles
   Used for user profile management on main (shared/dashboard) site.
   - [http://bitbucket.org/ubernostrum/django-profiles/wiki/Home]
   - [http://bitbucket.org/ubernostrum/django-profiles/src/tip/docs/overview.txt]
   - [http://bitbucket.org/ubernostrum/django-profiles/src/c21962558420/docs/views.txt]
+* django-quotas
+  Used for numeric hard quotas based on regular Django permission
+  system.
+  - [http://github.com/mpasternacki/django-quotas/]
 * django-rosetta
   Used for translating and compiling i18n translation files from
   Django admin panel.
@@ -423,8 +449,12 @@ Table of Contents
   - [http://code.google.com/p/django-uni-form/]
   - [http://github.com/pydanny/django-uni-form/]
   - [http://github.com/pydanny/django-uni-form/blob/master/docs/usage.txt]
-
-7.1.2 Currently unused
+* sorl-thumbnail
+  Thumbnail creation utility for Django
+  - [http://code.google.com/p/sorl-thumbnail/w/list]
+  - [http://code.google.com/p/sorl-thumbnail/]
+  
+6.1.2 Currently unused
 ----------------------
     Apps that are not currently used by any of sample code, but are
     included and ready to use.
@@ -436,14 +466,6 @@ Table of Contents
   - [http://github.com/alex/django-ajax-validation]
   - [http://github.com/alex/django-ajax-validation/blob/master/docs/usage.txt]
   - [http://github.com/alex/django-ajax-validation/blob/master/docs/serving-ajax-validation-media-server.txt]
-* django-batchimport
-  Importing data using custom forms from Excel files also
-  - [http://code.google.com/p/django-batchimport/]
-  - [http://github.com/erikankrom/django-batchimport/]  
-  + XLRD Library 
-    John Machin's library to read Microsoft Excel Files
-	- [http://www.lexicon.net/sjmachin/xlrd.htm]
-	- [http://pypi.python.org/pypi/xlrd]
 * django-extensions
   Custom management extensions for Django.
   - [http://code.google.com/p/django-command-extensions/]
@@ -464,37 +486,23 @@ Table of Contents
   Used for user notification support.
   - [http://github.com/jtauber/django-notification/]
   - [http://github.com/jtauber/django-notification/blob/master/docs/usage.txt]
-* django-pipes
-  Used for external API consumption, by (TBD) django-mashup.
-  - [http://github.com/mallipeddi/django-pipes/]
 * django-piston
   Framework for creating externally accessible APIs.
   - [http://bitbucket.org/jespern/django-piston/wiki/Home]
   - [http://bitbucket.org/jespern/django-piston/wiki/Documentation]
   - [http://bitbucket.org/jespern/django-piston/wiki/FAQ#faq]
-* django-prepaid
-  Used to support consumable, separately paid quotas (think prepaid
-  phone minutes).
-  - [http://github.com/CrowdSense/django-prepaid/tree/master]
-* django-quotas
-  Used for numeric hard quotas based on regular Django permission
-  system.
-  - [http://github.com/mpasternacki/django-quotas/]
-* sorl-thumbnail
-  Thumbnail creation utility for Django
-  - [http://code.google.com/p/sorl-thumbnail/w/list]
-  - [http://code.google.com/p/sorl-thumbnail/]
 
-7.2 Other code
+
+6.2 Other code
 ==============
 
-7.2.1 yui-app-theme
+6.2.1 yui-app-theme
 -------------------
     A generic, skinnable, Yahoo YUI-based layot for web applications.
     - [http://clickontyler.com/yui-app-theme/]
     - [http://github.com/tylerhall/yui-app-theme/]
 
-8 Runtime environment
+7 Runtime environment
 ~~~~~~~~~~~~~~~~~~~~~
   Project is expected to run on localhost, port 8000 (or any other
   port set in MUACCOUNTS_PORT).  For all sites to work correctly,
@@ -516,7 +524,7 @@ Table of Contents
   in templates/subscription/subscription_detail.html and set PAYPAL_TEST to False in
   project/settings.py.
 
-8.1 Warnings at startup
+7.1 Warnings at startup
 =======================
    When some of dependencies are installed system-wide (especially if
    installed with easy_install), Django may issue warnings similar to
