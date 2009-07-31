@@ -8,6 +8,8 @@ Date: 2009/07/20 01:35:56
 Table of Contents
 =================
 1 Getting started
+	1.1 Dependencies
+	1.2 Starting the Project
 2 Overview
 3 Code layout
     3.1 Third party code
@@ -18,45 +20,58 @@ Table of Contents
     3.4 Projects
         3.4.1 Settings
         3.4.2 Templates
-        3.4.3 Sites
+		3.4.3 Static Files
+        3.4.4 Sites
 4 Django-pages-cms integration
-5 Default data set
-6 List of third party code
-    6.1 Django applications
-        6.1.1 Used
-        6.1.2 Currently unused
-    6.2 Other code
-        6.2.1 yui-app-theme
-7 Runtime environment
-    7.1 Warnings at startup
+	4.1 Adding CMS Content Example
+	4.2 CMS Only Pages
+5 Django- compress commands
+6 Default data set
+7 List of third party code
+    7.1 Django applications
+        7.1.1 Used
+        7.1.2 Currently unused
+    7.2 Other code
+        7.2.1 yui-app-theme
+8 Runtime environment
+    8.1 Warnings at startup
 
 
 1 Getting started
 ~~~~~~~~~~~~~~~~~
-  To start the project, after cloning Git repository, run:
 
-  1. make -C upstream/ init
-  2. cd projects/main
-  3. python manage.py syncdb
-  4. python manage.py loaddata ../../exampledata.json
-  5. python manage.py runserver 8001
+1.1 Dependencies
+================
+   Download all dependencies before proceeding to step 1, 
+   You will need the following programs:
+    - Python (2.5 or higher, 
+	  but may work on earlier versions of Python)
+	- Stable release of Django (1.0.2 at this moment)
+	- make,
+	- git,
+	- mercurial,
+	- subversion,
+	- wget,
+	- tar accepting "-j" option (any recent GNU tar).
+
+1.2 Starting the Project
+========================
+	To start the project, after cloning Git repository, run:
+
+	1. make -C upstream/ init
+	2. cd projects/main
+	3. python manage.py syncdb
+	4. python manage.py loaddata ../../exampledata.json
+	5. python manage.py runserver 8001
+
+	(in other shell)
+	6. cd projects/user_sites
+	7. python manage.py runserver
+
+	Project includes as Git sumodules or downloads from
+	upstream/Makefile all needed Django applications
+
   
-  (in other shell)
-  6. cd projects/user_sites
-  7. python manage.py runserver
-
-  Project includes as Git sumodules or downloads from
-  upstream/Makefile all needed Django applications; only requirements
-  are Python (2.5 or higher, but may work on earlier versions of
-  Python) and stable release of Django (1.0.2 at this moment).
-
-  To download dependencies (step 1), following programs are needed:
-  - make,
-  - git,
-  - mercurial,
-  - subversion,
-  - wget,
-  - tar accepting "-j" option (any recent GNU tar).
 
 2 Overview
 ~~~~~~~~~~
@@ -176,11 +191,39 @@ Table of Contents
 
 3.4.2 Templates
 ---------------
-    Top-level `templates/' directory holds most of the default
-    templates.  Project-level `templates/' directory holds
-    project-specific templates which override top-level ones.
+    Most templates are shared between two projects (apps actually 
+	used by both are distinct, and main theme is common). Shared 
+	templates live in  templates/ dir, project-specific ones to 
+	override things live in project’s template/ subdir.
 
-3.4.3 Sites
+	In some instances, full override of template makes no sense as
+	change between sites is small. In such case, I used shared template 
+	and did {% if request.muaccount %} to differentiate: if muaccount 
+	object is present, we are inside a muaccount, i.e. in user site.
+
+	Root template, extended by every other template, is main.html. 
+	It contains the root theme, CSS, HTML header and so on. 
+	It is very simple, defining only a handful of blocks for child 
+	templates to fill in. Here is also defined the footer, 
+	in case of main project the sidebar “your sites”, main tabs,
+	right-side navigation.
+
+3.4.3 Static files
+------------------
+	Static files for each project is in project’s media/ subdir. 
+	Most of these are symlinks, and (in case of user_sites project) 
+	uploaded site logos. Site logos are available only for user_sites.
+
+	Possibly static file storage can be factored out anyway to 
+	a common dir, and to separate domain. This could simplify 
+	things a bit, and enable us to export static file hosting to
+	the cloud, or at least out of the application server.
+
+	The root media/ directory contains shared static files (currently,
+	only a bit of local CSS). It is linked as ‘crowdsense’ subdirectory
+	of both projects’ media dirs.
+
+3.4.4 Sites
 -----------
     Both projects use different sites from Django's "sites" framework
     (see [http://docs.djangoproject.com/en/dev/ref/contrib/sites/]);
@@ -202,7 +245,7 @@ Table of Contents
     with page title and blocks `before' and `after'.
 
   For actual page-cms content the default template should be used.
-
+  
   Different templates contain hard-coded references to a page with a
   specific slug.  That page can be located anywhere in django-page-cms
   hierarchy and should be created as a hidden page (so that it is not
@@ -223,8 +266,68 @@ Table of Contents
   - Adding newly created template to `PAGE_TEMPLATES' in Django
     settings,
   - Documenting it in README.org and README.
+  
+4.1 Adding CMS Content Example
+==============================
 
-5 Default data set
+    An example using Registration_form.html, for Main Site template related pages
+
+	1. Locate the template: templates/registration/registration_form.html
+	2. Examine the template and find places in HTML that you would need to
+	   fill with content. Here, we have two places: before the form and 
+	   after the form.
+	3. Look into templates/page-templates/ contents, see whether 
+	   there exists a template for this number and kind of content fields.
+	4. If it exists, remember its name. If it does not, create new template
+       with correct number and names of placeholders, based on existing ones 
+	   (only placeholders count, other content is not used anywhere; 
+	   they also define what kind of widget – WYMEditor, plain textarea, 
+	   some else WYSIWYG JS editor – will be used in admin panel in CMS). 
+	   Add it to PAGE_TEMPLATES in settings.py. Information about 
+	   page template placeholders: 
+	   http://code.google.com/p/django-page-cms/wiki/PlaceHolders
+	5. Choose unique (not used yet) slug for the CMS page 
+	   (here: “registration-form”), remember it.
+	   Add {% load pages_tags } after { extends “main.html” } in the template.
+	   Add { show_content %} tags where CMS content should be included, 
+	   using slug chosen in step 4, and placeholder names defined by page 
+	   template from step 3. 
+	   See also http://code.google.com/p/django-page-cms/wiki/DisplayContentInTemplates
+	6. In admin panel, go to “Pages” ? “Add page”. Choose title, set slug to 
+	   slug chosen in step 4, template to template chosen in step 3. 
+	   In Sites, choose appropriate Site object (unfortunately Pages shows 
+	   only domain, not name of Site; in example data, www.example.com is
+	   main site, example.com are user sites. Set Site domains correctly in
+	   production database, these are used for links in e-mails!)
+	7. Content should be visible on site.
+	8. Page added in step 6 can be added anywhere in CMS hierarchy. 
+	   I suggest using a single root placeholder Page, e.g. __templates__, 
+	   keep all related pages as its children, and related templates in 
+	   hierarchy (e.g. __templates__/password-change-form/password-change-successful).
+	   The root -templates subdir can be then filtered in urls.py so that 
+	   no one accesses these pages directly at 
+	   e.g. /pages/__templates__/registration-form/ (which itself is not a problem,
+	   but is not elegant and Google may see it as duplicate content).
+	   
+4.2 CMS Only Pages (Main Site)
+==============================
+
+	Pages not related to any template can be edited in CMS only, they will be
+	visible under /pages/hierarchy/slug URLs and their addresses can be 
+	inserted in templates as {% show_absolute_url “slug” } 
+	(with { load pages_tags }), or with { url pages-details-by-slug “slug” %} 
+	(without pages_tags). They will be also visible in page navigation.
+	
+	By default, templates/page.html is used to display; you may add other 
+	templates as well (I suggest to place those in templates/page-templages/) 
+	and use them instead. In this setup, the template actual contents will be used,
+	and placeholders will be replaced with the dynamic content.
+	
+5 Django-Compress commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+6 Default data set
 ~~~~~~~~~~~~~~~~~~
   By loading exampledata.json, data is populated with:
   - Silver Membership monthly recurring plan, linked to Silver Member group,
@@ -245,13 +348,13 @@ Table of Contents
   - test3 user, password "test", with no plan selected, member of
     "gold" account
 
-6 List of third party code
+7 List of third party code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-6.1 Django applications
+7.1 Django applications
 =======================
 
-6.1.1 Used
+7.1.1 Used
 ----------
     Apps actually used by sample code.
 * django-authopenid
@@ -264,6 +367,10 @@ Table of Contents
   + python-openid
     Python library for OpenID, used internally by django-authopenid.
     - [http://openidenabled.com/python-openid/]
+* django-contact-form
+  Contact Us form for the website
+  - [http://bitbucket.org/ubernostrum/django-contact-form/wiki/Home]
+  - [http://bitbucket.org/ubernostrum/django-contact-form/overview/]
 * django-compress
   Consolidates and minifies static CSS and JavaScript files.
   - [http://github.com/pelme/django-compress/]
@@ -308,6 +415,10 @@ Table of Contents
   Django admin panel.
   - [http://code.google.com/p/django-rosetta/]
   - [http://www.djangoproject.com/documentation/i18n/]
+* django-sso
+  Allow the application to accept single sign on link from 
+  other applications and authenticate users
+  - [http://code.google.com/p/django-sso/  
 * django-subscription
   Used for user subscription plans/levels.
   - [http://github.com/CrowdSense/django-subscription/]
@@ -320,7 +431,7 @@ Table of Contents
   - [http://github.com/pydanny/django-uni-form/]
   - [http://github.com/pydanny/django-uni-form/blob/master/docs/usage.txt]
 
-6.1.2 Currently unused
+7.1.2 Currently unused
 ----------------------
     Apps that are not currently used by any of sample code, but are
     included and ready to use.
@@ -332,6 +443,14 @@ Table of Contents
   - [http://github.com/alex/django-ajax-validation]
   - [http://github.com/alex/django-ajax-validation/blob/master/docs/usage.txt]
   - [http://github.com/alex/django-ajax-validation/blob/master/docs/serving-ajax-validation-media-server.txt]
+* django-batchimport
+  Importing data using custom forms from Excel files also
+  - [http://code.google.com/p/django-batchimport/]
+  - [http://github.com/erikankrom/django-batchimport/]  
+  + XLRD Library 
+    John Machin's library to read Microsoft Excel Files
+	- [http://www.lexicon.net/sjmachin/xlrd.htm]
+	- [http://pypi.python.org/pypi/xlrd]
 * django-extensions
   Custom management extensions for Django.
   - [http://code.google.com/p/django-command-extensions/]
@@ -368,17 +487,21 @@ Table of Contents
   Used for numeric hard quotas based on regular Django permission
   system.
   - [http://github.com/mpasternacki/django-quotas/]
+* sorl-thumbnail
+  Thumbnail creation utility for Django
+  - [http://code.google.com/p/sorl-thumbnail/w/list]
+  - [http://code.google.com/p/sorl-thumbnail/]
 
-6.2 Other code
+7.2 Other code
 ==============
 
-6.2.1 yui-app-theme
+7.2.1 yui-app-theme
 -------------------
     A generic, skinnable, Yahoo YUI-based layot for web applications.
     - [http://clickontyler.com/yui-app-theme/]
     - [http://github.com/tylerhall/yui-app-theme/]
 
-7 Runtime environment
+8 Runtime environment
 ~~~~~~~~~~~~~~~~~~~~~
   Project is expected to run on localhost, port 8000 (or any other
   port set in MUACCOUNTS_PORT).  For all sites to work correctly,
@@ -400,7 +523,7 @@ Table of Contents
   in templates/subscription/subscription_detail.html and set PAYPAL_TEST to False in
   project/settings.py.
 
-7.1 Warnings at startup
+8.1 Warnings at startup
 =======================
    When some of dependencies are installed system-wide (especially if
    installed with easy_install), Django may issue warnings similar to
