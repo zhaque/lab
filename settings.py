@@ -93,6 +93,7 @@ INSTALLED_APPS = (
     'south',
     'sso',
     'tagging',
+    'oembed',
     #'uni_form',
     # own
     'muaccounts',
@@ -116,6 +117,8 @@ INTERNAL_IPS = ('127.0.0.1', )
 AUTH_PROFILE_MODULE = 'crowdsense.UserProfile'
 
 SSO_SECRET = "6O4nVw|~w't1mxV%oeSUDew{9zhN.\"lY1T.nmZL+lNxGlr@K5+~>NnLMHNAN]57s"
+
+BING_APP_ID = '112211221122111221122112211221122'
 
 COMPRESS = True
 COMPRESS_VERSION = True
@@ -181,18 +184,18 @@ MUACCOUNTS_THEMES = (
     # color css
     ('color_scheme', 'Color scheme', (
         ('aqua', 'Aqua', 'yui-app-theme/aqua.css'),
-		('default', 'Default', 'media/css/default.css'),
-		('fireflynight', 'Firefly Night', 'media/css/fireflynight.css'),
+	('default', 'Default', 'media/css/default.css'),
+	('fireflynight', 'Firefly Night', 'media/css/fireflynight.css'),
         ('freshair', 'Fresh Air', 'media/css/freshair.css'),
-		('girly', 'Girly', 'media/css/girly.css'),
-		('grayscale', 'Grayscale', 'media/css/grayscale.css'),
-		('grayscalem', 'Grayscale Modified', 'media/css/grayscalemodified.css'),
-		('green', 'Green', 'yui-app-theme/green.css'),
-		('overcast', 'Overcast', 'media/css/overcast.css'),
-		('pepper', 'Pepper', 'media/css/pepper.css'),
+	('girly', 'Girly', 'media/css/girly.css'),
+	('grayscale', 'Grayscale', 'media/css/grayscale.css'),
+	('grayscalem', 'Grayscale Modified', 'media/css/grayscalemodified.css'),
+	('green', 'Green', 'yui-app-theme/green.css'),
+	('overcast', 'Overcast', 'media/css/overcast.css'),
+	('pepper', 'Pepper', 'media/css/pepper.css'),
         ('purple', 'Purple', 'yui-app-theme/purple.css'),
         ('red', 'Red', 'yui-app-theme/red.css'),
-		('sunshine', 'Sunshine', 'media/css/sunshine.css'),
+	('sunshine', 'Sunshine', 'media/css/sunshine.css'),
         ('tan-blue', 'Tan Blue', 'yui-app-theme/tan_blue.css'),
         )),
     # <body> id
