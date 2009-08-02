@@ -69,7 +69,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     # third-party
     #ab 'ab',
-    'ajax_validation',
     'autoslug',
     #batchimport 'batchimport',
     'compress',
