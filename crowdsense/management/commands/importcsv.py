@@ -8,7 +8,7 @@ from django.template.defaultfilters import slugify
 from muaccounts.models import MUAccount
 import muaccounts.themes
 from crowdsense.channels import ALL_CHANNELS
-from crowdsense.models import Channekls, Tracker
+from crowdsense.models import Channels, Tracker
 
 LEGEND = ['name', 'subdomain', 'theme', 'tracker_name', 'query']
 
