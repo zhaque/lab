@@ -93,7 +93,6 @@ INSTALLED_APPS = (
     'sso',
     'tagging',
     'oembed',
-    #'uni_form',
     # own
     'muaccounts',
     'prepaid',
