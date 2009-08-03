@@ -362,14 +362,6 @@ Table of Contents
   + python-openid
     Python library for OpenID, used internally by django-authopenid.
     - [http://openidenabled.com/python-openid/]
-* django-batchimport
-  Importing data using custom forms from Excel files also
-  - [http://code.google.com/p/django-batchimport/]
-  - [http://github.com/erikankrom/django-batchimport/]  
-  + XLRD Library 
-    John Machin's library to read Microsoft Excel Files
-	- [http://www.lexicon.net/sjmachin/xlrd.htm]
-	- [http://pypi.python.org/pypi/xlrd]
 * django-contact-form
   Contact Us form for the website
   - [http://bitbucket.org/ubernostrum/django-contact-form/wiki/Home]
