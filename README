@@ -444,11 +444,6 @@ Table of Contents
   + django-paypal
     Used by django-subscription for PayPal payments interface.
     - [http://github.com/johnboxall/django-paypal/]
-* django-uni-form
-  Unified style for pretty form support.
-  - [http://code.google.com/p/django-uni-form/]
-  - [http://github.com/pydanny/django-uni-form/]
-  - [http://github.com/pydanny/django-uni-form/blob/master/docs/usage.txt]
 * sorl-thumbnail
   Thumbnail creation utility for Django
   - [http://code.google.com/p/sorl-thumbnail/w/list]

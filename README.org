@@ -444,15 +444,16 @@ Table of Contents
   + django-paypal
     Used by django-subscription for PayPal payments interface.
     - [http://github.com/johnboxall/django-paypal/]
-* django-uni-form
-  Unified style for pretty form support.
-  - [http://code.google.com/p/django-uni-form/]
-  - [http://github.com/pydanny/django-uni-form/]
-  - [http://github.com/pydanny/django-uni-form/blob/master/docs/usage.txt]
 * sorl-thumbnail
   Thumbnail creation utility for Django
   - [http://code.google.com/p/sorl-thumbnail/w/list]
   - [http://code.google.com/p/sorl-thumbnail/]
+* django-extensions
+  Custom management extensions for Django.
+  - [http://code.google.com/p/django-command-extensions/]
+  - [http://code.google.com/p/django-command-extensions/w/list]
+  - [http://github.com/django-extensions/django-extensions/]
+  - [http://github.com/django-extensions/django-extensions/tree/master/docs]
   
 6.1.2 Currently unused
 ----------------------
@@ -461,17 +462,6 @@ Table of Contents
 * django-ab
   A/B testing.
   - [http://github.com/johnboxall/django-ab/]
-* django-ajax-validation
-  Add AJAX-based validation to custom forms.
-  - [http://github.com/alex/django-ajax-validation]
-  - [http://github.com/alex/django-ajax-validation/blob/master/docs/usage.txt]
-  - [http://github.com/alex/django-ajax-validation/blob/master/docs/serving-ajax-validation-media-server.txt]
-* django-extensions
-  Custom management extensions for Django.
-  - [http://code.google.com/p/django-command-extensions/]
-  - [http://code.google.com/p/django-command-extensions/w/list]
-  - [http://github.com/django-extensions/django-extensions/]
-  - [http://github.com/django-extensions/django-extensions/tree/master/docs]
 * django-filter
   A generic system for filtering Django QuerySets based on user
   selections
