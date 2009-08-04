@@ -48,6 +48,9 @@ def tracker_create(request):
             tracker.save()
             return HttpResponseRedirect(tracker.get_absolute_url())
     else:
+        if not request.muaccount.channels:
+            return HttpResponseRedirect(
+                reverse('muaccounts_account_detail') + '?no_channels=1')
         form = TrackerForm()
     return direct_to_template(
         request, 'crowdsense/tracker_create.html',

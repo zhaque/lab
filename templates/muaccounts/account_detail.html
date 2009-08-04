@@ -6,6 +6,9 @@
 
 {% block title %}Account detail{% endblock %} 
 {% block body %}
+{% if request.GET.no_channels %}
+<p class="warning">You need to select channels below in order to add trackers!</p>
+{% endif %}
 <div class="block">
   <div class="hd"><h2>Your plan</h2></div><div class="bd">
     Your current plan is

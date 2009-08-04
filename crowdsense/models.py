@@ -18,6 +18,9 @@ class Channels(models.Model):
     muaccount = models.OneToOneField(MUAccount, primary_key=True)
     channel_slugs = models.TextField(default='')     # space-separated slugs
 
+    def __nonzero__(self):
+        return bool(self.channel_slugs)
+
     def _reset(self):
         self._slugs_set = None
         self._channels = None
