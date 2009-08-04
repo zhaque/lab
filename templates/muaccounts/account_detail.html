@@ -31,7 +31,7 @@
     <div class="hd"><h2>Channels</h2></div><div class="bd">
       <p>You may select {{user.quotas.crowdsense_channels|default:"no"}} channels.</p>
       <form action="" method="POST" class="uniForm">
-       {{channels_form|as_uni_form}}
+       {{channels_form.as_p}}
        <input type="submit" value="Set">
       </form>
   </div></div>
