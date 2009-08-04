@@ -68,7 +68,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     # third-party
-    #ab 'ab',
     'autoslug',
     'compress',
     'debug_toolbar',
@@ -76,14 +75,8 @@ INSTALLED_APPS = (
     'django_authopenid',
     'django_extensions',
     'django_pipes',
-    'filter',
-    'mailer',
-    'mptt',
-    'notification',
-    'pages',
     'paypal.standard.ipn',
     'perfect404',
-    'piston',
     'profiles',
     'registration',
     'rosetta',
@@ -92,6 +85,14 @@ INSTALLED_APPS = (
     'sso',
     'tagging',
     'oembed',
+    # 3rd party apps currently not used
+    # 'ab',
+    # 'filter',
+    # 'mailer',
+    # 'notification',
+    # 'piston',
+    # 'mptt',
+    # 'pages',
     # own
     'muaccounts',
     'prepaid',
@@ -104,7 +105,7 @@ INSTALLED_APPS = (
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'django_authopenid.context_processors.authopenid',
-    'pages.context_processors.media',
+    #'pages.context_processors.media',
     )
 
 TEMPLATE_DIRS = (os.path.join(KIT_ROOT, 'templates'), )
@@ -142,19 +143,6 @@ COMPRESS_JS = {
                              ),
         'output_filename': 'scripts.js'},
     }
-
-PAGE_TAGGING = True
-PAGE_TINYMCE = False
-PAGE_USE_SITE_ID = True
-PAGE_LANGUAGES = (
-    ('en-gb', 'English'),
-)
-PAGE_UNIQUE_SLUG_REQUIRED = True
-DEFAULT_PAGE_TEMPLATE = 'page.html'
-PAGE_TEMPLATES = (
-    ('page-templates/single-body.html', 'Single body'),
-    ('page-templates/before-and-after.html', 'Content before and after dynamic content'),
-)
 
 
 PAYPAL_TEST = True
@@ -228,6 +216,21 @@ for codename, _junk, css_file in MUACCOUNTS_THEMES[0][2]:
           }
 
 SOLR_URL='http://127.0.0.1:8983/solr/'
+
+# django-page-cms settings currently disabled, to enable un-comment middleware as well as installed apps and settings below
+ 
+# PAGE_TAGGING = True
+# PAGE_TINYMCE = False
+# PAGE_USE_SITE_ID = True
+# PAGE_LANGUAGES = (
+#    ('en-gb', 'English'),
+# )
+# PAGE_UNIQUE_SLUG_REQUIRED = True
+# DEFAULT_PAGE_TEMPLATE = 'page.html'
+# PAGE_TEMPLATES = (
+#    ('page-templates/single-body.html', 'Single body'),
+#    ('page-templates/before-and-after.html', 'Content before and after dynamic content'),
+# )
 
 # Local settings for development / production
 try:
