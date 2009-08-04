@@ -9,34 +9,11 @@
   {% show_content "main-page" "body" %}
 </div></div></div>
 
- <!--<div id="sidebar" class="yui-b">
-  <div class="block">
-    {% if user.is_authenticated %}
-    <div class="hd"><h2>Logged in as <em>{{user}}</em></h2></div><div class="bd">
-      <h3>Your sites</h3>
-      <ul>
-        {% if user.muaccount %}
-        <li><a href="{% url sso %}?next={{user.muaccount.get_absolute_url}}"><strong>{{user.muaccount}}</strong></a> (owner)</li>
-        {% endif %}
-        {% for mua in user.muaccount_member.all %}
-        <li><a href="{% url sso %}?next={{mua.get_absolute_url}}">{{mua}}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-	{% else %}
-    <div class="hd"><h2>Not logged in</h2></div><div class="bd">
-      <p>Please <a href="{% url user_signin %}">log in or sign
-          up</a>.</p>
-    </div>
-    {% endif %}
-  </div>
-</div> 
--->
-
 <div id="bg">
 	<h1>LARGE TEXT! LARGE TEXT</h1>
-	{% oembed 200x160 %}
-	http://www.youtube.com/watch?v=rLTjIoNUGyI
+	{% oembed 320x200 %}
+	http://www.viddler.com/explore/SYSTM/videos/49/
 	{% endoembed %}
+	<div><img src="/media/img/left col.jpg"></img></div>
 </div>
 {% endblock %}
