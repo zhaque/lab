@@ -127,7 +127,7 @@ NOTICE_TYPES = (
      )
 
 _default_css_files = ('yui-app-theme/yuiapp.css',
-                      'crowdsense/style.css',
+                      'crowdsense/css/main.css',
                       )
 
 COMPRESS_CSS = {                        # different themes for MUAs
@@ -181,18 +181,18 @@ MUACCOUNTS_THEMES = (
     # color css
     ('color_scheme', 'Color scheme', (
         ('aqua', 'Aqua', 'yui-app-theme/aqua.css'),
-	('default', 'Default', 'media/css/default.css'),
-	('fireflynight', 'Firefly Night', 'media/css/fireflynight.css'),
-        ('freshair', 'Fresh Air', 'media/css/freshair.css'),
-	('girly', 'Girly', 'media/css/girly.css'),
-	('grayscale', 'Grayscale', 'media/css/grayscale.css'),
-	('grayscalem', 'Grayscale Modified', 'media/css/grayscalemodified.css'),
+	('default', 'Default', 'crowdsense/css/default.css'),
+	('fireflynight', 'Firefly Night', 'crowdsense/css/fireflynight.css'),
+        ('freshair', 'Fresh Air', 'crowdsense/css/freshair.css'),
+	('girly', 'Girly', 'crowdsense/css/girly.css'),
+	('grayscale', 'Grayscale', 'crowdsense/css/grayscale.css'),
+	('grayscalem', 'Grayscale Modified', 'crowdsense/css/grayscalemodified.css'),
 	('green', 'Green', 'yui-app-theme/green.css'),
-	('overcast', 'Overcast', 'media/css/overcast.css'),
-	('pepper', 'Pepper', 'media/css/pepper.css'),
+	('overcast', 'Overcast', 'crowdsense/css/overcast.css'),
+	('pepper', 'Pepper', 'crowdsense/css/pepper.css'),
         ('purple', 'Purple', 'yui-app-theme/purple.css'),
         ('red', 'Red', 'yui-app-theme/red.css'),
-	('sunshine', 'Sunshine', 'media/css/sunshine.css'),
+	('sunshine', 'Sunshine', 'crowdsense/css/sunshine.css'),
         ('tan-blue', 'Tan Blue', 'yui-app-theme/tan_blue.css'),
         )),
     # <body> id
