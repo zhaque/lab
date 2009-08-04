@@ -127,7 +127,7 @@ NOTICE_TYPES = (
      )
 
 _default_css_files = ('yui-app-theme/yuiapp.css',
-                      'crowdsense/style.css',
+                      'crowdsense/css/main.css',
                       )
 
 COMPRESS_CSS = {                        # different themes for MUAs
