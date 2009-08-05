@@ -185,7 +185,7 @@ Table of Contents
 
 3.4.2 Templates
 ---------------
-    Most templates are shared between two projects (apps actually 
+        Most templates are shared between two projects (apps actually 
 	used by both are distinct, and main theme is common). Shared 
 	templates live in  templates/ dir, project-specific ones to 
 	override things live in project's template/ subdir.
@@ -386,19 +386,7 @@ Table of Contents
   - [http://code.google.com/p/django-oembed/]
   - [http://code.google.com/p/django-oembed/wiki/HowToUseIt]
   - [http://github.com/ericflo/django-oembed/tree/master]
-* django-page-cms
-  Used for content management.
-  - [http://code.google.com/p/django-page-cms/]
-  - [http://code.google.com/p/django-page-cms/w/list]
-  + django-mptt
-    Django app for keeping tree structures in database, used
-    internally by django-page-cms.
-    - [http://code.google.com/p/django-mptt/]
-  + html5lib
-    Python library for HTML parsing, used internally by
-    django-page-cms.
-    [http://code.google.com/p/html5lib/]
-  + django-tagging
+* django-tagging
     Tagging support, used by django-page-cms.
     - [http://code.google.com/p/django-tagging/]
 * django-perfect404
@@ -421,6 +409,10 @@ Table of Contents
   Used for numeric hard quotas based on regular Django permission
   system.
   - [http://github.com/mpasternacki/django-quotas/]
+* django-notification
+  Used for user notification support.
+  - [http://github.com/jtauber/django-notification/]
+  - [http://github.com/jtauber/django-notification/blob/master/docs/usage.txt]
 * django-rosetta
   Used for translating and compiling i18n translation files from
   Django admin panel.
@@ -464,10 +456,18 @@ Table of Contents
   - [http://github.com/jtauber/django-mailer/]
   - [http://code.google.com/p/django-mailer/]
   - [http://github.com/jtauber/django-mailer/blob/master/docs/usage.txt]
-* django-notification
-  Used for user notification support.
-  - [http://github.com/jtauber/django-notification/]
-  - [http://github.com/jtauber/django-notification/blob/master/docs/usage.txt]
+* django-page-cms
+  Used for content management.
+  - [http://code.google.com/p/django-page-cms/]
+  - [http://code.google.com/p/django-page-cms/w/list]
+  + django-mptt
+    Django app for keeping tree structures in database, used
+    internally by django-page-cms.
+    - [http://code.google.com/p/django-mptt/]
+  + html5lib
+    Python library for HTML parsing, used internally by
+    django-page-cms.
+    [http://code.google.com/p/html5lib/]
 * django-piston
   Framework for creating externally accessible APIs.
   - [http://bitbucket.org/jespern/django-piston/wiki/Home]
