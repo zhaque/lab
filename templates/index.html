@@ -1,12 +1,11 @@
 {% extends "main.html" %}
-{% load pages_tags %}
 {% load oembed_tags %}
 
-{% block title %}{% show_content "main-page" "title" %}{% endblock %} 
+{% block title %}title{% endblock %} 
 {% block body %}
 <div id="yui-main"><div class="yui-b"><div class="yui-g">
-  <h2>{% show_content "main-page" "title" %}</h2>
-  {% show_content "main-page" "body" %}
+  <h2>title</h2>
+  body
 </div></div></div>
 
 <div id="bg">
@@ -17,3 +16,9 @@
 	<div><img src="/media/img/left col.jpg"></img></div>
 </div>
 {% endblock %}
+
+
+
+
+
+

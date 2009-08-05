@@ -1,16 +1,15 @@
 {% extends "main.html" %}
 
-{% load pages_tags %}
-
-{% block title %}{% show_content "registration-form" "title" %}{% endblock %}
+{% block title %}Registration Form{% endblock %}
 {% block body %}
-<h2>{% show_content "registration-form" "title" %}</h2>
-{% show_content "registration-form" "before" %}
-<form method="post" action="" class="uniForm">
-  <fieldset><legend>Registration form</legend>
+<h2>Fill out this Registration Form</h2>
+<form method="post" action="">
+  <fieldset>
   {{ form.as_p }}
   <input type="submit" value="Submit" />
   </fieldset>
 </form>
-{% show_content "registration-form" "after" %}
 {% endblock %}
+
+
+

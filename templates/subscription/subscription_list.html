@@ -1,11 +1,8 @@
 {% extends "main.html" %}
-{% load pages_tags %}
 
-{% block title %}{% show_content "subscription-list" "title" %}{% endblock %} 
+{% block title %}Plans{% endblock %} 
 {% block body %}
-<h2>{% show_content "subscription-list" "title" %}</h2>
-
-{% show_content "subscription-list" "before" %}
+<h2>Available Plans</h2>
 
 <table rules=all>
   <thead><tr><th>name</th><th>description</th><th>price</th><th>trial</th><th>&nbsp;</th></tr></thead>
@@ -22,6 +19,5 @@
   </tbody>
 </table>
 
-{% show_content "subscription-list" "after" %}
-
 {% endblock %}
+
