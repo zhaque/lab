@@ -18,15 +18,16 @@ Table of Contents
 4 Django-pages-cms integration
 	4.1 Adding CMS Content Example
 	4.2 CMS Only Pages
-5 Default data set
-6 List of third party code
-    6.1 Django applications
-        6.1.1 Used
-        6.1.2 Currently unused
-    6.2 Other code
-        6.2.1 yui-app-theme
-7 Runtime environment
-    7.1 Warnings at startup
+5 Plans & Pricing and Quota
+6 Default Plans and Pricing
+7 List of third party code
+    7.1 Django applications
+        7.1.1 Used
+        7.1.2 Disabled
+    7.2 Other code
+        7.2.1 yui-app-theme
+8 Runtime environment
+    8.1 Warnings at startup
 
 
 1 Getting started
@@ -185,7 +186,7 @@ Table of Contents
 
 3.4.2 Templates
 ---------------
-        Most templates are shared between two projects (apps actually 
+    Most templates are shared between two projects (apps actually 
 	used by both are distinct, and main theme is common). Shared 
 	templates live in  templates/ dir, project-specific ones to 
 	override things live in project's template/ subdir.
@@ -201,6 +202,11 @@ Table of Contents
 	templates to fill in. Here is also defined the footer, 
 	in case of main project the sidebar 'your sites', main tabs,
 	right-side navigation.
+	
+	django-templatesadmin
+	=====================
+	An app to edit the templates. To enable users to edit the templates
+	add them to a group named 'TemplateAdmins'. Create it if not present.
 
 3.4.3 Static files
 ------------------
@@ -321,9 +327,36 @@ Table of Contents
 	templates as well (I suggest to place those in templates/page-templages/) 
 	and use them instead. In this setup, the template actual contents will be used,
 	and placeholders will be replaced with the dynamic content.
+
+5 Plans & Pricing and Quota
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Every kind of quota used in the code is listed in settings.py as QUOTAS. 
+	After the name is a series of numbers; these are values of limits. 
+	After setting or changing the values, manage.py syncdb needs to be run.
+
+	For every value, permission "quotas | quotas | " is created. Additionally, 
+	permission "quotas | quotas | unlimited " is created. These permissions can 
+	be then added to users or groups in admin panel. Number set in the permission 
+	is the quota value for the group/user.
+
+	If user has more than one permission for a quota, bigger number is used 
+	(e.g. "Registered Members" group has "2 crowdsense_trackers" quota, and 
+	"Silver Members" group has "10 crowdsense_trackers", user that is a member 
+	of both groups has quota of 10).
+
+	To add permissions / set quotas for free users, use "Registered Members" group.
+
+	To change quota values seamlessly:
+
+	1. Add new values in settings.py, without deleting old ones
+	2. Run python manage.py syncdb
+	3. In admin panel, add appropriate quota permissions to users delete unused 
+	   values from settings.py (permissions may stay in the database, if this is 
+	   a problem, I may address it later; if values are not in settings.py, 
+	   old permissions are meaningless).
 	
-5 Default data set
-~~~~~~~~~~~~~~~~~~
+6 Default Plans and Pricing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
   By loading exampledata.json, data is populated with:
   - Silver Membership monthly recurring plan, linked to Silver Member group,
     having ability to change muaccount's public status;
@@ -342,14 +375,24 @@ Table of Contents
     "silver" and "gold" account
   - test3 user, password "test", with no plan selected, member of
     "gold" account
+	
+  * Muaccounts StopWords
+  ======================
+	Find the following setting in your Settings.py
+	MUACCOUNTS_SUBDOMAIN_STOPWORDS - Tuple of regular expressions
+	that cannot be used as subdomain names. Default is '("^www$",)'.  
+	Use this to stop users from using reserved domain names or using 
+	profanities as their domain name.  Expressions are tested using 
+	're.search', not 're.match', so without using '^' anchor they 
+	can match anywhere in the domain name.
 
-6 List of third party code
+7 List of third party code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-6.1 Django applications
+7.1 Django applications
 =======================
 
-6.1.1 Used
+7.1.1 Used
 ----------
     Apps actually used by sample code.
 * django-authopenid
@@ -439,7 +482,7 @@ Table of Contents
   - [http://github.com/django-extensions/django-extensions/]
   - [http://github.com/django-extensions/django-extensions/tree/master/docs]
   
-6.1.2 Currently unused
+7.1.2 Currently unused
 ----------------------
     Apps that are not currently used by any of sample code, but are
     included and ready to use.
@@ -475,16 +518,16 @@ Table of Contents
   - [http://bitbucket.org/jespern/django-piston/wiki/FAQ#faq]
 
 
-6.2 Other code
+7.2 Other code
 ==============
 
-6.2.1 yui-app-theme
+7.2.1 yui-app-theme
 -------------------
     A generic, skinnable, Yahoo YUI-based layot for web applications.
     - [http://clickontyler.com/yui-app-theme/]
     - [http://github.com/tylerhall/yui-app-theme/]
 
-7 Runtime environment
+8 Runtime environment
 ~~~~~~~~~~~~~~~~~~~~~
   Project is expected to run on localhost, port 8000 (or any other
   port set in MUACCOUNTS_PORT).  For all sites to work correctly,
@@ -506,7 +549,7 @@ Table of Contents
   in templates/subscription/subscription_detail.html and set PAYPAL_TEST to False in
   project/settings.py.
 
-7.1 Warnings at startup
+8.1 Warnings at startup
 =======================
    When some of dependencies are installed system-wide (especially if
    installed with easy_install), Django may issue warnings similar to
