@@ -49,3 +49,6 @@
 [submodule "upstream/django-oembed"]
 	path = upstream/django-oembed
 	url = git://github.com/ericflo/django-oembed.git
+[submodule "upstream/django-templatesadmin"]
+	path = upstream/django-templatesadmin
+	url = git://github.com/bartTC/django-templatesadmin.git
