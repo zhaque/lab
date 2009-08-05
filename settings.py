@@ -40,10 +40,10 @@ USE_I18N = True
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    #ab 'ab.loaders.load_template_source',
+#   'ab.loaders.load_template_source',
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+#   'django.template.loaders.eggs.load_template_source',
 )
 
 
@@ -55,8 +55,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'sso.middleware.SingleSignOnMiddleware',
-#    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    #ab 'ab.middleware.ABMiddleware',
+#   'debug_toolbar.middleware.DebugToolbarMiddleware',
+#   'ab.middleware.ABMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -84,12 +84,13 @@ INSTALLED_APPS = (
     'south',
     'sso',
     'tagging',
+    'notification',
     'oembed',
+    'templatesadmin',
     # 3rd party apps currently not used
     # 'ab',
     # 'filter',
     # 'mailer',
-    # 'notification',
     # 'piston',
     # 'mptt',
     # 'pages',
@@ -105,8 +106,22 @@ INSTALLED_APPS = (
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'django_authopenid.context_processors.authopenid',
-    #'pages.context_processors.media',
+#   'pages.context_processors.media',
     )
+
+# Settings for templates editing via django admin
+
+TEMPLATESADMIN_GROUP = 'Templates Editor'
+TEMPLATESADMIN_VALID_FILE_EXTENSIONS = (
+        'html', 
+        'htm', 
+        'txt', 
+        'css', 
+        'backup'
+   )
+TEMPLATESADMIN_EDITHOOKS = (    
+        'templatesadmin.edithooks.dotbackupfiles.DotBackupFilesHook',
+   )
 
 TEMPLATE_DIRS = (os.path.join(KIT_ROOT, 'templates'), )
 
