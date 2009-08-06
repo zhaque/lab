@@ -1,0 +1,26 @@
+{% load settings %}
+	<div id="hd">
+        {% include 'header.html' %}
+        <h1><a href="/">{{request.muaccount}}</a>{% if tracker %}: {{tracker}}{% endif %}</h1>
+        <div id="navigation" style="clear:both;">
+          {% if tracker %}
+          <ul id="primary-navigation">
+           {% for ch in tracker.get_channel_classes %}
+            <li{% ifequal ch.slug channel.slug %} class="active"{% endifequal %}>
+              {% url tracker_channel slug=tracker.slug channel_slug=ch.slug as channel_url%}
+              <a href="{{channel_url}}">{{ch.name}}</a></li>
+            {% endfor %}</ul>{% endif %}
+
+
+          <ul id="user-navigation">
+            {% if user.is_authenticated %}
+            {% ifequal user request.muaccount.owner %}
+            <li><a href="{% url muaccounts_account_detail %}">manage site</a></li>
+            {% endifequal %}
+            <li><a href="{% url user_signout %}">logout</a></li>
+            {% else %}
+            <li><a href="{% url user_signin %}">log in or sign up</a></li>
+            {% endif %}
+          </ul>
+       </div>
+    </div>

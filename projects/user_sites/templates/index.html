@@ -1,6 +1,28 @@
-{% extends "main.html" %}
-
-{% block title %}{{request.muaccount}}{% endblock %} 
-{% block body %}
-<h2>Welcome to {{request.muaccount}}</h2>
-{% endblock %}
+{% load compressed %}
+{% load muathemes %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>{{request.muaccount}}</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+    {% compressed_css request.muaccount.theme.color_scheme %}    
+ </head>
+  <body class="{% theme rounded_corners %}">
+    <div id="{% theme page_width %}" class="{% theme layout %}">
+	{% include 'navigation.html' %}
+	
+	<div id="bd">
+        <div id="yui-main"><div class="yui-b"><div class="yui-g">
+              <h2>Welcome to {{request.muaccount}}</h2>
+        </div></div></div>
+		
+		{% include 'sidebar.html' %}
+		
+		{% include 'footer.html' %}
+		
+		{% compressed_js 'all' %}
+		{% block extra_scripts %}{% endblock %}
+	</div>
+  </body>
+</html>

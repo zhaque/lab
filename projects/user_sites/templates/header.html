@@ -1,0 +1,10 @@
+	{% load settings %}
+	{% load thumbnail %}
+	{% if request.muaccount.logo %}
+	<img src="{% thumbnail request.muaccount.logo 128x64 %}" id="site-logo">
+	{% endif %}
+	{% if user.is_authenticated %}
+	<div id="logged-in-user">
+	  Logged in: <a href="{% url sso %}?next={% setting MUACCOUNTS_DEFAULT_URL %}">{{user}}</a>
+	</div>
+	{% endif %}
