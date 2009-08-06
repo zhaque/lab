@@ -144,6 +144,7 @@ NOTICE_TYPES = (
 
 _default_css_files = ('yui-app-theme/yuiapp.css',
                       'crowdsense/css/main.css',
+                      'crowdsense/css/lightbox.css',
                       )
 
 COMPRESS_CSS = {                        # different themes for MUAs
@@ -155,6 +156,7 @@ COMPRESS_CSS = {                        # different themes for MUAs
 COMPRESS_JS = {
     'all': {
         'source_filenames': ('authopenid/js/jquery-1.3.2.min.js',
+                             'crowdsense/js/lightbox.js',
                              ),
         'output_filename': 'scripts.js'},
     }
