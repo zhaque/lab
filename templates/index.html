@@ -1,41 +1,35 @@
-{% extends "main.html" %}
+{% load compressed %}
 {% load oembed_tags %}
 
-{% block title %}CrowdSense{% endblock %} 
-{% block head %}
-<script type="text/javascript" src="media/crowdsense/js/lightbox.js"></script>
-<link rel="stylesheet" href="media/crowdsense/css/lightbox.css" type="text/css">
-{% endblock %} 
-{% block body %}
-<div id="yui-main"><div class="yui-b"><div class="yui-g">
-  <h2>Welcome</h2>
-</div></div></div>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>CrowdSense</title>
+	<link rel="shortcut icon" href="media/crowdsense/img/favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+    {% compressed_css 'all' %}
+    <script type="text/javascript" src="media/crowdsense/js/lightbox.js"></script>
+	<link rel="stylesheet" href="media/crowdsense/css/lightbox.css" type="text/css">
+ </head>
+  <body class="rounded">
+    <div id="doc3">
+	{% include 'navigation.html' %}
+	
+	<div id="yui-main"><div class="yui-b"><div class="yui-g">
+	<h2>Welcome</h2>
+	</div></div></div>
 
-<div id="bg">
-	<h1>LARGE TEXT! LARGE TEXT</h1>
-	{% oembed 320x200 %}
-	http://www.youtube.com/watch?v=MpIOClX1jPE
-	{% endoembed %}
-	<div><a href="media/crowdsense/img/left_col.jpg" rel="lightbox" title="Feature one"><img src="media/crowdsense/img/left_col.jpg"></img></a></div>
-</div>
-{% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<div id="bg">
+		<h1>LARGE TEXT! LARGE TEXT</h1>
+		{% oembed 320x200 %}
+		http://www.youtube.com/watch?v=MpIOClX1jPE
+		{% endoembed %}
+		<div><a href="media/crowdsense/img/left_col.jpg" rel="lightbox" title="Feature one"><img src="media/crowdsense/img/left_col.jpg"></img></a></div>
+	</div>
+	
+	{% include 'footer.html' %}
+	{% compressed_js 'all' %}
+	</div>
+  </body>
+</html>
