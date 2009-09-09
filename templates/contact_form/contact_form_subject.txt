@@ -1,1 +1,0 @@
-[{{site}}] Message from {{name}}
