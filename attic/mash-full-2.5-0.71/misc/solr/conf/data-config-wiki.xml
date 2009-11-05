@@ -1,0 +1,12 @@
+<dataConfig>
+    <dataSource type="FileDataSource" encoding="UTF-8"/>
+    <document>
+        <entity name="page" processor="XPathEntityProcessor" stream="true" forEach="/mediawiki/page/" url="/tmp/enwiki-pages-articles.xml">
+            <field column="id" xpath="/mediawiki/page/id"/>
+            <field column="wiki_title" xpath="/mediawiki/page/title"/>
+            <field column="wiki_text" xpath="/mediawiki/page/revision/text"/>
+			<!-- More fields available (but meaningless): http://wiki.apache.org/solr/DataImportHandler#head-07643dbac58618e4362645127ca510f9b310bebf -->
+        </entity>
+    </document>
+</dataConfig>
+

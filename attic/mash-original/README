@@ -1,0 +1,74 @@
+Project structure modelled after: http://code.djangoproject.com/wiki/BestPracticesToWorkWith3rdPartyAppsAndMakingYoursPortable
+
+
+Conventions:
+* Comments with specific performance improving suggestions are marked  # Performance: 
+
+
+How to use solr admin config:
+- Go to ip:port/admin/mashapp/solrhandlerconfig/ . If you don't see any objects, then go
+  to /app/search and run a query. That generates a default Mashup object (which
+  is the old API configuration object) and a default SolrHandlerConfig object
+  (which is what you want to configure) and attaches the SolrHandlerConfig object
+  to the Mashup object. You can do all this yourself obviously, but running a query
+  on the frontend is easier.
+
+
+See misc/solr/README for solr directory structure
+
+
+** Follow this procedure to install django-voting:
+	Google Code recommends doing the Subversion checkout like so::
+	    svn checkout http://django-voting.googlecode.com/svn/trunk/ django-voting
+	
+	But the hyphen in the application name can cause issues installing
+	into a DB, so it's really better to do this::
+	    svn checkout http://django-voting.googlecode.com/svn/trunk/ voting
+
+	As per http://code.google.com/p/django-voting/source/browse/trunk/INSTALL.txt ,
+		To install it, run the following command inside this directory (trunk):
+	
+	    python setup.py install
+	    
+    
+** Follow this procedure to install pinax:
+    
+    As explained in http://pinaxproject.com/docs/trunk/install.html :
+    make sure you have the latest versions installed of: Subversion, Git, 
+    Mercurial and Bazaar
+    
+    curl -o pinax-boot.py http://svn.pinaxproject.com/pinax/trunk/scripts/pinax-boot.py
+    python pinax-boot.py pinax-env
+    source bin/activate
+    pip install --requirement src/pinax/requirements/external_apps.txt
+
+	
+	Now move the directory where you have the git clone of the project and put 
+	it in pinax-env/ , so you'll get pinax-env/mashup/
+	The directory can go anywhere, but currently PINAX_ROOT in settings.py is 
+	set up relative to pinax-env/
+	Then create a symlink for ~/mashup (this is necessary for solr):
+	  ln -s (.....)pinax-env/mashup ~/mashup
+	
+	Important Note: You need to be in the pinax-env everytime before trying
+	  to python manage.py. To get in the pinax-env, run this command:
+	  source bin/activate
+	  
+	  If you don't, you'll get errors about modules not found.
+	Note: The python-boot.py script installs Django (1.02) for the pinax-env.
+
+	
+	
+How to update django-monetize app (if ever needed):
+  It's possible to follow instructions from http://github.com/lethain/django-monetize/blob/9868c15fa1b4366840f41d64ccbac267aa79e691/README
+  but that makes it an issue to install in every server. 
+  So I just added the whole app to our repo. Nice and simple.
+  If you want to update, you need to clone the repo: http://github.com/lethain/django-monetize/tree/master
+    git clone git://github.com/lethain/django-monetize.git
+  The repo contains this structure:
+  django-monetize/
+    django_monetize/
+    monetize_project/
+  Copy django-monetize/django_monetize into mashup/apps (override the directory there)
+
+  Earn money!

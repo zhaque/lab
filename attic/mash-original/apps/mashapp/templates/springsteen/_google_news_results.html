@@ -1,0 +1,59 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+{# Fields available (refer to each as  {{result.XXfield}}  ): http://code.google.com/apis/ajaxsearch/documentation/reference.html#_class_GnewsResult #}
+<div class="result">
+
+	<h3><a href="{{ result.unescapedUrl }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.image %}
+		{% comment %}
+		Note: Apparently, when the parameter scoring=d, Google doesn't return images for the results
+		
+		"This property is optional. It only appears in a result when the system has determined that there is a good image that represents the cluster of news articles related to this result. It's important to note the the image relates to the cluster of news articles, not just the article that acts as the primary article for this result. Given this, it's very important for your related user interface to not mis-represent the image. You must always display the news source of the article, and the news source of the image as they are often different. You will notice that on Google News, the image is displayed off to the side with full attribution to the source, and that it's hyper-linked to the article associated with the image, not the article associated with the current result." 
+		{% endcomment %}
+		<a href="{{ result.image.originalContextUrl }}" target="_blank">
+			<img src="{{ result.image.tbUrl }}" alt=""/>
+			{{ result.image.publisher }}
+			{{ result.image.title }}
+			{{ result.image.titleNoFormatting }}
+			{{ result.image.url }}
+			{{ result.image.tbWidth  }}
+			{{ result.image.tbHeight  }}
+		</a>
+	{% endif %}
+
+	{% if result.content %}
+	<p class="summary">
+	    {{ result.content|safe }}
+	</p>{% endif%}
+	{% include "springsteen/_votes.html" %}
+
+
+	<p>
+		All other fields: <br/>
+		{{ result.titleNoFormatting }} <br/>
+		{{ result.url }} <br/>
+		{{ result.clusterUrl }} <br/>
+		{{ result.publisher }} <br/>
+		{{ result.location }} <br/>
+		{{ result.publishedDate }} <br/>
+		{{ result.language }} <br/>
+	</p>
+		<div>
+			<h1>Related stories</h1>
+			{% for story in result.relatedStories %}
+				{{ story.title }} <br/>
+				{{ story.titleNoFormatting }} <br/>
+				{{ story.unescapedUrl }} <br/>
+				{{ story.url }} <br/>
+				{{ story.publisher }} <br/>
+				{{ story.location }} <br/>
+				{{ story.publishedDate }} <br/>
+			{% endfor %}
+		</div>
+	
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

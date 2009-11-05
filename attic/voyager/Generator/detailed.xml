@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/widget28"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" android:gravity="center_horizontal"
+	android:layout_gravity="center_horizontal"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<TableLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:layout_gravity="center_horizontal">
+		<TableRow>
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:orientation="horizontal">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text="Id:"
+					android:padding="5sp" android:layout_gravity="right">
+				</TextView>
+				<TextView android:id="@+id/details_id"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:text="none"
+					android:padding="5sp" android:layout_gravity="left"
+					android:textColor="#ffffff" reqname = "id">
+				</TextView>
+			</LinearLayout>
+		</TableRow>
+<TableRow>
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:orientation="horizontal">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text="Title:"
+					android:padding="5sp" android:layout_gravity="right">
+				</TextView>
+				<TextView android:id="@+id/details_title"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:text="none"
+					android:padding="5sp" android:layout_gravity="left"
+					android:textColor="#ffffff" reqname = "title">
+				</TextView>
+			</LinearLayout>
+		</TableRow>
+	</TableLayout>
+
+
+</LinearLayout>

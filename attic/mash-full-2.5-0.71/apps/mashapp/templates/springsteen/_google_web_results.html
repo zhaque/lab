@@ -1,0 +1,27 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+{# Fields available (refer to each as  {{result.XXfield}}  ): http://code.google.com/apis/ajaxsearch/documentation/reference.html#_class_GwebResult #}
+<div class="result">
+
+	<h3><a href="{{ result.unescapedUrl }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.content %}
+	<p class="summary">
+	    {{ result.content|safe }}
+	</p>{% endif%}
+	<a href="{{ result.url }}" target="_blank">{{ result.visibleUrl|clean_url }}</a>
+	{% include "springsteen/_votes.html" %}
+	
+	
+	
+	<p>
+		All other fields: <br/>
+		{{ result.url }} <br/>
+		{{ result.titleNoFormatting }} <br/>
+		{{ result.cacheUrl }} <br/>
+	</p>
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

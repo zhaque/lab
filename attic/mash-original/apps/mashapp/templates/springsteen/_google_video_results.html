@@ -1,0 +1,35 @@
+{% load springsteen %}
+
+{% for result in service.results %}
+
+{# Fields available (refer to each as  {{result.XXfield}}  ): http://code.google.com/apis/ajaxsearch/documentation/reference.html#_class_GvideoResult #}
+{# Additional fields: #}
+{#   duration_string -- For example: 00:30  /  3:02:30 #}
+
+<div class="result">
+
+	<h3><a href="{{ result.url }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.tbUrl %}<img src="{{ result.tbUrl }}" alt=""/>{% endif %}
+	{{ result.duration_string }}
+	{% include "springsteen/_votes.html" %}
+
+
+	<p>
+		All other fields: <br/>
+		{{ result.titleNoFormatting }} <br/>
+		{{ result.content }} <br/>
+		{{ result.published }} <br/>
+		{{ result.publisher }} <br/>
+		{{ result.tbWidth }} <br/>
+		{{ result.tbHeight }} <br/>
+		{{ result.playUrl }} <br/>
+		{{ result.author }} <br/>
+		{{ result.viewCount }} <br/>
+		{{ result.rating }} <br/>
+	</p>
+
+	
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

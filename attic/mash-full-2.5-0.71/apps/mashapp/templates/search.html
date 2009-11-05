@@ -1,0 +1,355 @@
+{% extends "springsteen/base.html" %}
+
+{% block title %}{{ block.super }}: {{ query }}{% endblock %}
+
+{% block head_end %}
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/ui/ui.core.js"></script>
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/ui/ui.tabs.js"></script>
+
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/ui/ui.draggable.js"></script>
+
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/ui/ui.resizable.js"></script>
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/ui/ui.dialog.js"></script>
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/ui/effects.core.js"></script>
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/ui/effects.highlight.js"></script>
+<script type="text/javascript" src="/site_media/jqueryui/development-bundle/external/bgiframe/jquery.bgiframe.js"></script>
+
+
+
+{# Even though you can move the following script and link tags into results.html and it'll work fine in FF & IE, it breaks Safari and Chrome #}
+{# GreyBox Redux - http://jquery.com/demo/grey/ #}
+<script type="text/javascript" src="/site_media/greybox/greybox.js"></script>
+<link href="/site_media/greybox/greybox.css" rel="stylesheet" type="text/css" media="all" />
+
+{# ClueTip - http://plugins.learningjquery.com/cluetip/ #}
+{# DON'T include hoverIntent, because I didn't fix cluetip to work with it: <script src="/site_media/cluetip/lib/jquery.hoverIntent.js" type="text/javascript"></script>  #}
+<script src="/site_media/cluetip/lib/jquery.bgiframe.min.js" type="text/javascript"></script>
+
+<script src="/site_media/cluetip/jquery.cluetip.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/site_media/cluetip/jquery.cluetip.css" type="text/css" />
+
+
+
+       <style type="text/css" media="screen, projection">
+
+			/* The following code came from http://stilbuero.de/jquery/tabs_3/close.html */
+            /* close button */
+            .ui-tabs-nav li {
+                position: relative;
+            }
+            .ui-tabs-selected a span {
+                padding-right: 10px;
+            }
+            .ui-tabs-close {
+                display: none;
+                position: absolute;
+                top: 8px;
+                right: 7px;
+                z-index: 2000;
+                width: 14px;
+                height: 13px;
+                font-size: 10px;
+                font-style: normal;
+                cursor: pointer;
+            }
+            .ui-tabs-selected .ui-tabs-close {
+                display: block;
+            }
+            .ui-tabs-close:hover {
+                color: red;
+            }
+
+        </style>
+
+	<!-- The following was adapted from jqueryUI's 1.7.1 zip download,
+		development-bundle/demos/dialog/modal-form.html
+	 -->
+	<style type="text/css">
+		body { font-size: 62.5%; }
+		label, input { display:block; }
+		input.text { margin-bottom:12px; width:95%; padding: .4em; }
+		fieldset { padding:0; border:0; margin-top:25px; }
+		h1 { font-size: 1.2em; margin: .6em 0; }
+		div#users-contain {  width: 350px; margin: 20px 0; }
+		div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+		div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+		.ui-button { outline: 0; margin:0; padding: .4em 1em .5em; text-decoration:none;  !important; cursor:pointer; position: relative; text-align: center; }
+		.ui-dialog .ui-state-highlight, .ui-dialog .ui-state-error { padding: .3em;  }
+		
+		
+	</style>
+{% endblock %}
+
+{% block body %}
+
+
+
+<form id="search-form" action="onlyworkswithJS" method="get">
+	<p>
+		<input id="query" name="query" value="{{ query|default:"" }}"/>
+		<input id="querysubmit" type="submit" value="Search"/>
+	</p>
+</form>
+
+
+
+
+	<script type="text/javascript">
+		//<![CDATA[
+	$(function() {
+		
+		var search = $("#newtabquery"),
+			allFields = $([]).add(search),
+			tips = $("#validateTips");
+
+		function updateTips(t) {
+			tips.text(t).effect("highlight",{},1500);
+		}
+
+		/* check(): Display a validation tip if a condition fails.
+		 * o: object field that is being checked.
+		 * cond: condition that must be true to validate
+		 * tip: text to show if !cond
+		 */
+		function check(o, cond, tip) {
+
+			if ( !cond ) {
+				o.addClass('ui-state-error');
+				updateTips(tip);
+				return false;
+			} else {
+				return true;
+			}
+
+		}
+
+
+		var search_function = function() {
+			var bValid = true;
+			allFields.removeClass('ui-state-error');
+
+			bValid = bValid && check(search, search.val().length > 0, "Please enter a search.");
+			
+			if (bValid) {
+				// Create a new tab to the far right with the search results
+				var $tabs = $("#tabs").tabs();
+				var tab_count = $tabs.tabs('length');
+				
+				// We need to tell the results view that we are using =on for
+				// services that are enabled and nothing for the others
+				// so we pass this _formenabled, which is checked by the view.
+				var url = '/app/results/?_formenabled=true&' + $("#newtabform").serialize();  //  + '?query=' + encodeURIComponent(search.val());
+				
+				$tabs.tabs('add', 
+					url,  // anchor of the new tab. It must be unique or tabs break.
+					search.val(),  // tab label
+					tab_count - 1);  // Insert it before the "+"
+				$tabs.tabs('select', tab_count - 1);
+
+				$("#dialog").dialog('close');
+			}
+			
+			return false; // necessary when we attach it to form submit
+		};
+
+		$("#newtabform").submit(search_function);
+
+		$("#dialog").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 400,
+			modal: true,
+			buttons: {
+				'Search': search_function,
+				Cancel: function() {
+					$(this).dialog('close');
+				}
+			},
+			close: function() {
+				allFields.val('').removeClass('ui-state-error');
+			}
+		});
+		
+	});
+	//]]>
+	</script>
+
+
+
+<div id="dialog" title="Add New Search Group">
+	<p id="validateTips"></p>
+
+	<form id='newtabform' action="#">
+	<fieldset>
+		<label for="newtabquery">Search:</label>
+		<input type="text" name="query" id="newtabquery" class="text ui-widget-content ui-corner-all" />
+		{{ form.as_p }}
+
+	</fieldset>
+	</form>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+	// <![CDATA[
+	$(function() {
+		/*
+		 * Set up tabs
+		 */
+		var $tabs = $("#tabs").tabs({
+			// Make it only load once each tab's contents.
+			// Otherwise it reloads each time you select the tab.
+			ajaxOptions: { cache: true },
+			cache: true
+
+		});
+		
+		var static_tab_autoincrement = 10;  // an autoincrementing helper
+		var results_tab = 1;  // index of the Results tab
+
+		$tabs.tabs('add', 
+			'#tabs-' + static_tab_autoincrement++,  // anchor of the new tab. It must be unique or tabs break.
+			'Results',  // tab label
+			results_tab);
+
+		$tabs.bind('tabsadd', function(event, ui) {
+			// New tabs (all except Trends, Results and "+") get a [x] for closing it
+			// The following code came from http://stilbuero.de/jquery/tabs_3/close.html
+			
+            // append close thingy
+            $(ui.tab).parents('li:first')
+                .append('<em class="ui-tabs-close" title="Close Tab">[x]</em>')
+                .find('em')
+                .click(function() {
+					var i = $('li', $tabs).index($(this).parents('li:first')[0]);
+					
+					// I modified the behaviour from silbuero.de because
+					// we must avoid triggering the code for tabselected for tab "+"
+					// So first select the previous tab and then remove this tab
+					$tabs.tabs('select', i - 1);
+                    $tabs.tabs('remove', i);
+                });
+				
+            // select just added tab
+            $tabs.tabs('select', '#' + ui.panel.id);
+        });
+
+
+
+		/*
+		 * All <a> inside the Trends tab must open in Results tab
+		 */
+		$('#tabs-1 a').click(function() {
+			var 
+			tab_count = $tabs.tabs('length');
+			var url = this.href;
+			$tabs.tabs('url', results_tab, url);
+			$tabs.tabs('select', results_tab);
+
+            return false;
+        });
+
+
+		/*
+		 * Intercept the tabselect event: when the "+" tab is selected, hijack
+		 * the event and instead of selecting the tab, open a new tab
+		 */
+		$tabs.bind('tabsselect', function(event, ui) {
+			// Objects available in the function context:
+			//    ui.tab     // anchor element of the selected (clicked) tab
+			//    ui.panel   // element, that contains the selected/clicked tab contents
+			//    ui.index   // zero-based index of the selected (clicked) tab
+			
+			var tab_count = $tabs.tabs('length');
+
+	 		if(ui.index == tab_count - 1) {
+				$('#dialog').dialog('open');
+
+				return false;  // Stop default behaviour -- don't select the "+" tab
+			}
+
+			return true;
+		});
+
+
+
+		/*
+		 * When the submit button on the search form is clicked, run search on Results tab
+		 */
+		function_submit = function(query) {
+			query = query;
+			var url = '/app/results/?query=' + encodeURIComponent(query);  // DON'T use encode() - it doesn't handle Unicode
+
+
+			$tabs.tabs('url', results_tab, url);
+			$tabs.tabs('select', results_tab); 
+			$tabs.tabs('load', results_tab); 
+
+		    return false;
+		};
+		$('#querysubmit').click(function() {function_submit($("#query").attr('value'));});
+		$('#search-form').submit(function(event) {
+			event.preventDefault();
+			function_submit($("#query").attr('value'));
+		});
+
+
+
+		/*
+		 * Poll the server for new tweets.
+		 */
+		var poll_time = 10000;  // How frequently to poll the server for new tweets, in miliseconds
+		var poll_function = function() {
+			// The poll is with respect to this tab's query
+			var query = $("#queryx").html();
+			
+			if(query) {
+				$.getJSON("/app/twitter/poll?q=" + query, 
+					function(resp) {
+						var newResults = resp['new'];
+						
+						if(newResults > 0) {
+							$("#new-results").html("" + newResults 
+								+ ' more results since you started searching. Click <a class="refresh" href="#">Refresh</a> to see them.');
+							
+							$(".refresh").click(function() {
+								function_submit(query);  // Run the whole query again
+							});
+						}
+						else
+							$("#new-results").html("");
+					}
+				);
+			}
+			setTimeout(poll_function, poll_time);
+		};
+		setTimeout(poll_function, poll_time);
+	});
+	// ]]>
+	</script>
+
+
+
+
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Trends</a></li>
+		<li><a href="someirrelevanttext">+</a></li>
+	</ul>
+	<div id="tabs-1">
+		{% with TwitterTrendsService as service %}
+			{% include "springsteen/_trends.html" %}
+		{% endwith %}
+	</div>
+	<div id="tabs-2">
+	</div>
+</div>
+
+
+
+
+{% endblock %}

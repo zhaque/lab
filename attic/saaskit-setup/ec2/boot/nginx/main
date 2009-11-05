@@ -1,0 +1,12 @@
+server {
+    listen ec2-174-129-235-249.compute-1.amazonaws.com:80;
+    server_name	crowdsense.net;
+
+    access_log /var/log/crowdsense/main/nginx_access.log;
+    error_log /var/log/crowdsense/main/nginx_error.log;
+
+    location / {
+        proxy_pass    http://127.0.0.1:80/;
+        include       /etc/nginx/proxy.conf;
+    }
+}

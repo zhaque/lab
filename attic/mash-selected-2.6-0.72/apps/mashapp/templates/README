@@ -1,0 +1,18 @@
+Django standard filters: http://docs.djangoproject.com/en/dev/topics/templates/#filters
+
+Our own filters are in .py files in templatetags. They have comments on what they do.
+
+
+Convention: HTML file fragments (files that are {% include %}'ed by other
+  files) have a leading underscore, as in _twitter_results.html (which
+  is included by results.html)
+
+
+
+To use media: CSS, JavaScript, images, etc.
+--------------------------------------------
+Place the media in folder mashup/media and then reference it inside
+the HTML by this path: /site_media/
+
+Example: mashup/media/javascript/mycode.js
+becomes: <script type="text/javascript" src="/site_media/javascript/mycode.js"

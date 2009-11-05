@@ -1,0 +1,12 @@
+{% load springsteen %}
+
+{% for trend in service.results %}
+	{% comment %}
+	Fields available: Fields as included in http://search.twitter.com/trends/current.json
+	trend.name -- a friendly name
+	trend.query -- Note that this sometimes includes "OR": Masters OR #masters
+	trend.query_encoded -- URL-encoded version
+	{% endcomment %} 
+	
+	<p><a href="/app/results?query={{ trend.query_encoded }}" target="_blank">{{ trend.name }}</a></p>
+{% endfor %}

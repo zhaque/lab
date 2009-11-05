@@ -1,0 +1,30 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:stretchColumns="1">
+
+	<TableRow>
+		<TableLayout
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:stretchColumns="0"
+			android:gravity="left">
+			<TableRow>
+				<LinearLayout 
+					android:layout_width="fill_parent"
+					android:orientation="horizontal"
+					android:layout_height="50sp">
+					<TextView android:id="@+id/watch_item_code"
+						android:text="" android:layout_height="fill_parent"
+						android:layout_width="wrap_content" android:paddingLeft="2dip"
+						android:textSize="18sp" android:textColor="#ffffff"
+						android:textStyle="bold" reqname="id"/>
+					<TextView android:id="@+id/watch_item_exchange"
+						android:text="" android:layout_height="fill_parent"
+						android:layout_width="wrap_content" android:paddingLeft="2dip"
+						android:textSize="10sp" android:textColor="#ffffff"
+						android:textStyle="normal" />
+				</LinearLayout>
+			</TableRow>
+		</TableLayout>
+	</TableRow>
+</TableLayout>

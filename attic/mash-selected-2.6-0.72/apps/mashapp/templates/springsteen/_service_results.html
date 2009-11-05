@@ -1,0 +1,61 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+
+{% comment %}
+Available fields:
+* Delicious Popular / Recent: Fields as provided in springsteen.services.DeliciousPopularService.decode():
+  title --
+  url --
+  tags --
+  datetime --
+
+* Metaweb: Fields as provided in springsteen.services.MetawebService.decode():
+  title --
+  url --
+  alias -- 
+  tags -- array of freebase "topics" the result has (Person, Politician, etc.)
+  thumbnail_url -- The thumbnail size can be adjusted in decode()
+
+* Amazon: Fields as provided in springsteen.services.AmazonProductService.decode():
+  title --
+  url --
+  thumbnail_url --
+
+* Technorati: Fields as provided in springsteen.services.TechnoratiSearchService.decode():
+  title --
+  url --
+  abstract --
+
+* Twitter Search: NOTE: This service is not used any more. We use Twitter Solr now (_twitter_results.html)
+  Fields as shown in http://search.twitter.com/search.json?q=Obama
+
+{% endcomment %}
+
+<div class="result">
+
+	<h3><a href="{{ result.clickurl|default:result.url }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.thumbnail_url %}<img src="{{ result.thumbnail_url }}" alt=""/>{% endif %}
+	{% if result.text %}
+	<p class="summary">
+	    {{ result.text|safe }}
+	</p>{% endif%}
+	{% if result.abstract %}
+	<p class="summary">
+	    {{ result.abstract|safe }}
+	</p>{% endif%}
+	{% if result.tags %}
+		<div>
+			{% for tag in result.tags %}
+				<span class="tag">{{ tag }}</span>
+			{% endfor %}
+		</div>
+	{% endif %}
+	<a href="{{ result.clickurl|default:result.url }}" target="_blank">{{ result.url|clean_url }}</a>
+			{% include "springsteen/_votes.html" %}
+
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

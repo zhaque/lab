@@ -1,0 +1,306 @@
+2009/4/28:
+- Fixed bug in search.html & search.js: Trends don't open inside the search space in the page
+
+
+2009/4/24:
+- Added sort by Relevance/Date to the front end and backend.
+  ** Please read mashup/apps/springsteen/services.py, under SolrTwitterService.
+     I added a long comment explaining how the query is built.
+- Added django-monetize. Tutorial: http://lethain.com/entry/2008/aug/29/dynamic-ad-targeting-with-django-monetize/
+  Settings in settings.py. Templates in mashup/apps/mashapp/templates/django_monetize.
+  
+  It's possible to follow instructions from http://github.com/lethain/django-monetize/blob/9868c15fa1b4366840f41d64ccbac267aa79e691/README
+  but that makes it an issue to install in every server. 
+  So I just added the whole app to our repo. Nice and simple.
+  See README here for how to update django-monetize from github if ever needed.
+
+
+2009/4/22:
+- Added solr query params to admin.
+ ** Must run: python manage.py reset mashapp
+  As specified on README file here:
+	How to use solr admin config:
+	- Go to ip:port/admin/mashapp/solrhandlerconfig/ . If you don't see any objects, then go
+	  to /app/search and run a query. That generates a default Mashup object (which
+	  is the old API configuration object) and a default SolrHandlerConfig object
+	  (which is what you want to configure) and attaches the SolrHandlerConfig object
+	  to the Mashup object. You can do all this yourself obviously, but running a query
+	  on the frontend is easier.
+
+- Finished date picker functionality for tweets. No validation (if you enter a date in a format that Django doesn't understand, it'll just be ignored).
+  The code that polls the server every 10 seconds to see if new tweets are in, was updated to also poll with the date params (this fixes an issue where you'd get a phony "there are X new tweets since you last searched")
+
+
+2009/4/21:
+- Added datepickers. Validation, format conversion and other date issues in progress...
+- Removed tabs. Very basic layout for now
+- Added jQuery autocomplete plugin to the main search box
+- Fixed Unicode bug in TwitterTrendsService
+
+
+2009/4/20:
+- Added view /app/autocomplete?q=<query> for autocomplete. It grabs the JSON
+  from solr facet prefix query and returns it in a simple text format for the
+  jQuery Autocomplete plugin.
+- Commented out unnecessary services:
+	Stay in mashup:
+	*Google web, images, news, videos, blogs
+	*Twitter solr
+	*Delicious popular & delicious recent
+	
+	Stay but are not used:
+	*Twitter search api 
+	*Solr vertical
+	*Picasa
+	
+	Must go from mashup:
+	*BOSS web, images, news
+	*Freebase
+	*Amazon books
+	*Technorati
+	*Solr wiki
+
+
+2009/4/16:
+- "new results" update (search.twitter.com). Now the client polls every 10s
+  for new tweets (this can be adjusted in search.html, poll_time)  
+- row transformer for extracting http://* pattern into shortlinks_sm (data-config.xml)
+
+
+2009/4/15:
+- Fixed AddToAny popup didn't work in Safari
+- Fixed Unicode bugs in JavaScript and in services.py
+
+
+2009/4/14:
+- Added neat close on mouset-out to cluetip source
+- Fixed Safari & Chrome issues with cluetip
+- Fixed '+' tab bugs
+- Made results.html and search.html valid XHTML 1.0 Transitional ==> thus fixed
+  Twitter popup Firefox issue
+
+
+2009/4/13:
+- Fixed one Unicode bug but there are many left (documented).
+- Fixed IE JavaScript bug.
+- Made all anchors (<a>) with target="_blank" so that they pop a new window, 
+  instead of navigating away from our site! ;-)
+- Added error detection to Follow on twitter:
+   * To show when you're already following
+   * To redirect to login if the authentication fails
+- Added all fields to the HTML templates that are available without modifying
+  the backend.
+- Added "mashup/Django Templating Summary.doc" as a summary to get a designer
+  started on Django templating
+
+
+2009/4/12:
+- Added to Twitter Solr results: Pop-up Twitter description, Reply/Retweet, Follow.
+  Added GreyBox plugin (LGPL) http://jquery.com/demo/grey/
+  Added ClueTip plugin (Dual MIT/GPL) http://plugins.learningjquery.com/cluetip/
+
+2009/4/09:
+- Added Twitter current trends in services.py and on the front page.
+- Fixed a Picasa web search bug.
+
+- Added profanity filter. Words and regex can be configured in settings.py.
+  Our code improves on the contrib.comments profanity filter by avoiding the
+  false positives of Scunthorpe (the name of a town that contains the substring "cunt")
+  and the like
+
+2009/4/08:
+- Added AddToAny, and added process_result_share to every service! -- No simple deal.
+- Merged all Springsteen services from mashup.services into springsteen.services.
+  No more import problems.
+
+
+2009/4/07:
+- Added follow_on_twitter view
+
+
+2009/4/06:
+- Added follow_on_twitter view
+
+
+2009/4/06:
+- Added django-voting
+ ** Must install django-voting as per README here
+ ** Must run: python manage.py reset mashapp
+- Changed all services to produce a result ID so that it can be voted on
+
+
+2009/4/05:
+- Changed behaviour in tabs. Added jqueryUI dialog to elicit search for a new tab.
+
+
+2009/4/04:
+- Added jQueryUI tabs. I wish it had more official documentation!!!
+
+
+2009/4/03:
+- Added twitter solr backend enable/disable.
+ ** Must run: python manage.py reset mashapp
+
+- Import Twitter from XML, not Atom
+- Added twitter solr service
+- Fixed bug in delicious search service (from Springsteen): tags never have
+  spaces, so since the service searches tags, we must strip spaces
+
+2009/4/01:
+- Finished wrapping up APIs & templates
+
+
+2009/3/31:
+- Began wrapping up APIs & templates.
+- Added required HTTP referrer header for Google APIs
+- Added Picasa web search & admin options
+- Added Google Video search & admin options!
+ ** Must run: python manage.py reset mashapp
+
+
+2009/3/30:
+- Added Google Blog search
+
+- Added Google search admin options -- too many!
+ ** Must run: python manage.py reset mashapp
+
+- Made fixes to Yahoo Images rendering to adhere to restrictions imposed 
+  by BOSS terms.
+
+2009/3/27:
+- Added "beta stage" Google Web, Images, News search. 
+  TODO: Layout. Add admin backend. 
+
+
+2009/3/26:
+- Added dataimport-twitter
+
+- Completed the script and instructions to install solr and run DIH for wiki!
+  ** Read misc/solr/README
+
+- When DEBUG=True, print URLs of APIs queried.
+
+
+2009/3/25:
+- Indexing Wiki is a work in progress. Please don't yet try to follow the instructions.
+
+- Added Google News admin options.
+ ** Must run: python manage.py reset mashapp
+
+
+2009/3/24:
+- Added Google AJAX Search API, for News.
+ ** Must run: python manage.py reset mashapp
+
+- Fixed a problem with Solr search. When the search string contained a space,
+  we used to first re-write it with a plus (+), and then urlencode it,
+  ending up with %2B. Twitter, for example, handles this OK, but Solr doesn't
+  like it. So I changed our code to urlencode it straight into a plus (+)
+
+- Fixed bug in Amazon search service
+
+- Added debugging functionality: If exceptions occur in any thread (the ones
+  that fetch API results), it shows a message on the output page.
+
+- Fixed schema.xml for cheese. It was missing the field "name" (cheese name).
+
+
+2009/3/23:
+- Slight visual change in Mashapp admin
+
+- Removed django-cms from repo. CMS tables linger in the database
+  without causing trouble.
+
+2009/3/20:
+- Added SolrService to search Solr and display the results.
+  ** Note that settyings.py has the following line, so the solr server
+     must be in localhost:8983:
+       SOLR_SERVER = "http://localhost:8983/solr/select"
+  
+     To set up the Solr server, go to the folder
+     [solr svn]/trunk/example/solr/conf and symlink schema.xml
+     to [mashup]/misc/solr/cheese/schema.xml
+     
+     From [solr svn]/trunk/example run:
+     java -jar start.jar
+     
+     Post the XML (on another terminal):
+     java -jar [solr svn]/trunk/example/exampledocs/post.jar [mashup]/misc/solr/cheese/cheese.xml
+
+  ** Must run:  python manage.py reset mashapp
+
+2009/3/18:
+- Merged with basic-project from pinax. Used pinax off the trunk.
+
+  ** Follow this procedure to install:
+    
+    As explained in http://pinaxproject.com/docs/trunk/install.html :
+    make sure you have the latest versions installed of: Subversion, Git, 
+    Mercurial and Bazaar
+    
+    curl -o pinax-boot.py http://svn.pinaxproject.com/pinax/trunk/scripts/pinax-boot.py
+    python pinax-boot.py pinax-env
+    source bin/activate
+    pip install --requirement src/pinax/requirements/external_apps.txt
+
+	
+	Now move the directory where you have the git clone of the project and put 
+	it in virtualenv/ , so you'll get virtualenv/mashup/
+	The directory can go anywhere, but currently PINAX_ROOT in settings.py is 
+	set up relative to virtualenv/
+	Then create a symlink for ~/mashup (this is necessary for solr):
+	  ln -s (.....)virtualenv/mashup ~/mashup
+	
+	Important Note: You need to be in the virtualenv everytime before trying
+	  to python manage.py. To get in the virtualenv, run this command:
+	  source bin/activate
+	  
+	  If you don't, you'll get errors about modules not found.
+	Note: The python-boot.py script installs Django (1.02) for the virtualenv.
+	
+	
+	Lastly, the usual (assumming you are already in the virtualenv):
+	  python manage.py syncdb
+	  python manage.py runserver
+	  
+	  
+2009/3/17:
+- Added django-cms.
+  I didn't install TinyMCE, the web HTML editor. If we go all out with CMS, this
+   editor will be needed.
+  ** To install: Create a symlink 
+     from [Django svn trunk]/django/contrib/admin/media/cms
+     to [project root]/apps/cms/media
+     This is necessary to serve the CSS and JS that the CMS admin uses.
+  
+  To use it, go to the admin site, Pages. Add a page. You can jump to the live 
+  page by clicking the View link to the right of it.
+  django-cms is bundled with LocaleMiddleware, so all URLs are prefixed with the
+  language, so the root page would be at ip:port/en
+  I left the root ip:port/ pointing to /app/search for convenience 
+  (/app/search is outside the CMS)
+  
+  Note: We are using the Django SVN trunk, which is incompatible with django-cms.
+  I haven't run into problems with this yet.
+  http://trac.django-cms.org/trac/wiki/GettingStarted#urls.py
+
+
+2009/3/13
+  ** Must run:  manage.py reset mashapp
+- Added Amazon images display
+
+- Refactored code in springsteen.services to incorporate new parameters 
+  (from the admin Mashup).
+
+- Added all API parameters to admin's Mashup.
+
+- Added visual description of a Mashup to the admin interface (in the list of Mashups)
+
+2009/3/12
+- Added "backend admin": Implemented BOSS APIs parameters
+  mashapp.models.Mashup hold the parameters.
+  admin.py registers the admin modules
+  Modified springsteen.services to use the parameters.
+  ** Must run manage.py reset mashapp
+
+- Changed directory structure to follow best practice.

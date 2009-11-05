@@ -1,0 +1,346 @@
+/**************************************************************************************
+Global
+**************************************************************************************/
+
+#global {
+  padding: 15px;
+}
+
+  #left {
+    float: left;
+    width: 300px;
+  }
+
+  #right {
+    float: left;
+    margin: 0; padding: 0;
+    width: 600px;
+  }
+
+.slide-in-out-content .default, .slide-in-out-content .disabled, .slide-in-out-content .selected, .slide-in-out-content .excluded {
+  display: none;
+}
+
+.clearboth {
+  clear: both;
+}
+
+
+/**************************************************************************************
+Results
+**************************************************************************************/
+
+#results .result {
+  padding: 2px 3px; margin: 0 0 5px 0;
+}
+
+    #results .result:hover {
+
+    }
+
+    #results .even {
+
+    }
+
+    #results .odd {
+
+    }
+
+#results .result h1 {
+  font: bold 14px Arial, Helvetica, sans-serif; color: #709400;
+}
+
+#results .result p {
+  margin-left: -4px;
+  font: 11px Arial, Helvetica, sans-serif; color: #8f8f8f;
+}
+
+#results .result a {
+  font-weight: bold; color: #3976b7;
+}
+
+#results .result a:hover {
+  font-weight: bold; color: #3976b7;
+}
+
+/**************************************************************************************
+Slide in/out box
+**************************************************************************************/
+
+/* block */
+.slide-in-out-block {
+  margin: 4px 0 0 0;
+  width: 220px;
+  border: 1px solid #c1c1c1; background-color: #dfe3d4;
+}
+
+  /* header */
+  .slide-in-out-block .slide-in-out-header {
+    padding: 6px;
+    width: 220px;
+    cursor: pointer;
+
+  }
+
+      .slide-in-out-block .slide-in-out-header span {
+        margin: 0 0 0 20px;
+        font: bold 12px Arial, Helvetica, sans-serif; color: #6c6f65;
+      }
+
+  /* content */
+  .slide-in-out-block .slide-in-out-content {
+    padding: 5px;
+    border-top: 1px solid #888;
+  }
+
+    p {
+      padding: 4px 0 2px 5px;
+      font: 11px Arial, Helvetica, sans-serif; color: #868686;
+    }
+
+    .slide-in-out-block .slide-in-out-content a.reset {
+      float: right; margin: -2px 4px 0 0;
+      font: 11px Arial, Helvetica, sans-serif; color: #868686;
+      text-decoration: none;
+    }
+
+    slide-in-out-block .slide-in-out-content a.reset:hover {
+      color: #404040;
+      text-decoration: underline;
+    }
+
+    
+/**************************************************************************************
+Facets slider
+**************************************************************************************/
+
+.ui-slider {
+  position: relative;
+  margin: 20px 0 10px 5px;
+  height: 8px; width: 200px;
+  background-color: #acacac;
+}
+
+  .ui-slider .label-1 {
+    position: absolute; left: 0; top: -18px;
+    font: 11px Arial, Helvetica, sans-serif; color: #868686;
+  }
+
+  .ui-slider .label-2 {
+    position: absolute; right: 0; top: -18px;
+    font: 11px Arial, Helvetica, sans-serif; color: #868686;
+  }
+
+  /* handle to move */
+  .ui-slider .ui-slider-handle {
+    position: absolute; top: -3px; z-index: 2;
+    width: 12px; height: 12px;
+    background-color: #cac5a4; border: 2px solid #91918f;
+  }
+
+    .ui-slider .ui-slider-handle:hover {
+      background-color: #cac5a4; border: 2px solid #91918f;
+    }
+
+    .ui-slider .ui-slider-handle-active, .ui-slider-handle-active:hover {
+      background-color: #cac5a4; border: 2px solid #91918f;
+    }
+
+  /* bar */
+  .ui-slider .ui-slider-range {
+    position: absolute; top: -1px; z-index: 1;
+    height: 8px;
+    background: #dadada url(../images/uquery/slider-background.png) 0 50% repeat-x;
+    border: 1px solid #d3d3d3; border-left: 0; border-right: 0;
+    opacity: 0.7; filter: Alpha(Opacity=70);
+  }
+
+  
+/**************************************************************************************
+Facets search
+**************************************************************************************/
+
+input.search-box-facet {
+  width: 204px;
+  font: 12px Arial, Helvetica, sans-serif; color: #404040;
+  border: 1px solid #888; background-color: #ccd3b8;
+}
+
+
+/**************************************************************************************
+Facets list
+**************************************************************************************/
+
+ul.facet-list {
+  display: inline;
+  margin: 0 0 18px 0;
+}
+
+  ul.facet-list li {
+    margin :0;
+    padding: 1px 0;
+    font: 11px Arial, Helvetica, sans-serif;
+    list-style: none;
+  }
+
+    ul.facet-list li .default {
+      color: #868686;
+      cursor: pointer;
+    }
+
+   ul.facet-list li .disabled {
+      color: #b3b3b3;
+    }
+
+   ul.facet-list li .selected {
+      font-weight: bold; color: #6c6f65;
+    }
+
+   ul.facet-list li .excluded {
+      color: #b3b3b3;
+   }
+
+     ul.facet-list li .number {
+       font-weight: bold; color: #868686;
+     }
+
+ 
+/**************************************************************************************
+Facets case
+**************************************************************************************/
+
+ul.facet-case {
+  
+}
+
+ul.facet-case li {
+  list-style: none;
+}
+  
+  ul.facet-case .default, ul.facet-case .disabled, ul.facet-case .selected {
+    float: left;
+    margin: 4px; padding: 2px 6px;
+    font: bold 12px Arial, Helvetica, sans-serif; color: #404040;
+    cursor: pointer;
+  }      
+
+  ul.facet-case .default {
+  }
+
+  ul.facet-case .disabled {
+    color: #c0c5b4;
+  }
+
+  ul.facet-case .selected {
+    color: #888;
+  }
+
+
+/**************************************************************************************
+Pagination
+**************************************************************************************/
+
+.pagination {
+  float: right;
+  font: 11px Arial, Helvetica, sans-serif; color: #404040;
+}
+
+  .pagination a {
+    color: #666;
+    text-decoration: none;
+    border: 1px solid #8a8a8a; background-color: #ccd3b8;
+  }
+
+  .pagination a, .pagination span {
+    display: block;
+    float: left;
+    margin-right: 5px; margin-bottom: 5px; padding: 0.2em 0.5em 0.1em 0.5em;
+  }
+
+  .pagination .current {
+    border: 1px solid #8a8a8a;  background: #d1b4b4;
+  }
+
+    .pagination .current.prev, .pagination .current.next {
+      border: 1px solid #8a8a8a; background-color: #ccd3b8;
+    }
+
+    
+/**************************************************************************************
+Scroll block
+**************************************************************************************/
+
+/* custom scroll block */
+.scroll-pane {
+  float: left;
+  margin: 4px 0 4px 0; padding: 6px;
+  width: 197px; height: 150px;
+  overflow: auto;
+  border: 1px solid #e5e5e5;
+}
+
+/* default */
+.jScrollPaneContainer {
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.jScrollPaneTrack {
+	position: absolute;
+	cursor: pointer;
+	right: 0;
+	top: 0;
+	height: 100%;
+	background: #aaa;
+}
+.jScrollPaneDrag {
+	position: absolute;
+	background: #666;
+	cursor: pointer;
+	overflow: hidden;
+}
+.jScrollPaneDragTop {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+.jScrollPaneDragBottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+}
+a.jScrollArrowUp {
+	display: block;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	/*background-color: #666;*/
+	height: 9px;
+}
+a.jScrollArrowUp:hover {
+	/*background-color: #f60;*/
+}
+
+a.jScrollArrowDown {
+	display: block;
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	/*background-color: #666;*/
+	height: 9px;
+}
+a.jScrollArrowDown:hover {
+	/*background-color: #f60;*/
+}
+a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+	/*background-color: #f00;*/
+}

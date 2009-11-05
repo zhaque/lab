@@ -1,0 +1,52 @@
+Server Paths
+-------------
+
+The following server paths must be adhered to for the solr config to work.
+
+~/solr\ svn: Either check out or symlink the solr svn repo here 
+  (so for example the trunk will be at ~/solr\ svn/trunk).
+~/mashup: Create a ln -s from (....)virtualenv/mashup to this directory, ~/mashup
+~/solrserver: This directory will be created by setup_server.sh below.
+  It'll contain the example solr server.
+
+Note that settyings.py has the following line, so the solr server
+must be in localhost:8983 (which is the default):
+  SOLR_SERVER = "http://localhost:8983/solr/select"
+
+
+  ** To set up the Solr server, 
+       ~/mashup/misc/solr/setup_server.sh
+     
+     Note that it symlinks the solr/conf directory to the one on the repo,
+     so that solr knows our schema, the DIH config, etc.
+     
+  ** Once the server is running, in another terminal, post the cheese.xml:
+       java -jar ~/solrserver/exampledocs/post.jar ~/mashup/misc/solr/cheese/cheese.xml
+
+  ** To import English wikipedia: 
+     Go to http://download.wikimedia.org/enwiki/, select the lastest folder,
+     download pages-articles.xml.bz2, such as 
+     http://download.wikimedia.org/enwiki/20090306/enwiki-20090306-pages-articles.xml.bz2
+     Rename it to:
+       /tmp/enwiki-pages-articles.xml
+
+	 Then run DataImportHandler by browsing to this URL (The clean=false
+	 overrides the default behaviour, which is to clean up the whole DB before
+	 the import):
+	   http://localhost:8983/solr/dataimport-wiki?command=full-import&clean=false
+	 
+	 You can query the status of the import at:  
+	   http://localhost:8983/solr/dataimport-wiki
+	   
+	 Apparently nothing bad happens if you cancel the operation mid-way by
+	 Control+C on the solr terminal. What's already processed is accessible
+	 in the index.
+
+  ** To import twitter from public_timeline:
+	   http://localhost:8983/solr/dataimport-twitter?command=full-import&clean=false
+
+  ** To start the server again:
+       cd ~/solrserver
+	   java -jar start.jar 
+     
+  	 

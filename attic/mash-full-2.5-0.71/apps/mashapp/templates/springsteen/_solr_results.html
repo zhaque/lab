@@ -1,0 +1,36 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+
+{% comment %}
+Fields available: As returned by Solr. See <field> tags in /misc/solr/schema.xml .
+{% endcomment %}
+
+<div class="result">
+
+	<h3>{{ result.name|truncatewords_html:10|safe }}</h3>
+	
+	{% if result.imageUrl %}<img style="height: 75px" src="{{ result.imageUrl }}" alt=""/>{% endif %}
+    {% if result.country %} 
+    <p>
+        <b>Country:</b>
+        {{ result.country }}
+        <BR/>
+        <b>Texture:</b>
+        {{ result.texture }}
+        <BR/>
+        <b>Milk:</b>
+        {{ result.milk }}
+    </p>
+    {% endif %}
+	{% if result.description %}
+	<p class="summary">
+	    {{ result.description|truncatewords_html:30|safe }}
+	</p>{% endif%}
+	{% include "springsteen/_votes.html" %}
+
+	
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

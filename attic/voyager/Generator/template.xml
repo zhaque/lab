@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mainpackage name="com.axhive" mainclass="Voyager"/>
+<listview packagename="listview" path="listview.xml"/>
+<detailview packagename="detailview" path="detailview.xml"/>
+<mainview path="main_view.xml"/>
+<requestaddr URL="http://ec2-67-202-7-247.compute-1.amazonaws.com:8983/solr/select/">
+	<requestparam name="wt" type="gen">json</requestparam>
+	<requestparam name="q" type="req"/>
+</requestaddr>

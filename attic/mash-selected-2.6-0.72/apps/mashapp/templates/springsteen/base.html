@@ -1,0 +1,37 @@
+{# Template from http://www.w3.org/QA/2002/04/valid-dtd-list.html #}<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+    <head>
+        <title>{% block title %}Search Mashup{% endblock %}</title>
+		<meta http-equiv="content-type" 
+			content="text/html;charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+
+        {# YUI #}
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/fonts/fonts-min.css&amp;2.7.0/build/grids/grids-min.css&amp;2.7.0/build/base/base-min.css"/>
+		{# TODO: This is just a hack to separate tag span's #}
+        <style type="text/css">
+            span.tag {
+                margin-right: 10px
+            }
+        </style>
+		
+		
+		{# jQuery & jQueryUI #}
+		<link type="text/css" href="/site_media/jqueryui/development-bundle/themes/base/ui.all.css" rel="stylesheet" />
+		<script type="text/javascript" src="/site_media/javascript/jquery.js"></script>
+		
+		{#<link type="text/css" href="/site_media/css/themes/blue.css" rel="stylesheet" />#}
+		
+		
+		
+		
+		{% block head_end %}
+		{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

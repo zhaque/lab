@@ -1,0 +1,4 @@
+--- 
+solr: 
+  server_url: http://ec2-67-202-7-247.compute-1.amazonaws.com:8983/solr/select/ 
+  url: http://localhost:8983/solr/select/

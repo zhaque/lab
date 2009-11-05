@@ -1,0 +1,31 @@
+{% load springsteen %}
+
+{% for result in service.results %}
+
+{% comment %}
+Picasa returns tons of info, but it does so in a format unfriendly to
+Django, so they are processed in springsteen.services.PicasaWebSearchService.decode()
+
+These is the data that PicasaWebSearchService exposes currently:
+title -- 
+tbUrl -- thumbnail image url
+unescapedUrl -- URL of the page that shows the image and related info
+
+To see the other info that could be made available through PicasaWebSearchService, hit http://jsonformatter.curiousconcept.com/
+and run JSON Data From URL: http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=Obama&hl=en_US&max-results=2
+{% endcomment %}
+
+<div class="result">
+
+	<h3><a href="{{ result.unescapedUrl }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.tbUrl %}<img src="{{ result.tbUrl }}" alt=""/>{% endif %}
+			{% include "springsteen/_votes.html" %}
+	<p>
+		All other fields: <br/>
+		Must update the service in order to get more fields.
+	</p>
+
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

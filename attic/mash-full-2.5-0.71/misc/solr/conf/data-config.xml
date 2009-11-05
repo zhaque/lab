@@ -1,0 +1,57 @@
+<dataConfig>
+	<script><![CDATA[
+		function findUrls(row){
+			var regex = new RegExp("(http://[^ ]*)", 'ig');
+			
+			var str = row.get('title_t');
+			var myArray;
+			var l = new java.util.ArrayList();
+			while ((myArray = regex.exec(str)) != null)
+			{
+				l.add(myArray[0]);
+				row.put('shortlinks_sm', l);
+			}
+			
+			return row;
+		}
+	
+        ]]></script>
+    <dataSource type="HttpDataSource" encoding="UTF-8"/>
+	<!--_partners_nrab481 -->
+    <document>
+        <entity name="twitter"
+         pk="id"
+         url="http://twitter.com/statuses/public_timeline.xml"
+         processor="XPathEntityProcessor"
+		 transformer="DateFormatTransformer, TemplateTransformer, script:findUrls"
+         forEach="/statuses/status">
+            
+            <field column="id" xpath="/statuses/status/id"/>
+            <field column="title_t" xpath="/statuses/status/text"/>
+			
+			<!-- Example: <created_at>Fri Apr 03 17:29:07 +0000 2009</created_at> 
+			http://wiki.apache.org/solr/DataImportHandler#head-c3a51c5669edcc5bd5007fcc3d2a3be889b3cf4b
+			Format string: http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html
+			-->
+            <field column="created_at_dt" xpath="/statuses/status/created_at" dateTimeFormat="E MMM dd hh:mm:ss Z yyyy"/>
+            <field column="source_facet" xpath="/statuses/status/source"/>
+            <field column="truncated_b" xpath="/statuses/status/truncated"/>
+            <field column="in_reply_to_status_id_i" xpath="/statuses/status/in_reply_to_status_id"/>
+            <field column="in_reply_to_user_id_i" xpath="/statuses/status/in_reply_to_user_id"/>
+            <field column="favorited_b" xpath="/statuses/status/favorited"/>
+			<field column="provider_s" template="twitter"/>
+			
+            <field column="author_id_i" xpath="/statuses/status/user/id"/>
+            <field column="author_name_s" xpath="/statuses/status/user/name"/>
+            <field column="author_screen_name_s" xpath="/statuses/status/user/screen_name"/>
+            <field column="author_description_t" xpath="/statuses/status/user/description"/>
+            <field column="author_location_facet" xpath="/statuses/status/user/location"/>
+            <field column="author_profile_image_url_s" xpath="/statuses/status/user/profile_image_url"/>
+            <field column="author_url_s" xpath="/statuses/status/user/url"/>
+            <field column="author_protected_b" xpath="/statuses/status/user/protected"/>
+            <field column="author_followers_count_i" xpath="/statuses/status/user/followers_count"/>
+        </entity>
+    </document>
+
+</dataConfig>
+

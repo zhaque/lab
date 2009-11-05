@@ -1,0 +1,60 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+
+{% comment %}
+Fields available: As returned by Solr. See /misc/solr/data-import.xml .
+Also:
+  url -- URL of the tweet at twitter.com
+{% endcomment %}
+
+<div class="result">
+
+	<div id="callout{{ result.author_id_s }}" style="display: none;">
+		<img width="48" height="48" alt="" src="{{ result.author_profile_image_url_s }}"/>
+		<h3>{{ result.author_name_s|truncatewords_html:10 }}</h3>
+		{{ result.author_description_t }}
+		<br/>
+		<a href="/app/twitter/user/{{ result.author_id_s }}/follow/?username_to_follow={{ result.author_name_s|truncatewords_html:10 }}" class="follow_greybox">Follow</a>
+	</div>
+	
+	    {# <a target="_blank"    href="http://twitter.com/{{ result.author_screen_name_s }}"> #}
+
+	      <img width="48" height="48" alt="" class="tips" rel="#callout{{ result.author_id_s }}" src="{{ result.author_profile_image_url_s }}"/>
+	    {#</a>#}
+
+	      <a href="http://twitter.com/{{ result.author_screen_name_s }}" target="_blank">{{ result.author_name_s }}</a> 
+		  <a href="{{ result.url }}" target="_blank">{{ result.title_t }}</a>
+	    <div>
+	        <em>{{ result.created_at_dt }}</em>
+	    </div>
+		
+		{# Reply #}
+		{# <a href="/app/twitter/tweet/{{ result.id }}/reply/?screen_name_to_reply={{ result.author_screen_name_s }}" class="reply_greybox">Reply</a>	#}
+		<a href="https://twitter.com/home?status=@{{ result.author_screen_name_s }}&amp;in_reply_to_status_id={{ result.id }}&amp;in_reply_to={{ result.author_screen_name_s }}" target="_blank">Reply</a>
+
+		{# Retweet #}
+		<a href="https://twitter.com/home?status=RT%20@{{ result.author_screen_name_s }}&amp;in_reply_to_status_id={{ result.id }}&amp;in_reply_to={{ result.author_screen_name_s }}" target="_blank">Retweet</a>
+	
+
+          <p class="summary">
+		All other fields: <br/>
+            {{ result.author_followers_count_i }} <br/> 
+            {{ result.author_id_s }} <br/> 
+            {{ result.author_location_s }} <br/>  
+            {{ result.author_protected_b }} <br/> 
+            {{ result.author_screen_name_s }} <br/> 
+            {{ result.author_url_s }} <br/> 
+            {{ result.favorited_b }} <br/> 
+            {{ result.source_s }} <br/> 
+            {{ result.truncated_b }}   
+          </p>
+
+	{% include "springsteen/_votes.html" %}
+
+
+	
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

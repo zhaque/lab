@@ -1,0 +1,4 @@
+* * * * * /ebs/web/scripts/cron/send_mail.sh
+* * * * * /ebs/web/scripts/cron/emit_notices.sh
+0-59 * * * * /ebs/web/scripts/cron/auto_index.sh
+0,20,40 * * * * /ebs/web/scripts/cron/cron/retry_deferred.sh

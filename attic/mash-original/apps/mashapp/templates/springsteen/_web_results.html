@@ -1,0 +1,30 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+
+{% comment %}
+Available fields:
+* BOSS Web: Except count, start, totalhits & deephits, all those listed at http://developer.yahoo.com/search/boss/boss_guide/ch02s02.html
+{% endcomment %}
+
+<div class="result">
+
+	<h3><a href="{{ result.clickurl }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.abstract %}
+	<p class="summary">
+	    {{ result.abstract|safe }}
+	</p>{% endif%}
+	<a href="{{ result.clickurl }}" target="_blank">{{ result.dispurl|clean_url }}</a>
+			{% include "springsteen/_votes.html" %}
+	<p>
+		All other fields: <br/>
+		{{ result.size }} <br/>
+		{{ result.date }} <br/>
+		{{ result.language }} <br/>
+	</p>
+
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

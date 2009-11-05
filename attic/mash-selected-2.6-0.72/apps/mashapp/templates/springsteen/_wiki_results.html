@@ -1,0 +1,32 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+
+{% comment %}
+Fields available: As returned by Solr. See <field> tags in /misc/solr/schema.xml .
+Also:
+url --
+{% endcomment %}
+
+<div class="result">
+
+	<h3><a href="{{ result.url }}" target="_blank">{{ result.wiki_title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.wiki_text %}
+	<!--p class="summary">
+	    {{ result.wiki_text|truncatewords_html:30|safe }}
+	</p-->
+	{% endif%}
+	{% include "springsteen/_votes.html" %}
+
+	<p>
+		All other fields: <br/>
+		There are more fields available at http://wiki.apache.org/solr/DataImportHandler#head-07643dbac58618e4362645127ca510f9b310bebf
+		but they are meaningless. data-config-wiki.xml must be updated first and
+		the data must be imported.
+	</p>
+	
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

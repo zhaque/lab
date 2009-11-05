@@ -1,0 +1,19 @@
+<VirtualHost 127.0.0.1:80>
+    ServerAdmin admin@crowdsense.net 
+    ServerName crowdsense.net 
+    ServerAlias *.crowdsense.net
+
+    <Directory /ebs/web/crowdsense/crowdsense.com/projects>
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+    LogLevel debug 
+    ErrorLog  /var/log/crowdsense/user_sites/apache_error.log
+    CustomLog /var/log/crowdsense/user_sites/apache_access.log combined
+    
+    WSGIDaemonProcess user_sites user=www-data group=www-data threads=25
+    WSGIProcessGroup user_sites 
+    WSGIScriptAlias / /ebs/web/crowdsense/crowdsense.com/projects/user_sites/user_sites_wsgi_handler.py
+</VirtualHost>
+

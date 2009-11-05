@@ -1,0 +1,44 @@
+{% load springsteen %}
+
+{% for result in service.results %}
+<div class="result">
+
+	{% comment %}
+	Fields available: Except totalhits & deephits, all those listed at http://developer.yahoo.com/search/boss/boss_guide/response_image.html
+	
+	 Important: We must adhere to these restrictions:  http://developer.yahoo.com/search/boss/boss_guide/Submit_Image_Queries.html#optional_args_image
+	 Requirements: You must
+1.      display the title or abstract of the image when presented in the search results;
+2.      display at least the first 40 characters of the referurl field which indicates the source page;
+3.      for the source page referurl, use the unmodified referclickurl field to navigate to the respective source page;
+4.      If the image is made clickable, either use unmodified refereclickurl (to the source HTML page) or clickurl (to the image) for the navigation link.
+	{% endcomment %}
+
+	<h3><a href="{{ result.refererclickurl }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.thumbnail_url %}<a href="{{ result.refererclickurl }}"  target="_blank"><img src="{{ result.thumbnail_url }}" alt=""/>{% endif %}</a>
+	
+{#   2.      display at least the first 40 characters of the referurl field which indicates the source page;  #}
+	<a href="{{ result.refererclickurl }}" target="_blank">{{ result.refererurl|clean_url:40 }}</a>
+	{% include "springsteen/_votes.html" %}
+
+
+	<p>
+		All other fields: <br/>
+		{{ result.abstract }} <br/>
+		{{ result.clickurl }} <br/>
+		{{ result.filename }} <br/>
+		{{ result.size }} <br/>
+		{{ result.format }} <br/>
+		{{ result.height }} <br/>
+		{{ result.date }} <br/>
+		{{ result.mimetype }} <br/>
+		{{ result.url }} <br/>
+		{{ result.width }} <br/>
+		{{ result.thumbnail_height }} <br/>
+		{{ result.thumbnail_width }} <br/>
+	</p>
+
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}

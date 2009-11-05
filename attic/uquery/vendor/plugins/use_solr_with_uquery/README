@@ -1,0 +1,29 @@
+UseSolrWithUquery
+=================
+
+This plugin allow you to display the results from Solr using the
+javascript uQuery library.
+
+Installation
+============
+
+1. Add routes :
+
+map.solr
+
+2. Rake task to copy files from the plugin into your application
+
+  $ rake use_solr_with_uquery:install
+  - copy jquery / UI files into public folder
+  - create configuration file and config loader
+
+Example
+=======
+
+Example goes here.
+
+Contributors
+============
+
+Vincent Peres
+vincent@koonen.com

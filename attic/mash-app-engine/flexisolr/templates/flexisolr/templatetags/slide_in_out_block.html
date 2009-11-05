@@ -1,0 +1,10 @@
+{% load flexisolr %}
+<div class="slide-in-out-block">
+    <div class="slide-in-out-header">
+        <span>{{ name }}</span>
+    </div>
+    <div class="slide-in-out-content">
+        {% slider_facet facet %}
+        <br class="clear" />
+    </div>
+</div>

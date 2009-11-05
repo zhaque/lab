@@ -1,0 +1,13 @@
+<div class="pagination">
+  <span class="step-links">
+  {% if service.has_previous %}
+  <a href="?query={{ query }}&amp;start={{ service.previous_start }}">previous page</a>
+  {% endif %}
+  <span class="current">
+  {{ service.range.0 }}-{{ service.range.1 }} of {{ service.total_results }} results
+  </span>
+  {% if service.has_next %}
+  <a href="?query={{ query }}&amp;start={{ service.next_start }}">next page</a>
+  {% endif %}
+  </span>
+</div>

@@ -1,0 +1,18 @@
+{% extends "springsteen/base.html" %}
+
+{% block title %}{{ block.super }}{% endblock %}
+
+{% block body %}
+
+
+{% if error %}
+	{{ error }}
+{% endif %}
+
+Please enter your Twitter login:
+<form action="." method="post">
+{{ form.as_p }}
+<input type="submit" value="Follow"/>
+</form>
+
+{% endblock %}

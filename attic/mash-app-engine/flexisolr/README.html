@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title>Flexisolr application</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="flexisolr-application">
+<h1 class="title">Flexisolr application</h1>
+<div class="section">
+<h1><a id="configuration" name="configuration">Configuration</a></h1>
+<p>Flexisolr application has it's own settings module (settings.py) which must be import ed in main settings module with line</p>
+<pre class="literal-block">
+from flexisolr.settings import *
+</pre>
+<p>There in flexisolr.settings are defined few variables. Configuration is set with it's values. They are explained below.</p>
+<pre class="literal-block">
+FLEXISOLR_OPTIONS = {
+    'url': '/flexisolr/data.json',
+    'url_server': '',
+    'url_options': '&amp;version=4',
+    'pagination_area': 'pagination',
+    'require_keyword': 1
+}
+</pre>
+<p>General javascript options:</p>
+<blockquote>
+<ul class="simple">
+<li>url: Url of your application which returns facets for JS, simply do not change;</li>
+<li>url_server: hostname of server returning JSON (previous option), simply do not change;</li>
+<li>url_options: options copied from ROR app;</li>
+<li>pagination_area: id of html container where pagination is output;</li>
+<li>require_keyword: 1 if search form requires some keyword, 0 if keyword is not required;</li>
+</ul>
+</blockquote>
+<pre class="literal-block">
+FLEXISOLR_FACETS = (
+    ('boost', {
+        'type': 'double',
+        'auto_request': False,
+        'slider_min': 1,
+        'slider_max': 9,
+        'slider_min_text': '1',
+        'slider_max_text': '10'
+        }),
+    ('site_age_l', {
+        'type': 'double',
+        'auto_request': False,
+        })
+    )
+</pre>
+<p>FLEXISOLR_FACETS holds definition of facets (after SOLR confiration).  It is a list of lists, each has facet field as it's first element and dictionary of options. Options have 'type' key mandatory and other obligatory. Type can be 'double', 'single' or 'list'. They call  uquery (solr-js) methods createDoubleSlider, createSingleSlider, createFiltersList. Options can be different, they depend on type, default are:</p>
+<blockquote>
+<ul class="simple">
+<li>for 'double':</li>
+</ul>
+</blockquote>
+<pre class="literal-block">
+   {
+         auto_request: true,
+         value: 'middle',
+         value_fixe: '',
+         slider_min: '',
+         slider_max: '',
+         slider_min_text: '',
+         slider_max_text: ''
+       };
+
+- for single:
+</pre>
+<pre class="literal-block">
+   {
+         auto_request: true,
+         value_min: '',
+         value_max: '',
+         slider_min: '',
+         slider_max: '',
+         slider_min_text: '',
+         slider_max_text: ''
+       }
+
+- for list:
+</pre>
+<pre class="literal-block">
+{
+      search_box: '',
+      value: '*',
+      filters: '',
+      states: { },
+      sort: false,
+      custom_name: '{name}',
+      custom_number: '{number}'
+    }
+</pre>
+<p>Flexisolr does nothing with these values except that it generates Javascript code which performs uquery object calls. So for details of what options mean what refer to uquery.js.</p>
+<pre class="literal-block">
+FLEXISOLR_FILTERS = {
+    'title': { 'field': 'title' },
+    'summary': { 'field': 'summary_t' },
+    'url': { 'field': '&lt;a href=&quot;{url}&quot;&gt;{url}&lt;/a&gt;', 'type': 'custom' },
+    'boost': { 'field': 'boost', 'default_value': '-' },
+    'site_age': { 'field': 'site_age_l', 'default_value': '-' }
+}
+</pre>
+<p>Filters definition is a dictionary. Each key is a name of filter. Each value is dictionary itself, can contain pairs with key name &quot;field&quot; (which is field) and key mame &quot;title&quot;, which can be &quot;custom&quot; if &quot;field&quot; is not listed in it.</p>
+<pre class="literal-block">
+SOLR_CONFIG = {
+    'solr': {
+        'server_url': 'http://173.45.231.157/solr/select/'
+        }
+    }
+</pre>
+<p>This is very important setting, the URL is /solr/select/ URL of your SOLR installation. Please keep in mind for GAE installation sthat GAE can fetch only from port 80 from other hosts.</p>
+</div>
+<div class="section">
+<h1><a id="template-tags" name="template-tags">Template tags</a></h1>
+<p>First you need to load template tags library: <em>{% load flexisolr %}</em> .
+These two template tags must come first, they load required JS libraries and CSS files <em>{% include_jquery_js %}</em> and <em>{% include_jquery_css %}</em>.</p>
+<p>Next, for each defined filter you should insert tag: <em>{% slide_in_out_block 'Page Authority' 'slider_boost' %}</em>
+'Page Authority' is title of HTML block, and 'slider_boost' is name of filter in configuration data structure.
+Name of field is created after name of field from dictionaries in FLEXISOLR_FILTERS.</p>
+<p>Keyword input textfield and results along with paginator are output by this markup fragment::</p>
+<pre class="literal-block">
+&lt;input type=&quot;text&quot; name=&quot;keyword&quot; id=&quot;keyword&quot; /&gt;
+&lt;input type=&quot;submit&quot; id=&quot;submit-query&quot; value=&quot;Run Report&quot; /&gt;
+&lt;br /&gt;
+&lt;p class=&quot;results-informations&quot;&gt;
+  search results : &lt;b class=&quot;results-count&quot;&gt;&lt;/b&gt;
+  (display &lt;b class=&quot;results-from&quot;&gt;&lt;/b&gt; to &lt;b class=&quot;results-to&quot;&gt;&lt;/b&gt;)
+&lt;/p&gt;
+&lt;br /&gt;
+&lt;div id=&quot;pagination&quot; class=&quot;pagination&quot;&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;div id=&quot;results&quot;&gt;
+  &lt;div id=&quot;results-loader&quot;&gt;
+    &lt;p&gt;Please wait while loading data...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;results-empty&quot;&gt;
+    &lt;p&gt;No results.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;results-keyword-require&quot;&gt;
+    &lt;p&gt;Please enter a keyword.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;results-loop&quot;&gt;
+    &lt;div class=&quot;result&quot;&gt;
+      &lt;h1 class=&quot;title&quot;&gt;&lt;/h1&gt;
+      &lt;p class=&quot;summary&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;
+        Page Authority :
+        &lt;span class=&quot;boost&quot;&gt;&lt;/span&gt; |
+        Age of Site :
+        &lt;span class=&quot;site_age&quot;&gt;&lt;/span&gt;
+        &lt;br /&gt;
+        &lt;span class=&quot;url&quot;&gt;&lt;/span&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<p>After these tags, best - just before &lt;/body&gt; tag, {% include_solr_js %}.</p>
+</div>
+<div class="section">
+<h1><a id="example-for" name="example-for">Example for</a></h1>
+<p>I suppose you have set up Django project (or GAE Dango project) and have flexisolr app installed. Also, you have template file which gets rendered to browser successully, let it has name &quot;template.html&quot;. I suppose you have facet &quot;age of site&quot; in your SOLR which field is called &quot;site_age_l&quot;.</p>
+<p>To have uquery up and running you have to edit configuration and edit template.html.</p>
+<ol class="arabic simple">
+<li>Edit configuration:</li>
+</ol>
+<p>Assure flexisolr.settings contain code:</p>
+<pre class="literal-block">
+FLEXISOLR_OPTIONS = {
+    'url': '/flexisolr/data.json',
+    'url_server': '',
+    'url_options': '&amp;version=4',
+    'pagination_area': 'pagination',
+    'require_keyword': 1
+}
+FLEXISOLR_FACETS = (
+    ('site_age_l', {
+        'type': 'double',
+        'auto_request': False,
+        })
+    )
+FLEXISOLR_FILTERS = {
+    'site_age': { 'field': 'site_age_l', 'default_value': '-' }
+}
+SOLR_CONFIG = {
+    'solr': {
+        'server_url': 'http://{whatever your hostname is}/solr/select/'
+        }
+    }
+</pre>
+<p>2) Edit template.html:
+Insert code::</p>
+<pre class="literal-block">
+{% load flexisolr %}
+{% include_jquery_js %}
+{% include_jquery_css %}
+{% slide_in_out_block 'Age of Site' 'slider_site_age' %}
+    &lt;input type=&quot;text&quot; name=&quot;keyword&quot; id=&quot;keyword&quot; /&gt;
+    &lt;input type=&quot;submit&quot; id=&quot;submit-query&quot; value=&quot;Run Report&quot; /&gt;
+    &lt;br /&gt;
+    &lt;p class=&quot;results-informations&quot;&gt;
+      search results : &lt;b class=&quot;results-count&quot;&gt;&lt;/b&gt;
+      (display &lt;b class=&quot;results-from&quot;&gt;&lt;/b&gt; to &lt;b class=&quot;results-to&quot;&gt;&lt;/b&gt;)
+    &lt;/p&gt;
+    &lt;br /&gt;
+    &lt;div id=&quot;pagination&quot; class=&quot;pagination&quot;&gt;&lt;/div&gt;
+    &lt;br /&gt;
+    &lt;div id=&quot;results&quot;&gt;
+      &lt;div id=&quot;results-loader&quot;&gt;
+        &lt;p&gt;Please wait while loading data...&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;results-empty&quot;&gt;
+        &lt;p&gt;No results.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;results-keyword-require&quot;&gt;
+        &lt;p&gt;Please enter a keyword.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;results-loop&quot;&gt;
+        &lt;div class=&quot;result&quot;&gt;
+          &lt;h1 class=&quot;title&quot;&gt;&lt;/h1&gt;
+          &lt;p class=&quot;summary&quot;&gt;&lt;/p&gt;
+          &lt;p&gt;
+            Page Authority :
+            &lt;span class=&quot;boost&quot;&gt;&lt;/span&gt; |
+            Age of Site :
+            &lt;span class=&quot;site_age&quot;&gt;&lt;/span&gt;
+            &lt;br /&gt;
+            &lt;span class=&quot;url&quot;&gt;&lt;/span&gt;
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+{% include_solr_js %}
+</pre>
+<dl class="docutils">
+<dt>This can be recombined, but keep in mind:</dt>
+<dd><ol class="first last loweralpha simple">
+<li>{% load flexisolr %} goes first, before another your templates (not before extend tag if you use templates extending)</li>
+<li>{% include_jquery_js %} and {% include_jquery_css %} usually inserted into &lt;head&gt;&lt;/head&gt;</li>
+<li>{% slide_in_out_block 'Age of Site' 'slider_site_age' %} and big markup fragment must go after {% include_jquery_js %} and {% include_jquery_css %}</li>
+<li>{% include_solr_js %} must go after {% slide_in_out_block 'Age of Site' 'slider_site_age' %} and big markup fragment .</li>
+</ol>
+</dd>
+</dl>
+<p>That's all, refresh page, get uquery working.</p>
+</div>
+<div class="section">
+<h1><a id="installation-of-flexisolr" name="installation-of-flexisolr">Installation of flexisolr</a></h1>
+<p>Project I created is jsut a container project for flexisolr app. When you start use newer app-engine-patch or simply new Django project you have empty project skeleton. To use Flexisolr app with this new project you have to:</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Copy flexisolr folder into the project.</li>
+<li>Add 'flexisolr' into INSTALLED_APPS inside prokject's settings.py.</li>
+<li>Add ('^flexisolr/', include('flexisolr.urls')) to urls.py urlpatterns.</li>
+<li>Add line 'from flexisolr.settings import *' to project's settigns.py.</li>
+</ol>
+</blockquote>
+<p>After this you are able to use temnplate tags in your own templates.</p>
+</div>
+</div>
+</body>
+</html>

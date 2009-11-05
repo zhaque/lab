@@ -1,0 +1,59 @@
+{% extends 'layouts/layout_2_columns_narrow_left_column.html' %}
+{% load flexisolr %}
+
+{% block js.custom %}
+{% include_jquery_js %}
+{% endblock %}
+
+{% block css.custom %}
+{% include_jquery_css %}
+{% endblock %}
+
+{% block yahooui %}id="doc3" class="yui-t3"{% endblock yahooui %}
+
+{% block 1 %}
+    {% slide_in_out_block 'Page Authority' 'slider_boost' %}
+    {% slide_in_out_block 'Age of Site' 'slider_site_age' %}
+{% endblock 1 %}
+
+{% block 2 %}
+    <input type="text" name="keyword" id="keyword" />
+    <input type="submit" id="submit-query" value="Run Report" />
+    <br />
+
+    <p class="results-informations">
+      search results : <b class="results-count"></b>
+      (display <b class="results-from"></b> to <b class="results-to"></b>)
+    </p>
+
+    <br />
+    <div id="pagination" class="pagination"></div>
+    <br />
+
+    <div id="results">
+      <div id="results-loader">
+        <p>Please wait while loading data...</p>
+      </div>
+      <div id="results-empty">
+        <p>No results.</p>
+      </div>
+      <div id="results-keyword-require">
+        <p>Please enter a keyword.</p>
+      </div>
+      <div id="results-loop">
+        <div class="result">
+          <h1 class="title"></h1>
+          <p class="summary"></p>
+          <p>
+            Page Authority :
+            <span class="boost"></span> |
+            Age of Site :
+            <span class="site_age"></span>
+            <br />
+            <span class="url"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+{% include_solr_js %}
+{% endblock 2 %}

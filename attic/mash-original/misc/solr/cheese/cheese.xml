@@ -1,0 +1,242 @@
+<add>
+	<doc>
+		  <field name="id">1</field>
+		  <field name="name">Munster Gerome</field>
+		  <field name="country">France</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">8</field>
+		  <field name="regulaPrice">20.58</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Munster_220_Product.jpg</field>
+		  <field name="description">Munster Géromé is produced in an area that not only makes very pungent cheeses, but also excellent spicy wines. Its production center is the pretty village of Munster, set amid pastures and vineyards. A young Munster cheese has a thin but firm pinkish-red rind with white paste. As it matures the rind turns to a darker russet color with a deep straw-colored interior. The paste is soft and supple with small holes in it. It becomes almost creamy in texture as it matures. The maturation time is usually 2 to 3 months.</field>
+	</doc>
+	<doc>
+		  <field name="id">2</field>
+		  <field name="name">Brillat-Savarin</field>
+		  <field name="country">France</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">17.6</field>
+		  <field name="regulaPrice">33.06</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Brillatavarin_Product.jpg</field>
+		  <field name="description">Brillat-Savarin is a decadent triple cream gourmet cheese; one of the richest cheeses. A taste to be savored when you are feeling truly ready to be pampered. Brillat-Savarin was created by Henri Androuet. He gave it the name of the famous 18th century French gastronome, Jean-Anthelme Brillat-Savarin, the author of the 'Physiologie du gout' (Physiology of Taste), published in 1826; 'Tell me what you eat and I will tell you what you are.' Brillat-Savarin is made from pasteurized cow's milk, enriched with cream.</field>
+	</doc>
+	<doc>
+		  <field name="id">3</field>
+		  <field name="name">Bettine Grand Cru</field>
+		  <field name="country">Netherlands</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Firm</field>
+		  <field name="milk">Goat</field>
+		  <field name="weight">13</field>
+		  <field name="regulaPrice">22.90</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Bettine_GC_Product.jpg</field>
+		  <field name="description">Bettine Grand Cru is an amazing Dutch gourmet cheese made of pasteurized goat milk and matured according to tradition for 10 months. The light colored cheese has a delicate spicy flavor that lingers in your mouth without being overpowering. We are convinced that you like this Netherlands Grand Cru. The result of this long maturation time is a cheese that will earn your praise once you have tasted it. Even for those of you who usually prefer cow's milk cheeses, we would you encourage you to try this cheese</field>
+	</doc>
+  	<doc>
+		  <field name="id">4</field>
+		  <field name="name">Brunet</field>
+		  <field name="country">Italy</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Goat</field>
+		  <field name="weight">9</field>
+		  <field name="regulaPrice">24.24</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Brunet_Alta_Langa_Product.jpg</field>
+		  <field name="description">Brunet is a young goat's milk cheese from Piedmont region in Italy. The cheese is a small round thin disk of 8.8 ounces. It has a soft thin bloomy rind and a soft and creamy interior. There is no reason to discard the rind it is very edible. </field>
+	</doc>
+  	<doc>
+		  <field name="id">5</field>
+		  <field name="name">Banon</field>
+		  <field name="country">France</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Mixed Milk</field>
+		  <field name="weight">10</field>
+		  <field name="regulaPrice">36.19</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Banon_Product.jpg</field>
+		  <field name="description">Banon A.O.C. is a goat or cow's milk gourmet cheese, wrapped in chestnut leaves or grape leaves that has been soaked in white wine (eau de vie), and tied with raffia. The leaves also ripen in concert with the cheese adding an interesting variant to the flavor of the cheese. Banon is named for the French market town of Banon in northern Provence. Banon cheese is white and slightly crumbly with a faint lactic smell. The flavor is mild with a hint of sourness. As a true French gourmet cheese, Banon has been a member of the A.O.C. family </field>
+	</doc>
+  	<doc>
+		  <field name="id">6</field>
+		  <field name="name">Beenleigh Blue</field>
+		  <field name="country">United Kingdom</field>
+		  <field name="imported">No</field>
+		  <field name="texture">Semi-soft</field>
+		  <field name="milk">Sheep</field>
+		  <field name="weight">14</field>
+		  <field name="regulaPrice">49.19</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Banon_Product.jpg</field>
+		  <field name="description">Beenleigh Blue has a very thin natural rind and comes wrapped in foil. The blue veins from a uneven, rather patchy, pattern mainly in the slightly crumbly paste. The aroma of this gourmet cheese is full of tasty nuts and mold and is similar to Roquefort. The strong flavor hits the palate with upfront fruitiness of wine, and nuts and fades from a sweet and creamy mellow stage to a mushroomy finish which is rather a surprising.</field>
+	</doc>
+  	<doc>
+		  <field name="id">7</field>
+		  <field name="name">Cheshire</field>
+		  <field name="country">United Kingdom</field>
+		  <field name="imported">No</field>
+		  <field name="texture">Firm</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">9</field>
+		  <field name="regulaPrice">10.54</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Cheshireingletons_Product.jpg</field>
+		  <field name="description">The English have an extensive variety of cheese, we have selected 5 delicious gourmet cheeses, ranging from traditional to modern, from plain to impressive looking. A cheese assortment that will do justice to your hospitality. Blue Stilton, most likely the first British cheese that comes to mind. Our Stilton is strong in flavor but delicate at the same time (8 oz.). Shropshire Blue is often made by the Stilton producers, has an outstanding appearance and a great creamy flavor (5 oz.). Cheshire, an old Britsh traditional cheese tha has a loose and crumbly texture, and a mild and lightly salty taste (9 oz.).</field>
+	</doc>
+  	<doc>
+		  <field name="id">8</field>
+		  <field name="name">Lanark Blue</field>
+		  <field name="country">United Kingdom</field>
+		  <field name="imported">No</field>
+		  <field name="texture">Semi-soft</field>
+		  <field name="milk">Sheep</field>
+		  <field name="weight">7</field>
+		  <field name="regulaPrice">19.13</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Lanark_Blue_Product.jpg</field>
+		  <field name="description">Lanark Blue is hand-made farmhouse cheedse made from raw ewe's milk; rennet suitable for vegetarians is used. Humphrey Errington began farming in 1982 on a small farm called Walston Brahead at Ogcastle near Carnwath in Scotland and in 1985 the first Lanark Blue was produced and sold. The sheep Humphrey has 400 sheep grazing on hillsides rich in herbs and clover a thousand feet above sea level, overlooking the valley of the upper Clyde. </field>
+	</doc>
+	<doc>
+		  <field name="id">9</field>
+		  <field name="name">Gjetost</field>
+		  <field name="country">Norway</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Firm</field>
+		  <field name="milk">Goat</field>
+		  <field name="weight">9</field>
+		  <field name="regulaPrice">6.91</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Gjetost_Product.jpg</field>
+		  <field name="description">Gjetost is the cheese that is traditional in a Norwegian breakfast and this sweet red-orange gourmet cheese does have a presence. Gjetost is made from the whey or buttermilk which is heated very slowly until the water has evaporated and the milk sugar forms a kind of brown caramelized paste. At this stage milk or cream may be added to change the fat content of the finished product. Produced in squares this cheese has no rind and is sold as soon as it is made.</field>
+	</doc>
+	<doc>
+		  <field name="id">10</field>
+		  <field name="name">Gourmet-Food Fast Facts</field>
+		  <field name="country">Netherlands</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Hard</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">12</field>
+		  <field name="regulaPrice">15.02</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Old_Amsterdam_Product.jpg</field>
+		  <field name="description">Amablu is an artisanal, all natural blue-veined beauty from Faribault Dairy in Minnesota. The cheese is cured and ripened in a labyrinth of caves that lies approximately 100 feet underground. The cheese is made from all natural ingredients and is aged for 75 days. The flavor is rich and creamy and the aging in the caves gives the cheese a pronounced sharp note.</field>
+	</doc>
+	<doc>
+		  <field name="id">11</field>
+		  <field name="name">Beenleigh Blue</field>
+		  <field name="country">United Kingdom</field>
+		  <field name="imported">No</field>
+		  <field name="texture">Semi-soft</field>
+		  <field name="milk">Sheep</field>
+		  <field name="weight">11</field>
+		  <field name="regulaPrice">11.09</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Beenleigh_Blue_Product.jpg</field>
+		  <field name="description">Beenleigh Blue has a very thin natural rind and comes wrapped in foil. The blue veins from a uneven, rather patchy, pattern mainly in the slightly crumbly paste. The aroma of this gourmet cheese is full of tasty nuts and mold and is similar to Roquefort. The strong flavor hits the palate with upfront fruitiness of wine, and nuts and fades from a sweet and creamy mellow stage to a mushroomy finish which is rather a surprising. </field>
+	</doc>
+	<doc>
+		  <field name="id">12</field>
+		  <field name="name">Reypenaer XO Reserve</field>
+		  <field name="country">Netherlands</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Hard</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">10</field>
+		  <field name="regulaPrice">26.37</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Reypenaer_XO_Product.jpg</field>
+		  <field name="description">Reypenaer V.S.O.P. is truly a Dutch gourmet cheese showpiece. Magnificent and well deserved of the V.S.O.P. designation. This delicious gourmet cheese from the Netherlands is matured for about 2 years and during that maturation sheds approximately 25% of its original weight. The white spots you will see on the surface indicate the start of mineral and protein crystallization. In comparison to most cheeses that are aged from a few weeks to a few months, this is a masterpiece long in the making. We also have a Reypenar, aged for just 1 year and already tasting 'old' and the oldest of the bunch a Reypenaer XO Reserve which is aged 3 years. Aroma and flavor are superb</field>
+	</doc>
+	<doc>
+		  <field name="id">13</field>
+		  <field name="name">Prima Donna</field>
+		  <field name="country">Netherlands</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Hard</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">25</field>
+		  <field name="regulaPrice">22.55</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Prima_Donna_maturo_Product.jpg</field>
+		  <field name="description">Prima Donna maturo (extra matured) does not only have a distinct ruby-red label, its taste is full bodied as a high quality extra matured cheese should be. The Prima Donna is made according to an authentic domestic recipe. Maturing Prima Donna maturo is a trade of its own. Carefully and in a modern way, the trade of maturing cheese is performed to perfection. The cheese gets all time, piece and quiet to mature into a special cheese with a spicy and somewhat sweet flavor. The cheese is excellent on a sandwich, in soups or sauces or as a snack with a glass of red wine. </field>
+	</doc>
+	<doc>
+		  <field name="id">14</field>
+		  <field name="name">Andrulis Farmers Cheese</field>
+		  <field name="country">United States</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Firm</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">27</field>
+		  <field name="regulaPrice">20.97</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Andrulis_Farmers_Cheese_Product.jpg</field>
+		  <field name="description">Andrulis Farmers Cheese is made at the Michigan Farm Cheese Dairy in Fountain. They are dedicated to making a traditional Baltic-style farmers cheese, already since 1940. They use only all-natural, premium ingredients, pasteurized cow's milk, following an old world recipe for each of the superior quality cheeses. Andrulis Cheese is creamy and full-bodied, or as the makers say 'what farmers cheese was meant to be' and is interestingly shaped. We cut this cheese in 1 pound pieces</field>
+	</doc>
+	<doc>
+		  <field name="id">15</field>
+		  <field name="name">AGourmet-Food Fast Facts</field>
+		  <field name="country">United States</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Firm</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">8</field>
+		  <field name="regulaPrice">8.55</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Cheddar_Privatetock_Cabot_Product.jpg</field>
+		  <field name="description">Andrulis Farmers Cheese is made at the Michigan Farm Cheese Dairy in Fountain. They are dedicated to making a traditional Baltic-style farmers cheese, already since 1940. They use only all-natural, premium ingredients, pasteurized cow's milk, following an old world recipe for each of the superior quality cheeses. Andrulis Cheese is creamy and full-bodied, or as the makers say 'what farmers cheese was meant to be' and is interestingly shaped. We cut this cheese in 1 pound pieces</field>
+	</doc>
+	<doc>
+		  <field name="id">16</field>
+		  <field name="name">Assorted Fresh Chevre Cheese</field>
+		  <field name="country">United States</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Goat</field>
+		  <field name="weight">8</field>
+		  <field name="regulaPrice">36.82</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Assorted_goat_Cypress_Product.jpg</field>
+		  <field name="description">Cypress Grove's fresh goat chevre cheese in made in 3-inch round disks of 4 ounces.The goats on the farm in rural Humboldt County enjoy the lush pastures provided by the mild Northern California Pacific coastal climate and that results in cheeses with creamy texture and a sublime taste.This group of 6 deletable small fresh goat cheeses consists of the following flavors; chive, dill, herbs de Provence, cracked peppers and 2 plain cheeses. It will give you the unique opportunity to sample each one and determine which one you like best.</field>	
+	</doc>
+	<doc>
+		  <field name="id">17</field>
+		  <field name="name">Camellia</field>
+		  <field name="country">United States</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Goat</field>
+		  <field name="weight">8</field>
+		  <field name="regulaPrice">24.84</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Camellia_Redwood_Product.jpg</field>
+		  <field name="description">Camellia is an award winning artisanal, farmstead  Camembert-style cheese made from goat's milk and only weighs 4 ounces.It is small soft cheese, it has a mild, buttery flavor and firm texture when young, becoming softer and more complex with age. The white, edible rind ripens the cheese from the outside inwards, becoming fully ripe when the center is soft to the touch (like a ripe peach).After 6-8 weeks the cheese is at its peak, but it tastes delicious at any age. We sell this gourmet cheese in pairs, offering you 8 ounces of cheese.</field>
+	</doc>
+	<doc>
+		  <field name="id">18</field>
+		  <field name="name">Mascarpone</field>
+		  <field name="country">United States</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">14</field>
+		  <field name="regulaPrice">10.01</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Mascarpone_BelGioioso_Product.jpg</field>
+		  <field name="description">Mascarpone is a soft, white cream cheese. In fact, it is not cheese at all, but rather the result of a culture being added to the cream skimmed off the milk. It is often described as a curd cheese, although it is made in much the same way as yogurt. It is made from cream separated from milk, accounting for its high fat content.This naturally sweet, yet surprisingly light, soft cheese is the ultimate dessert cheese, it compliments chocolates, coffee, fruits, liqueurs and is used to make tiramisu. Excellent on pasta, or as a delicious spread.BelGiosioso received in 2007 at the American Cheese Society Conference a first place Award as Best of Class. We sell this award winner in tubs of 8 ounces, 1 pound and 5 pounds.</field>
+	</doc>
+	<doc>
+		  <field name="id">19</field>
+		  <field name="name">Gourmet-Food Fast Facts </field>
+		  <field name="country">United States</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">5</field>
+		  <field name="regulaPrice">39.10</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Mascarpone_Vermont_Product.jpg</field>
+		  <field name="description">Vermont Mascarpone has garnered accolades for its fresh, rich cream flavor and smooth, thick texture - essential for Tiramisu and other dessert creations. All natural, made with Vermont rBST free cream. It won First Place at the 2006 American Cheese Society.This wonderful product has a fresh cream flavor, is luxurious, smooth, and has a thick texture. It adds richness and flavor to any dish; it is seen by many French chefs as an essential ingredient used by French chefs and let’s not forget that it is the main ingredient in the classic Italian dessert tiramisu. Mascarpone will also do wonders in risotto, polenta, grits, pasta and sauces.We have 2 seizes of tubs, one small 8-oz. and a large 5-lbs. It all depends what your cooking plans are.</field>
+	</doc>
+	<doc>
+		  <field name="id">20</field>
+		  <field name="name">Saint Andre</field>
+		  <field name="country">France</field>
+		  <field name="imported">Yes</field>
+		  <field name="texture">Soft</field>
+		  <field name="milk">Cow</field>
+		  <field name="weight">7</field>
+		  <field name="regulaPrice">11.15</field>  		  
+		  <field name="imageUrl">http://www.gourmet-food.com/ProductImages/Saint_Andre_Product.jpg</field>
+		  <field name="description">Saint André is a triple cream French cheese made with cow's milk. This gourmet cheese has a bloomy white rind, that is as soft as velvet when you touch it and the flavor wonderful, all creamy, all soft, all rich with a soft, buttery texture; an intense version of Brie. Extra heavy cream is added to the cheese during the production. A wheel of Saint André is smaller and higher than a traditional wheel of Brie. Cheese that may come close are Boursault or Brillat-Savarin.</field>
+	</doc>
+  </add>

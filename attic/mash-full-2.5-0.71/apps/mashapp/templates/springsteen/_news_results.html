@@ -1,0 +1,31 @@
+{% load springsteen %}
+
+
+{% for result in service.results %}
+
+{% comment %}
+Fields available: Except totalhits & deephits, all those listed at http://developer.yahoo.com/search/boss/boss_guide/response_news.html
+{% endcomment %}
+
+<div class="result {{ result.source }}">
+
+	<h3><a href="{{ result.url }}" target="_blank">{{ result.title|truncatewords_html:10|safe }}</a></h3>
+	
+	{% if result.abstract %}
+	<p class="summary">
+	    {{ result.abstract|safe }}
+	</p>{% endif%}
+			{% include "springsteen/_votes.html" %}
+
+	<p>
+		All other fields: <br/>
+		{{ result.clickurl }} <br/>
+		{{ result.language }} <br/>
+		{{ result.date }} <br/>
+		{{ result.time }} <br/>
+		{{ result.source }} <br/>
+		{{ result.sourceurl }} <br/>
+	</p>
+</div>{% endfor %}
+
+{% include "springsteen/_paginator.html" %}
