@@ -1,0 +1,167 @@
+{% load compressed %}
+{% load class_if_reverse %}
+
+<html>
+  <head>
+    <title>Results page</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <meta name="verify-v1" content="x7nBSFkZJWbROm3PhCSjyCyvpjxpEdIq1EykUbE1oX4=" />
+    <meta name="google-site-verification" content="igadyoCrXWOHiY0y7aFqwxhJnGxkbsZedK0ubrPHmJw" />
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+    <link rel="shortcut icon" href="/media/saaskit/img/fav.ico">    
+    <script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=0a72cec8-0a03-4c3b-911b-c43e4ead1104&amp;type=website&amp;post_services=twitter%2Cdelicious%2Cgoogle_bmarks%2Cstumbleupon%2Cemail%2Cdigg%2Creddit%2Cfacebook%2Clinkedin%2Cmyspace%2Csms%2Cwindows_live%2Cbebo%2Cybuzz%2Cblogger%2Cyahoo_bmarks%2Cmixx%2Ctechnorati%2Cfriendfeed%2Cpropeller%2Cwordpress%2Cnewsvine%2Cxanga"></script>
+    {% compressed_css 'saaskit' %}
+    {% compressed_css 'main' %}
+    <style type="text/css">
+      #hd {height:8.62em;}
+      #navigation {height:30px; position:relative; top:-2em;}
+      #navigation li {background-color:#305615;}
+    </style>
+</head>
+<body class="rounded">
+  <div id="doc4" class="yui-t5">
+
+   <!--Start of header -->
+        <div id="hd">
+          <!--Start of user navigation -->
+           <div id="user-nav">                
+                <ul>
+                  {% if user.is_authenticated %}
+                  <li>Welcome, <a href="{% url profiles_profile_list %}">{{user}}</a></li> |
+                  <li><a href="{% url user_signout %}">Log out [{{user}}]</a></li>
+                  {% else %}
+                  
+                  {% endif %}
+                </ul> 
+              </div> 
+          <!--End of user navigation -->  
+          <!--Start of title -->
+  
+          <a href="/"><img src="/media/saaskit/img/logo/saaskit_logo.png"></img></a>
+  
+          <!--End of title -->
+       
+        <div style="position: relative; left:50em; top:-2em; width:300px;  ">
+        <p style="color:#fff; font-weight:800; margin-bottom:2px;">SaaS Industry News</p>
+        <form action="http://saaskit.org/results.html" id="cse-search-box">
+        <div>
+          <input type="hidden" name="cx" value="partner-pub-7522411522605855:e0dti16pogg" />
+          <input type="hidden" name="cof" value="FORID:10" />
+          <input type="hidden" name="ie" value="ISO-8859-1" />
+          <input type="text" name="q" size="30" />
+          <input type="submit" name="sa" value="Search" />
+       </div>
+         </form>
+        <script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+     </div>     
+          <!--Start of navigation bar -->                                                 
+         
+        <div id="navigation">
+          <ul id="primary-navigation" style="background-color::#305615;">
+            <li{% class_if_reverse ^/contact/ active %}><a href="{% url contact_form %}">Contact Us</a></li>
+            <li{% class_if_reverse ^/support/$ active %}><a href="/support">Support</a></li>
+            <li{% class_if_reverse ^/tutorials/$ active %}><a href="/tutorials">Tutorials</a></li>
+            <li{% class_if_reverse ^/downloads/$ active %}><a href="/downloads">Downloads</a></li>
+             {% if user.is_authenticated %}
+                  <li{% class_if_reverse ^/tryitout/ active %}><a href="{% url subscription_list %}">Upgrade</a></li>
+                {% else %}
+                  <li{% class_if_reverse ^/tryitout/ active %}><a href="{% url subscription_list %}">Try It Out</a></li>                  
+                {% endif %}     
+            <li {% class_if_reverse ^/$ active %}><a href="/">Home</a></li>
+                                                  
+          </ul>                  
+        <div class="clear"></div>
+        </div>
+        
+            <!--End of navigation bar -->
+            
+        </div>
+        <!--End of header -->
+
+<div id="bd">
+<!-- Start of results -->
+<div class="block">
+
+  <div id="cse-search-results"></div>
+<script type="text/javascript">
+  var googleSearchIframeName = "cse-search-results";
+  var googleSearchFormName = "cse-search-box";
+  var googleSearchFrameWidth = 800;
+  var googleSearchDomain = "www.google.com";
+  var googleSearchPath = "/cse";
+</script>
+<script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
+
+</div>
+<!-- End of results -->
+</div>
+
+<!--Start of footer -->
+        <div id="ft">
+            <div class="footer-navigation">
+                <ul>
+                    <li><a href="/">Home</a></li> | 
+                    <li><a href="/tryitout">Try It Out</a></li> | 
+                    <li><a href="/downloads">Downloads</a></li> | 
+                    <li><a href="/support">Support</a></li> | 
+                    <li><a href="{% url contact_form %}">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="pseudo-footer">
+                    
+                    <img src="/media/saaskit/img/logo/saaskit_footer.png" />
+            </div>      
+        </div>
+<!--End of footer -->
+  </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

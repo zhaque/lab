@@ -1,0 +1,131 @@
+{% extends "main.html" %}
+
+{% block title %}Try Out SaaS kit, 21 day free trial{% endblock %}
+{% block head %} 
+ <meta name="description" content="Try Out SaaS kit Now. Upgrade or Downgrade Whenever You Want,  21 Free Day Trial on all Plans. Choose between a Silver or Gold Membership. Secure Payment by any Credit Card through PayPal. Your domain comes bundled with Polls App, easily modifiable with Django Templates. Get the original SaaSkit from Crowdsense’s Github site">
+    <meta name="keywords" content="SaaS kit,Silver Membership,Gold Membership,Trial,Polls">
+{% endblock %}
+{% block fake-header %}
+<style>
+    .bd li { list-style-type: disc; margin-left: 20px; }
+</style>
+<div class="block">
+    <br>
+    <div class="bd" style="background:#fdf8e1; margin-bottom:0.2em;">
+        <h1>About this Demo</h1>
+        <ul>
+            <li>This demo uses paypal sandbox, you do not have to pay to try/use the application</li>
+            <li>The application has 3 domains to try out. These will be your customers/app domian. This demo demonstrates a poll app</li>
+            <li>Each site has X number of limited users so you can login and see how things works, more details can be seen on the app site</li>
+            <li>Some of the options are intentionally disabled i.e. registration/login via openid, trial etc. as this is demo</li>
+            <li>Click on either of the following images to select Silver or the Gold plan</li>
+        </ul>
+    </div>
+    <h1 class="text-center">21 day free trial on all plans!</h1>
+    <p class="text-center"><i>Each month of service for less than the cost of a pizza :) Upgrade or downgrade whenever you like.</i></p>
+    <div style="text-align: center;" id="plans"><a href="/tryitout/1/"><img src="/media/saaskit/img/plan1.jpg" alt="Silver Plan" style="border: 5px solid #376221;" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tryitout/1/"><img src="/media/saaskit/img/plan2.jpg" alt="Gold Plan" style="border: 5px solid #376221;" /></a></div>
+</div>
+
+
+{% endblock %} 
+{% block body %}
+
+ <!--Start of info block -->
+                    <div class="block">
+                        <div class="bd">
+                        
+                        <h1>Questions & Answers</h1>
+                        <br>
+                        <p class="questions">How does the free trial work?</p>
+
+                        <p class="answer">After signing up and completing your payment details, you won't be charged anything for 21 days. After 21 days your paid plan will start and your first payment will be made. If you cancel your Project account before the 21 day free trial ends, you will not be charged any amount.</p>
+                        <p class="questions">Is this a long-term commitment?</p>
+
+                        <p class="answer">Nope! You pay a monthly fee and are able to cancel at any time or upgrade / downgrade to a plan that suits you better.</
+p>
+                        <p class="questions">What forms of payment do you accept?</p>
+
+                        <p class="answer">Payments are via credit card and are processed by PayPal. PayPal accepts most major credit cards such as Visa, Mastercard, American Express & Discover. We do not offer other forms of payment at this time.</p>
+                        <p class="questions">How do I use the Poll app?</p>
+
+                        <p class="answer">Upon login you should already be in the Poll App. This trial has been configured to show you the Poll App upon a successful login. You will see a list of Polls. Click on any one of them to give your vote.</p>
+
+                        <p class="questions">How can I create more Polls?</p>
+
+                        <p class="answer">To create more polls login to your app using the Account holder Login details and you will find a link which will help you to create more Polls for your app</p>
+                        
+                       <p class="text-center">      
+                        <script type="text/javascript"><!--
+                               google_ad_client = "pub-7522411522605855";
+                               /* 468x60 Banner */
+                              google_ad_slot = "1418218107";
+                              google_ad_width = 468;
+                              google_ad_height = 60;
+                               //-->
+                              </script>
+                           <script type="text/javascript"
+                             src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                           </script>
+                       </p>
+
+                        <p class="questions">What happens to the results of the Polls in my app if I cancel my account?</p>
+
+                        <p class="answer">Your polls will continue to capture results from your users. Upon cancellation of you account you will not be able to view the results.</p>
+                        <p class="questions">How can I customize the Polls App?</p>
+
+                        <p class="answer">You should have knowledge regarding Django templates in order to customize the Polls App. You can have a look at the tutorials provided here to get started.</p>
+
+                        <p class="questions">Where can I get a copy of the original SaaS Kit used with the Polls App?</p>
+
+                        <p class="answer">You can visit Github for the bleeding latest version of <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit</a></p>
+
+                        <p class="questions">I have more questions!</p>
+
+                        <p class="answer">Get in touch with us at admin@saaskit.org and we'll be happy to answer additional questions about the service!</p>
+                        </div>
+                    </div>
+                    <!--End of info block -->
+{% endblock %}
+
+{% block sidebar %}
+  <!--Start of more info-->
+             
+            <div class="block">
+                <div class="bd">
+                    <h2>Download SaaS Kit?</h2>
+                    <br />
+                    <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+                    <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>saaskit repository</a> for the bleeding latest version</p>
+                    <hr>
+                    <br />
+                    <h2>SaaS Kit Tutorials</h2>
+                    <br>
+                    <p>Want to try creating an app all by yourself? Or just need the specifics for installing an app in general?</p>
+                    <p>Check out the latest SaaS Kit tutorial, now available <a href="/tutorials">here</p>
+                    </div>
+                </div>
+               
+                 <!--end of more info-->
+{% endblock %}
+
+{% block fake-footer %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+{% extends "main.html" %}
+
+{% block title %} Details for {{object.name}}. {% endblock %} 
+{% block body %}
+
+    <div class="block">
+        <div class="bd">
+        <style>
+            .tips li { list-style-type: disc; margin-left: 20px; }
+        </style>
+    <h2>{{object.name}}</h2>
+    <p>{{object.description}}</p>
+
+    <p><i>{{object.get_pricing_display}}, trial: {{object.get_trial_display}}</i></p>
+
+        <h3>About this Demo</h3>
+        <ul class="tips">
+            <li>This demo uses paypal sandbox, you do not have to pay to try/use the application</li>            
+            <li>The application has 3 domains to try out. These will be your customers/app domian. This demo demonstrates a poll app.</li>
+            <li>Each site has X number of limited users so you can login and see how things works, more details can be seen on the app site</li>
+            <li>Some of the options are intentionally disabled i.e. registration/login via openid, trial etc. as this is demo</li>
+        </ul>
+        {% if user.muaccount %}
+        <br />
+        <h3><a href="{% url sso %}?next={{user.muaccount.get_absolute_url}}">Click here to view Demo</a></h3>
+        {% endif %}
+        <br />
+    {% if usersubscription %}
+        {% if usersubscription.active %}
+            {% if usersubscription.cancelled %}
+                <p><strong>You have cancelled subscription to this plan.</strong></p>
+                <p>You may still resubscribe if you wish!</p>
+                <img src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" alt="Paypal" />
+            {% else %}
+                <p><strong>You are subscribed to this plan.</strong>
+                You may <a href="{{cancel_url}}">cancel at paypal</a> if you
+                wish.</p>
+            {% endif %}
+        {% else %}
+            <p><strong>You did not cancel your old plan.</strong>
+            <a href="{{cancel_url}}">Cancel it at paypal</a> now!</p>
+        {% endif %}
+    {% else %}
+        {% if change_denied_reasons %}
+            <p><strong>You cannot switch to this plan.</strong> Reasons:
+            <ul>{% for reason in change_denied_reasons %}<li>{{reason}}</li>{% endfor %}</ul>
+        {% else %}
+            <p>Sign up for this plan!</p>
+            <img src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" alt="Paypal" />
+        {% endif %}
+    {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+  <!--Start of more info-->
+            
+            <div class="block">
+                <div class="bd">
+                    <h2>Download SaaS Kit?</h2>
+                    <br />
+                    <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+                    <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>saaskit repository</a> for the bleeding latest version</p>
+                    <hr>
+                    <br />
+                    <h2>SaaS Kit Tutorials</h2>
+                    <br>
+                    <p>Want to try creating an app all by yourself? Or just need the specifics for installing an app in general?</p>
+                    <p>Check out the latest SaaS Kit tutorial, now available <a href="/tutorials">here</p>
+                    </div>
+                </div>
+               
+                 <!--end of more info-->
+{% endblock %}
+
+
+
+

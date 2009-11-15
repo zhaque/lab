@@ -1,0 +1,122 @@
+{% extends "main.html" %}
+
+{% block title %}Getting acquainted with Accounts{% endblock %}
+{% block head %}
+<style type="text/css">
+pre, xmp {
+background:#E5E5E5 none repeat scroll 0 0;
+border-color:grey;
+border-style:solid;
+border-width:1px 0;
+font-family:Monaco,"Courier New",Courier,monospace;
+font-size:0.9em;
+overflow:auto;
+padding:0.4em;
+}
+.code li { list-style-type: decimal; margin: 0px 0px 10px 30px; line-height:2; }
+</style>
+ <meta name="description" content="Step by Step Instructions on Getting acquainted with Accounts on SaaS kit. Explains in Great details the Muaccounts, User accounts and Member groups found" />
+    <meta name="keywords" content="SaaS kit,Accounts,Muaccounts,Membership,Silver,Gold" />
+{% endblock %}
+
+{% block body %}
+<!--Start of info block -->
+<div class="block">
+    <div class="bd">
+                
+     <p class="intro">Part 6 : Getting acquainted with Accounts loaded in sample data</p>
+        <p>By loading exampledata.json, data is populated with the following data</p>
+        <ul class="code">      
+            <li>Silver Membership monthly recurring plan, linked to Silver Member group, having ability to change muaccount's public status</li>
+    	    <li>Gold Membership monthly recurring plan, linked to Gold Member group, having ability to set custom domain and change muaccount's public status</li>
+            <li>Administrative interface user, login admin, password admin (Overrides the one you made with the command syncdb)</li>
+            <li>Mona Reeves user, login mona, password "free", with no paid plan selected</li>
+            <li>Ronny Pats user, login ronny, password "silver", with silver plan selected</li>
+            <li>Amanda Stewart user, login amanda, password "gold", with gold plan selected</li>
+            <li>muaccount of mona with subdomain "mona"</li>
+            <li>muaccount of ronny with subdomain "ronny"</li>
+            <li>muaccount of amanda with custom domain "www.stewarttech.com"</li>
+            <li>Holly Gunther user, login holly, password "test", with no plan selected, member of "mona" and "ronny" muaccount</li>
+            <li>Sam Richards user, login sam, password "test", with no plan selected, member of "ronny" and "www.stewarttech.com" account</li>
+            <li>Kelly Rogen user, login kelly, password "test", with no plan selected, member of "www.stewarttech.com" account</li>
+        </ul>
+        <br />
+       <p class="text-right"><i>When you're comfortable with this section, read part 7 of this tutorial to learn <a href="/enforcing_quotas_in_saaskit/">"Enforcing quotas".</a></i></p>
+       <p class="text-center">
+       <script type="text/javascript"><!--
+          google_ad_client = "pub-7522411522605855";
+        /* 468x60 Banner */
+        google_ad_slot = "1418218107";
+        google_ad_width = 468;
+        google_ad_height = 60;
+        //-->
+       </script>
+       <script type="text/javascript" 
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script></p>
+</div>
+</div>
+<!--End of info block -->
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="block">
+       <div class="bd">
+          <h2>SaaSkit Tutorials</h2>
+           <ul>
+           <li><a href="/tutorials">Introduction</a></li>
+           <li><a href="/deploying_saaskit">Deploying SaaS Kit</a></li>
+           <li><a href="/getting_started_with_saaskit">Getting started with SaaS Kit</a></li>
+           <li><a href="/enforcing_quotas_in_saaskit">Enforcing quotas</a></li>
+           <li><a href="/integrating_the_polls_app_part_one">Integrating the polls app (1)</a></li>
+           <li><a href="/integrating_the_polls_app_part_two">Integrating the polls app (2)</a></li>
+           </ul>
+       </div>
+    </div>
+
+    
+
+     <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul id="facts">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <!--end of more info-->
+{% endblock %}
+
+{% block ad %}
+{% endblock %}
+
+{% block fake-footer %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

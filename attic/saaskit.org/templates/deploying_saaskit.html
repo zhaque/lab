@@ -1,0 +1,153 @@
+{% extends "main.html" %}
+
+{% block title %}How to Deploy SaaS kit{% endblock %}
+{% block head %}
+<style type="text/css">
+pre, xmp {
+background:#E5E5E5 none repeat scroll 0 0;
+border-color:grey;
+border-style:solid;
+border-width:1px 0;
+font-family:Monaco,"Courier New",Courier,monospace;
+font-size:0.9em;
+overflow:auto;
+padding:0.4em;
+}
+.code li { list-style-type: decimal; margin: 0px 0px 10px 30px; line-height:2; }
+</style>
+    <meta name="description" content="Step by Step Instruction on How to Deploy SaaS kit. Easily Understandable by anyone. Jump to more Advanced features from the sidebar Menu. " />
+    <meta name="keywords" content="SaaS kit,Deploy,Step by Step" />
+{% endblock %}
+
+{% block body %}
+<!--Start of info block -->
+<div class="block">
+    <div class="bd">
+                
+    <p class="intro">Part 5 : Deploying SaaS Kit</p>
+        <p>To deploy SaaS Kit, navigate to the root dir of SaaS Kit and follow the 
+
+instructions mentioned below:</p>
+        <ul class="code">
+            <li>make -C upstream/ init</li>
+            <li>Edit/Add site-python/local_settings.py according to your enviornment. </li>
+            <li>cd projects/main</li>
+            <li>python manage.py syncdb</li>
+            <li>python manage.py migrate (after syncdb we migrate the necessary tables 
+
+using South)</li>
+            <li>python manage.py loaddata ../../exampledata.json (This command will 
+
+overwrite admin account details to admin as login and admin as password, you can change it 
+
+later to your convenience)</li>
+            <li>python manage.py synccompress (ensure this command works for both the main 
+
+and user_site)</li>
+            <li>cd media; ln -s 
+
+/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media admin; the dir could be 
+
+/var/lib/python-support/python2.6/dist-packages/django/contrib/admin/media</li>
+            <li>python manage.py runserver 8001 (you will have to go up one directory to 
+
+run this command)</li>
+            <li>OPEN another shell</li>
+            <li>cd projects/user_sites</li>
+            <li>Note: once you add application that are specific to user sites, you need to 
+
+run 'python manage.py syncdb' for those apps</li>
+            <li>python manage.py synccompress</li>
+            <li>python manage.py runserver</li>
+            <li>Create a new group 'Editors' for templates admin. You can do this by 
+
+logging in to the admin section(http://yoursite:8001/admin) and create a new Group Editors 
+
+in Auth>Groups sub-section</li>
+        </ul>
+       <br />
+       <p class="text-right"><i>When you're comfortable with this section, read part 6 of this tutorial to learn <a href="/getting_started_with_saaskit">"Getting started with SaaSkit".</a></i></p>
+       <p class="text-center">
+       <script type="text/javascript"><!--
+          google_ad_client = "pub-7522411522605855";
+        /* 468x60 Banner */
+        google_ad_slot = "1418218107";
+        google_ad_width = 468;
+        google_ad_height = 60;
+        //-->
+       </script>
+       <script type="text/javascript" 
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script></p>
+</div>
+</div>
+<!--End of info block -->
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="block">
+       <div class="bd">
+          <h2>SaaSkit Tutorials</h2>
+           <ul>
+           <li><a href="/tutorials">Introduction</a></li>
+           <li><a href="/deploying_saaskit">Deploying SaaS Kit</a></li>
+           <li><a href="/getting_started_with_saaskit">Getting started with SaaS Kit</a></li>
+           <li><a href="/enforcing_quotas_in_saaskit">Enforcing quotas</a></li>
+           <li><a href="/integrating_the_polls_app_part_one">Integrating the polls app (1)</a></li>
+           <li><a href="/integrating_the_polls_app_part_two">Integrating the polls app (2)</a></li>
+           </ul>
+       </div>
+    </div>
+     <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit 
+
+the <a href="/downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a 
+
+href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the 
+
+bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul id="facts">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the 
+
+SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the 
+
+differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <!--end of more info -->
+{% endblock %}
+{% block ad %}
+{% endblock %}
+
+{% block fake-footer %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

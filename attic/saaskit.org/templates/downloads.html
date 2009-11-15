@@ -1,0 +1,92 @@
+{% extends "main.html" %}
+
+{% block title %}Download the SaaS kit which best suits your needs{% endblock %}
+{% block head %} 
+<meta name="description" content="The Ultimate Resource page for SaaS kit Downloads. Choose from an Open Source license or a Commercial license. Open Source is Free for Experimental, Personal or Non-Profit uses. Buy the Commercial license for Business purpose. Check the Tutorial to Create your Own Applications. Look on Github for SaaS kit Approved Tags." />
+    <meta name="keywords" content="SaaS kit,Downloads,Tutorial, Applications,License,Open Source,Business" />
+{% endblock %}
+
+{% block body %}
+
+<!--Start of info block -->
+<div class="block">
+    <div class="bd">
+                
+    <h1>SaaS Kit Downloads</h1>
+    <br>
+        <p class="intro">Welcome to the Downloads Section of SaaS Kit. Here you will find all the possible resources for SaaS Kit</p>
+        <p>For those who like to get their hands on the latest bleeding version of SaaS Kit, please visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>saaskit repository</a> to quench their thirst</p>
+        <hr style="height:5px; margin-top:20px;">
+        <br />
+        <div>
+            <div style="clear:both; display:block;"><h3>You can choose from either of the following two options which best suit your needs and purposes</h3></div>
+            <div class="block" style="float:left; margin:30px 0px 30px 70px; width:230px;">                
+                <div class="bd">
+                    <h2 style="font-weight:bold;">Open Source License</h2>
+                    <p>Use this License if you are going to use SaaS Kit for experimental/personal/non-profit purposes.</p>
+                    <p>You can download your Open Source version of SaaS Kit from <a href='http://www.github.com/CrowdSense' target='_blank'>here</a></p>
+                    <p>Price (USD): $0.00</p>
+                </div>
+            </div>
+            <div class="block" style="float:left; margin:30px 0px 30px 70px; width:230px;">                
+                <div class="bd">
+                    <h2 style="font-weight:bold;">Commercial License</h2>
+                    <p>Use this License if you are going to use SaaS Kit for commercial purposes.</p>
+                    <p>Commercial License version will be made available to you after your transaction has been successful</p>
+
+	<!-- Start Paypal -->
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="8411261">
+<table>
+<tr><td><input type="hidden" name="on0" value="Select License">Select License</td></tr><tr><td><select name="os0">
+	<option value="Multiple Domains">Multiple Domains $7,999.00</option>
+	<option value="Single Domian">Single Domian $3,999.00</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="USD">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+	<!-- End Paypal -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of info block -->
+{% endblock %}
+
+{% block sidebar %}
+    
+     <div class="block">
+        <div class="bd">
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul id="facts">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tutorials</h2>
+            <br>
+            <p>Want to try creating an app all by yourself? Or just need the specifics for installing an app in general?</p>
+            <p>Check out the latest SaaS Kit tutorial, now available <a href="/tutorials">here</p>
+        </div>
+    </div>
+
+   
+    <!--end of more info-->
+{% endblock %}
+
+{% block fake-footer %}
+{% endblock %}
+
+
+
+
+

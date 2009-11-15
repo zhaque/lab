@@ -1,0 +1,56 @@
+{% extends "main.html" %}
+{% load settings %}
+
+{% block title %}{{request.muaccount}}{% endblock %} 
+{% block body %}
+<div class="block">
+    <div class="bd">
+        <h2>Welcome to {{request.muaccount}}</h2>
+        <h3>About this Demo</h3>
+        <ul class="tips">
+            <li>The application has 3 domains to try out. These will be your customers/app domian.</li>
+            <li>This demo demonstrates a poll app. The Poll App is accessible from the navigation just above or you can click <a href="/polls/">here</a>.</li>
+            <li>This site : {{ user.muaccount.get_absolute_url }} has a limitation of '{{ user.quotas.muaccount_poll }}' Polls</li>
+            <li>Some of the options are intentionally disabled i.e. registration/login via openid, trial etc. as this is demo</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+    <style>
+        .tips li { list-style-type: disc; margin-left: 20px; }
+    </style>
+    <div class="block">
+        <div class="bd">
+            <script language="javascript" type="text/javascript">
+            var thisobj = SHARETHIS.addEntry({
+            title:'SaaS Kit', url:'http://www.saaskit.org'
+            }, {button:true});
+            </script>
+        </div>
+    </div>
+    <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="{% setting MUACCOUNTS_DEFAULT_URL %}downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul class="tips">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,52 @@
+{% extends "main.html" %}
+{% block title %}{{request.muaccount}}: Polls{% endblock %}
+{% block body %}
+<div class="block">
+    <div class="bd">
+        <h2>{{ poll.question }}</h2>
+
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="{% url polls_vote poll.id %}" method="post">
+        {% for choice in poll.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+            <label for="choice{{ forloop.counter }}">{{ choice.choice }}</label><br />
+        {% endfor %}
+        <input type="submit" value="Vote" />
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+    <style>
+        .tips li { list-style-type: disc; margin-left: 20px; }
+    </style>
+    <div class="block">
+        <div class="bd">
+            <script language="javascript" type="text/javascript">
+            var thisobj = SHARETHIS.addEntry({
+            title:'SaaS Kit', url:'http://www.saaskit.org'
+            }, {button:true});
+            </script>
+        </div>
+    </div>
+    <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h1>
+            <br>
+            <ul class="tips">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    
+{% endblock %}
+

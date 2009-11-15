@@ -1,0 +1,107 @@
+{% extends "main.html" %}
+
+{% block title %}Learn How to Enforce Quotas in SaaS kit{% endblock %}
+{% block head %}
+<style type="text/css">
+pre, xmp {
+background:#E5E5E5 none repeat scroll 0 0;
+border-color:grey;
+border-style:solid;
+border-width:1px 0;
+font-family:Monaco,"Courier New",Courier,monospace;
+font-size:0.9em;
+overflow:auto;
+padding:0.4em;
+}
+.code li { list-style-type: decimal; margin: 0px 0px 10px 30px; line-height:2; }
+</style>
+<meta name="description" content="Explains clearly How to Enforce Quotas in SaaS kit. Very easy to Understand. Jump to more Advanced features from the sidebar Menu. " />
+    <meta name="keywords" content="SaaS kit,Quotas,Python,Admin,Groups,Silver,Gold" />
+{% endblock %}
+
+{% block body %}
+<!--Start of info block -->
+<div class="block">
+    <div class="bd">
+                
+    <p class="intro">Part 7 : Enforcing Quotas to your Polls</p>
+        <p>Before we start developing the customized version of the Polls app, we would first enforce the necessary quotas as we will be needing the settings for the code. Now, you would like to give the most benefit to your highest paying customer. To enforce such a scheme, it all starts with editing the settings file for your App.</p>
+        <p>In this sample Polls App we will enforce that the Gold account holders get the most benefit. ie A Gold account holder can create 20 Polls in his/her app, while a silver account will be able to create 10 Polls only.</p>
+        <p>To do so, open settings.py in a text editor and locate a Setting named - QUOTAS. Here you would see a setting which implements quota for muaccounts django application. To apply quota for the Polls App enter the following string " 'polls': (10,20), " in a new line below muaccounts(without the double quotes). Lets break up the statement to understand it better. Here 'polls' stands for the name of the quota setting which can be anything you prefer. Next is a string of numbers that define the quota limits you want to enforce.</p>
+        <p>By updating this setting, you will have to re-sync the database in order to apply the same. By re-syncing the database you will create the necessary permissions that needs to be applied to the respective user groups. You can re-sync the database by running the following command from console from the /projects/main/ directory of SaaS Kit: ../projects/main$ <b>python manage.py syncdb</b></p>
+        <p class="text-center">
+       <script type="text/javascript"><!--
+          google_ad_client = "pub-7522411522605855";
+        /* 468x60 Banner */
+        google_ad_slot = "1418218107";
+        google_ad_width = 468;
+        google_ad_height = 60;
+        //-->
+       </script>
+       <script type="text/javascript" 
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script></p>
+        <p>After you have run the command, login to the Admin configuration of the Main site and navigate to Auth>Groups. Here you should see the list of Groups that are present in the database. Click on 'Gold Member' to apply quota settings for Gold Subscriptions. From the Available permissions, select quotas | quotas | 20 polls and add them to Chosen. Then click save and thats it. You have successfully applied a limiting setting of 20 Polls for your Gold Account Subscribers. Similarly, apply a permission of 10 Polls to Silver member group to apply a limit of 10 Polls to you Silver Account Subscribers.</p>
+   <br />
+   <p class="text-right"><i>When you're comfortable with this section, read part 8 of this tutorial to get <a href="/integrating_the_polls_app_part_one">"Integrating the polls app ".</a></i></p>
+</div>
+</div>
+<!--End of info block -->
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="block">
+       <div class="bd">
+          <h2>SaaSkit Tutorials</h2>
+           <ul>
+           <li><a href="/tutorials">Introduction</a></li>
+           <li><a href="/deploying_saaskit">Deploying SaaS Kit</a></li>
+           <li><a href="/getting_started_with_saaskit">Getting started with SaaS Kit</a></li>
+           <li><a href="/enforcing_quotas_in_saaskit">Enforcing quotas</a></li>
+           <li><a href="/integrating_the_polls_app_part_one">Integrating the polls app (1)</a></li>
+           <li><a href="/integrating_the_polls_app_part_two">Integrating the polls app (2)</a></li>
+           </ul>
+       </div>
+    </div>
+
+     <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul id="facts">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <!--end of more info-->
+{% endblock %}
+{% block ad %}
+{% endblock %}
+
+{% block fake-footer %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

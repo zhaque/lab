@@ -1,0 +1,85 @@
+{% extends "main.html" %}
+{% block title %}{{request.muaccount}}: Polls{% endblock %}
+{% block head %}
+<script type='text/javascript'>
+    function validate() {
+        var q = document.getElementById('id_question');
+        if (q.value.trim() == '')
+        {
+            alert("Please enter a valid question");
+            return false;
+        }
+        q = document.getElementsByTagName("input");
+        var count = 0;
+        for (i=0; i<q.length; i++)
+        {
+            if (q[i].id != "id_question" && q[i].type != "submit" && q[i].value.trim() != '')
+                count++;
+        }
+        if (count < 2)
+        {
+            alert('You should have atleast two valid choices');
+            return false;
+        }
+        return true;
+    }
+</script>
+{% endblock %}
+{% block body %}
+{% ifequal user request.muaccount.owner %}
+<div class="block">
+    <div class="bd">
+        <h2>Create a Poll</h2>
+        <form action="" name="pollform" method="POST" onsubmit="if (!validate()) return false; else return true;">
+        {{ form.as_p }}
+        <br/>
+        Choice 1: <input type="text" name="choice1" />
+        <br/>
+        Choice 2: <input type="text" name="choice2" />
+        <br/>
+        Choice 3: <input type="text" name="choice3" />
+        <br/>
+        Choice 4: <input type="text" name="choice4" />
+        <br/>
+        <input type="submit" value="Submit" />
+        </form>
+        {% else %}
+            <h3>You are not permitted to create a Poll</h3>
+        {% endifequal %}
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+    <style>
+        .tips li { list-style-type: disc; margin-left: 20px; }
+    </style>
+   <div class="block">
+        <div class="bd">
+            <script language="javascript" type="text/javascript">
+            var thisobj = SHARETHIS.addEntry({
+            title:'SaaS Kit', url:'http://www.saaskit.org'
+            }, {button:true});
+            </script>
+        </div>
+    </div>
+    <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul class="tips">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    
+{% endblock %}
+
+

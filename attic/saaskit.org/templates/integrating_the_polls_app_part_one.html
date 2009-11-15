@@ -1,0 +1,160 @@
+{% extends "main.html" %}
+
+{% block title %}Learn How to Customize and Integrate Polls Apps (part one) {% endblock %}
+{% block head %}
+<style type="text/css">
+pre, xmp {
+background:#E5E5E5 none repeat scroll 0 0;
+border-color:grey;
+border-style:solid;
+border-width:1px 0;
+font-family:Monaco,"Courier New",Courier,monospace;
+font-size:0.9em;
+overflow:auto;
+padding:0.4em;
+}
+.code li { list-style-type: decimal; margin: 0px 0px 10px 30px; line-height:2; }
+</style>
+    <meta name="description" content="Step by Step instructions on How to Customize and Integrate Polls Apps. Each step is Summarized in a Key phrase. Great explanation illustrated with Code examples.  " />
+    <meta name="keywords" content="SaaS kit,Integrate,Customize,Polls,Python" />
+{% endblock %}
+{% block body %}
+<!--Start of info block -->
+<div class="block">
+    <div class="bd">
+                
+    <p class="intro">Part 8 : Customizing & Integrating the Polls App</p>
+        <p>After completing the DjangoProject tutorial on the Poll app, you should have the poll app up and running. Please note that you will have to remove all references to 'mysite' to integrate the Poll app into SaaS Kit.</p>
+
+        <ol class="code">
+            <li>
+                <b>Copy the Poll App</b> Copy the polls directory from the mysite archive and paste it into /upstream directory.
+            </li>
+            <li>
+                <b>Create a symlink to the Poll App</b> Open a terminal and navigate to the path of the SaaS Kit directory. Then cd into /site-python directory. Once you are in there run the following command on the terminal.
+                <pre>ln -s ../upstream/polls</pre>
+            </li>
+            <li>
+                <b>Installing the Poll App</b> Open the settings.py file from the root directory of SaaS Kit in a text editor and scroll down to find an Entry called 'INSTALLED_APPS'. At the end of this setting, please enter the following line just before the closing parenthesis.
+                <pre>    'polls',</pre>
+            </li>
+            <li>
+                <b>Configuring urls.py of User Sites</b> Open the urls.py flie from the /projects/user_sites/ directory in a text editor and the following bold line of code just before the closing parenthesis of the patterns method call.
+                <pre>(r'^admin/', include('muaccounts.urls')),
+        <b>(r'^polls/', include('polls.urls')),</b></pre>
+            </li>
+            <li>
+                <b>Syncing the Database</b> Once the poll app is configured in the settings, you need to re-sync the database. So far, this is the standard method of installing an app into a Django project. Open a terminal and navigate to the /projects/main directory. Once inside run the following command on the terminal.
+                <pre>python manage.py syncdb</pre>
+            </li>
+            <li>
+                <b>Copying the templates</b> The SaaS Kit uses a separate directory where all the templates for the Installed apps are located. Please copy the polls directory from /templates/polls to /templates/user_sites/
+            </li>
+            <p class="text-center">
+       <script type="text/javascript"><!--
+          google_ad_client = "pub-7522411522605855";
+        /* 468x60 Banner */
+        google_ad_slot = "1418218107";
+        google_ad_width = 468;
+        google_ad_height = 60;
+        //-->
+       </script>
+       <script type="text/javascript" 
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script></p>
+            <li>
+                <b>Modifying the model</b> Open the models.py file from the poll directory under /upstream directory of SaaS Kit. Here we are going to associate the Poll model with MUAccounts model. Hence we will have to import the MUAccount model and add a foreignkey to the Poll model as follows.
+                <pre>from muaccounts.models import MUAccount
+        ...
+        pub_date = models.DateTimeField('date published')
+        <b>muaccount = models.ForeignKey(MUAccount, blank=True, null=True)</b>
+        def __unicode__(self):
+            return self.question</pre>
+            </li>
+            <li>
+                <b>Adding the Create Poll Form</b> The Djangoproject tutorial does not contain a form to add a poll. Here we are going to add a form which will enable plan owners to add polls to their respective sites without going through the backend. We will a new file forms.py to the Polls app directory under the upstream. Create a new file named forms.py and open it in a text editor and copy the entire text just below and save it.
+                <pre>from django import forms
+        from polls.models import Choice, Poll
+
+        class PollForm(forms.ModelForm):
+            class Meta:
+                model = Poll
+                exclude = ('muaccount', 'pub_date')</pre>
+            </li>
+            <li>
+                <b>Configuring the urls.py file of the polls app</b> Open the urls.py file from the polls app directory under /upstream in a text editor. We are going to add a pattern for the create a poll page and also tweak the other lines to give a name to each of the patterns. Replace the entire code with the following code:
+                <pre>from django.conf.urls.defaults import *
+
+        urlpatterns = patterns('',
+            url(r'^$', 'polls.views.index', name='polls_index'),
+            url(r'^create/$', 'polls.views.create', name='polls_create'),
+            url(r'^(?P<poll_id>\d+)/$', 'polls.views.detail', name='polls_detail'),
+            url(r'^(?P<poll_id>\d+)/results/$', 'polls.views.results', name='polls_results'),
+            url(r'^(?P<poll_id>\d+)/vote/$', 'polls.views.vote', name='polls_vote'),
+        )
+            </li>
+         </ol>
+      <br />
+      <p class="text-right"><i>When you're comfortable with this section, continue reading part 8 of this tutorial to learn <a href="/integrating_the_polls_app_part_two/">"Integrating the polls app".</a></i></p>
+</div>
+</div>
+<!--End of info block -->
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="block">
+       <div class="bd">
+          <h2>SaaSkit Tutorials</h2>
+           <ul>
+           <li><a href="/tutorials">Introduction</a></li>
+           <li><a href="/deploying_saaskit">Deploying SaaS Kit</a></li>
+           <li><a href="/getting_started_with_saaskit">Getting started with SaaS Kit</a></li> 
+           <li><a href="/enforcing_quotas_in_saaskit">Enforcing quotas</a></li>
+           <li><a href="/integrating_the_polls_app_part_one">Integrating the polls app (1)</a></li> 
+           <li><a href="/integrating_the_polls_app_part_two">Integrating the polls app (2)</a></li> 
+           </ul>
+       </div>
+    </div>
+
+     <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul id="facts">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <!--end of more info-->
+{% endblock %}
+{% block ad %}
+{% endblock %}
+
+{% block fake-footer %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

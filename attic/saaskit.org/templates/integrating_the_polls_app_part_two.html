@@ -1,0 +1,298 @@
+{% extends "main.html" %}
+
+{% block title %}Learn How to Customize and Integrate Polls Apps (part two){% endblock %}
+{% block head %}
+<style type="text/css">
+pre, xmp {
+background:#E5E5E5 none repeat scroll 0 0;
+border-color:grey;
+border-style:solid;
+border-width:1px 0;
+font-family:Monaco,"Courier New",Courier,monospace;
+font-size:0.9em;
+overflow:auto;
+padding:0.4em;
+}
+.code li { list-style-type: decimal; margin: 0px 0px 10px 30px; line-height:2; }
+</style>
+ <meta name="description" content="Step by Step instructions on How to Customize and Integrate Polls Apps. Each step is Summarized in a Key phrase. Great explanation illustrated with Code examples." />
+    <meta name="keywords" content="SaaS kit,Integrate,Customize,Polls,Python" />
+{% endblock %}
+
+{% block body %}
+<!--Start of info block -->
+<div class="block">
+    <div class="bd">
+     <p class="intro">Part 8 : Customizing & Integrating the Polls App (2)</p>
+    <ol class="code">            
+    <li value="10">
+                <b>Creating the 'create' view and corresponding template</b> Open the views.py file from the polls app directory under /upstream in a text editor. First add the import statement at the top for RequestContext function:
+                <pre>from django.template import RequestContext</pre>
+        <br/>Add the following code for the create view:
+                <pre>def create(request):
+            
+            if (request.POST):
+                form = PollForm(request.POST)
+                poll = form.save(commit=False)
+                poll.muaccount = request.muaccount
+                poll.pub_date = datetime.datetime.now()
+                poll.save()        
+                if request.POST['choice1']:
+                    c1 = Choice()
+                    c1.poll = poll
+                    c1.choice = request.POST['choice1']
+                    c1.votes = 0
+                    c1.save()
+                if request.POST['choice2']:
+                    c2 = Choice()
+                    c2.poll = poll
+                    c2.choice = request.POST['choice2']
+                    c2.votes = 0
+                    c2.save()
+                if request.POST['choice3']:
+                    c3 = Choice()
+                    c3.poll = poll
+                    c3.choice = request.POST['choice3']
+                    c3.votes = 0
+                    c3.save()
+                if request.POST['choice4']:
+                    c4 = Choice()
+                    c4.poll = poll
+                    c4.choice = request.POST['choice4']
+                    c4.votes = 0
+                    c4.save()
+
+                return HttpResponseRedirect(reverse('polls.views.index'))
+            else:
+                form = PollForm()
+                return render_to_response('polls/create.html', {'form': form}, RequestContext(request, locals()))</pre><br/>
+                Also create a new file named create.html under /templates/polls/ directory of the SaaS Kit. Open this file in a text editor and paste the following code.
+                <xmp>{% templatetag openbrace %}% extends "main.html" %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block title %{% templatetag closebrace %}{% templatetag openbrace %}{% templatetag openbrace %}request.muaccount{% templatetag closebrace %}{% templatetag closebrace %}: Polls{% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block body %{% templatetag closebrace %}
+        <script type='text/javascript'>
+            function validate() {
+                var q = document.getElementById('id_question');
+                if (q.value.trim() == '')
+                {
+                    alert("Please enter a valid question");
+                    return false;
+                }
+                q = document.getElementsByTagName("input");
+                var count = 0;
+                for (i=0; i<q.length; i++)
+                {
+                    if (q[i].id != "id_question" && q[i].type != "submit" && q[i].value.trim() != '')
+                        count++;
+                }
+                if (count < 2)
+                {
+                    alert('You should have atleast two valid choices');
+                    return false;
+                }
+                return true;
+            }
+        </script>
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block body %{% templatetag closebrace %}
+        {% templatetag openbrace %}% ifequal user request.muaccount.owner %{% templatetag closebrace %}
+        <div class="block">
+            <div class="bd">
+                <h2>Create a Poll</h2>
+                <form action="" name="pollform" method="POST" onsubmit="if (!validate()) return false; else return true;">
+                {% templatetag openbrace %}{% templatetag openbrace %} form.as_p {% templatetag closebrace %}{% templatetag closebrace %}
+                <br/>
+                Choice 1: <input type="text" name="choice1" />
+                <br/>
+                Choice 2: <input type="text" name="choice2" />
+                <br/>
+                Choice 3: <input type="text" name="choice3" />
+                <br/>
+                Choice 4: <input type="text" name="choice4" />
+                <br/>
+                <input type="submit" value="Submit" />
+                </form>
+                {% templatetag openbrace %}% else %{% templatetag closebrace %}
+                    <h3>You are not permitted to create a Poll</h3>
+            </div>
+        </div>
+        {% templatetag openbrace %}% endifequal %{% templatetag closebrace %}
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block sidebar %{% templatetag closebrace %}
+            SIDE TEXT
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}</xmp>
+            </li>
+            <p class="text-center">
+       <script type="text/javascript"><!--
+          google_ad_client = "pub-7522411522605855";
+        /* 468x60 Banner */
+        google_ad_slot = "1418218107";
+        google_ad_width = 468;
+        google_ad_height = 60;
+        //-->
+       </script>
+       <script type="text/javascript" 
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script></p>
+            <li><b>Changing the index view and its template</b> Please replace the following code for the index view in views.py of the polls app.
+                <pre>def index(request):
+            latest_poll_list = Poll.objects.filter(muaccount=request.muaccount).order_by('-pub_date')
+            return render_to_response('polls/index.html', RequestContext(request, locals()))</pre>
+        Replace the existing code in index.html from /templates/polls/ directory with the following code:
+                <xmp>{% templatetag openbrace %}% extends "main.html" %{% templatetag closebrace %}
+        {% templatetag openbrace %}% load smartif %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block title %{% templatetag closebrace %}{% templatetag openbrace %}{% templatetag openbrace %}request.muaccount{% templatetag closebrace %}{% templatetag closebrace %}: Polls{% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block body %{% templatetag closebrace %}
+        <div class="block">
+            <div class="bd">
+            <h2>Welcome to the Polls</h2>
+            <b>(Latest First)</b>
+            {% templatetag openbrace %}% if latest_poll_list %{% templatetag closebrace %}
+                <ol>
+                {% templatetag openbrace %}% for poll in latest_poll_list %{% templatetag closebrace %}
+                    <li><a href="{% templatetag openbrace %}% url polls_detail poll.id %{% templatetag closebrace %}">{% templatetag openbrace %}{% templatetag openbrace %} poll.question {% templatetag closebrace %}{% templatetag closebrace %}</a></li>
+                {% templatetag openbrace %}% endfor %{% templatetag closebrace %}
+                </ol>
+            {% templatetag openbrace %}% else %{% templatetag closebrace %}
+                <p>No polls are available.</p>
+            {% templatetag openbrace %}% endif %{% templatetag closebrace %}
+
+            {% templatetag openbrace %}% ifequal user request.muaccount.owner %{% templatetag closebrace %}
+                {% templatetag openbrace %}% with latest_poll_list|length as poll_count %{% templatetag closebrace %}
+                    {% templatetag openbrace %}% if poll_count < user.quotas.muaccount_poll %{% templatetag closebrace %}
+                        <br/><a href="{% templatetag openbrace %}% url polls_create %{% templatetag closebrace %}">Create a Poll</a>
+                    {% templatetag openbrace %}% else %{% templatetag closebrace %}
+                        <h3>Max limit for polls reached, cannot creat more polls</h3>
+                    {% templatetag openbrace %}% endif %{% templatetag closebrace %}
+                {% templatetag openbrace %}% endwith %{% templatetag closebrace %}
+            {% templatetag openbrace %}% endifequal %{% templatetag closebrace %}
+            </div>
+        </div>
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block sidebar %{% templatetag closebrace %}
+            SIDE TEXT
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}</xmp>
+            </li>
+            <li><b>Changing the detail view and its template</b> Please replace the following code for the detail view in views.py of the polls app.
+                <pre>def detail(request, poll_id):
+            p = get_object_or_404(Poll, pk=poll_id)
+            return render_to_response('polls/detail.html', {'poll': p}, RequestContext(request, locals()))</pre>
+        Replace the existing code in detail.html from /templates/polls/ directory with the following code:
+                <xmp>{% templatetag openbrace %}% extends "main.html" %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block title %{% templatetag closebrace %}{% templatetag openbrace %}{% templatetag openbrace %}request.muaccount{% templatetag closebrace %}{% templatetag closebrace %}: Polls{% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block body %{% templatetag closebrace %}
+        <div class="block">
+            <div class="bd">
+                <h2>{% templatetag openbrace %}{% templatetag openbrace %} poll.question {% templatetag closebrace %}{% templatetag closebrace %}</h2>
+
+                {% templatetag openbrace %}% if error_message %{% templatetag closebrace %}<p><strong>{% templatetag openbrace %}{% templatetag openbrace %} error_message {% templatetag closebrace %}{% templatetag closebrace %}</strong></p>{% templatetag openbrace %}% endif %{% templatetag closebrace %}
+
+                <form action="{% templatetag openbrace %}% url polls_vote poll.id %{% templatetag closebrace %}" method="post">
+                {% templatetag openbrace %}% for choice in poll.choice_set.all %{% templatetag closebrace %}
+                    <input type="radio" name="choice" id="choice{% templatetag openbrace %}{% templatetag openbrace %} forloop.counter {% templatetag closebrace %}{% templatetag closebrace %}" value="{% templatetag openbrace %}{% templatetag openbrace %} choice.id {% templatetag closebrace %}{% templatetag closebrace %}" />
+                    <label for="choice{% templatetag openbrace %}{% templatetag openbrace %} forloop.counter {% templatetag closebrace %}{% templatetag closebrace %}">{% templatetag openbrace %}{% templatetag openbrace %} choice.choice {% templatetag closebrace %}{% templatetag closebrace %}</label><br />
+                {% templatetag openbrace %}% endfor %{% templatetag closebrace %}
+                <input type="submit" value="Vote" />
+                </form>
+            </div>
+        </div>
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block sidebar %{% templatetag closebrace %}
+            SIDE TEXT
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}</xmp>
+            </li>
+           <p class="text-center">
+       <script type="text/javascript"><!--
+          google_ad_client = "pub-7522411522605855";
+        /* 468x60 Banner */
+        google_ad_slot = "1418218107";
+        google_ad_width = 468;
+        google_ad_height = 60;
+        //-->
+       </script>
+       <script type="text/javascript" 
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script></p>
+            <li><b>Changing the results view and its template</b>  Please replace the following code for the results view in views.py of the polls app.
+                <pre>def results(request, poll_id):
+            p = get_object_or_404(Poll, pk=poll_id)
+            return render_to_response('polls/results.html', {'poll': p}, RequestContext(request, locals()))</pre>
+        Replace the existing code in detail.html from /templates/polls/ directory with the following code:
+                <xmp>{% templatetag openbrace %}% extends "main.html" %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block title %{% templatetag closebrace %}{% templatetag openbrace %}{% templatetag openbrace %}request.muaccount{% templatetag closebrace %}{% templatetag closebrace %}: Polls{% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block body %{% templatetag closebrace %}
+        <div class="block">
+            <div class="bd">
+                <h2>Results for '{% templatetag openbrace %}{% templatetag openbrace %} poll.question {% templatetag closebrace %}{% templatetag closebrace %}'</h2>
+
+                <ul>
+                {% templatetag openbrace %}% for choice in poll.choice_set.all %{% templatetag closebrace %}
+                    <li>{% templatetag openbrace %}{% templatetag openbrace %} choice.choice {% templatetag closebrace %}{% templatetag closebrace %} -- {% templatetag openbrace %}{% templatetag openbrace %} choice.votes {% templatetag closebrace %}{% templatetag closebrace %} vote{% templatetag openbrace %}{% templatetag openbrace %} choice.votes|pluralize {% templatetag closebrace %}{% templatetag closebrace %}</li>
+                {% templatetag openbrace %}% endfor %{% templatetag closebrace %}
+                </ul>
+                <br/>
+                <a href="{% templatetag openbrace %}% url polls_index %{% templatetag closebrace %}">Go back to Polls</a>
+            </div>
+        </div>
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}
+        {% templatetag openbrace %}% block sidebar %{% templatetag closebrace %}
+            SIDE TEXT
+        {% templatetag openbrace %}% endblock %{% templatetag closebrace %}</xmp>
+            </li>
+            <li><b>Finally, wrapping it up by putting a navigation link to the polls</b> Add the following bold line to main.html from /templates/users_sites/ directory
+                <xmp><ul id="primary-navigation">
+            <li{% templatetag openbrace %}% class_if_reverse /polls/ active %{% templatetag closebrace %}><a href="/polls/">Polls</a></li>
+            <li{% templatetag openbrace %}% class_if_reverse / active %{% templatetag closebrace %}><a href="/">Main</a></li>
+        </ul></xmp>
+         </ol>
+</div>
+</div>
+<!--End of info block -->
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="block">
+       <div class="bd">
+          <h2>SaaSkit Tutorials</h2>
+           <ul>
+           <li><a href="/tutorials">Introduction</a></li>
+           <li><a href="/deploying_saaskit">Deploying SaaS Kit</a></li>
+           <li><a href="/getting_started_with_saaskit">Getting started with SaaS Kit</a></li> 
+           <li><a href="/enforcing_quotas_in_saaskit">Enforcing quotas</a></li>
+           <li><a href="/integrating_the_polls_app_part_one">Integrating the polls app (1)</a></li> 
+           <li><a href="/integrating_the_polls_app_part_two">Integrating the polls app (2)</a></li> 
+           </ul>
+       </div>
+    </div>
+
+     <div class="block">
+        <div class="bd">
+            <h2>Download SaaS Kit?</h2>
+            <br />
+            <p>For a complete range of available downloads related to SaaS Kit please visit the <a href="/downloads">Downloads</a> section</p>
+            <p>Alternatively, you can visit Github's <a href='http://www.github.com/CrowdSense' target='_blank'>SaaS Kit repository</a> for the bleeding latest version</p>
+            <hr>
+            <br />
+            <h2>SaaS Kit Tips</h2>
+            <br>
+            <ul id="facts">
+            <li><p>To find Apps which can directly be installed with SaaS Kit, look for the SaaS Kit approved tag on Github.com</p></li>
+            <li><p>Click the update icon to quickly view the change log with only the differences between your current version and the latest one</p></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--end of more info-->
+{% endblock %}
+
+{% block ad %}
+{% endblock %}
+
+{% block fake-footer %}
+{% endblock %}
+
+
+
+
+

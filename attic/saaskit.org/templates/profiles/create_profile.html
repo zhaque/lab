@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% load uni_form %}
+
+{% block title %}Create profile{% endblock %} 
+{% block body %}
+<h2>Create your profile</h2>
+<form action="" method="POST" class="uniForm">
+  <table>
+  {{form|as_uni_form}}
+  </table>
+  <input type="submit">
+</form>
+{% endblock %}
+

@@ -1,0 +1,63 @@
+{% extends "main.html" %}
+{% load uni_form %}
+
+{% block title %}For any other information, Contact Us{% endblock %}
+{% block head %}
+    <meta name="description" content="SaaS kit contact page. Be sure to include your Name, Address and all the Problems you may have. Also, you can Join the SaaSkit Google Group to keep you Up to Date. Check out the links to Downloads or Tutorial sections of the site." />
+    <meta name="keywords" content="SaaS kit,contact,app,tutorial,downloads" />
+{% endblock %}
+{% block body %}
+<!--Start of contact form block -->
+<div class="block">
+<div class="bd">
+<h1>Contact Us</h1>
+<br />
+<p class="intro">For additional enquiry please use the contact form:</p>
+<form action="" method="POST" class="uniForm">
+ <table>
+  {{ form|as_uni_form }}
+  <tr><td><input type="submit" value="Send message"></tr></td>
+ </table>
+</form>
+<p>For commercial support join our <a href="http://groups.google.com/group/saaskit?lnk=" target="_blank">Google Group</a> to keep yourself abreast of the latest development in the Saas Kit.</p><br/>
+</div></div>
+<!--End of contact form block -->
+{% endblock %} 
+
+{% block sidebar %}
+<!--Start of sidebar-->
+    
+    <div class="block"><div class="bd">
+     <h2>Ready Apps</h2>
+     <br>
+       <ul id="facts">
+        <li><p>Looking for SaaS enabled apps that will help you jump start your development, now available <a href="/downloads">here</a></p></li>
+        <li><p>Poll and To-do application are available free of charge! Download the code from <a href="/downloads">here</a></p></li>
+       </ul>
+    <hr>
+     <h2>Tutorials</h2>
+     <br/>
+       <ul id="facts">
+        <li><p>Want to try creating an app all by yourself? Or just need the specifics for installing an app in general? Check out the latest SaaS Kit tutorial, now available <a href="/tutorials">here</a></p></li>
+       </ul>
+    </div>
+</div>
+<!--End of sidebar-->
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
