@@ -1,0 +1,58 @@
+{% extends "main.html" %}
+{% block title %}Confirm deletion of Note{% endblock %} 
+{% block body %}
+<div class="block"><div class="bd">
+<h2>Confirm deletion of Note "{{item}}"</h2>
+<h2>This will delete all it's comments.<br>The action is permanent and can't be undone.</h2>
+<form method="post" action="{% url scratchpad-item-delete item.id %}">
+<input type="button" name="cancel" value="Cancel" onclick="document.location.href='{% url scratchpad-scratchpad_view item.scratchpad.id %}'";>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="del" value="Delete">
+</form>
+</div></div>
+{% endblock %}
+{% block sidebar %}
+    <div class="block"> 
+        <div class="bd"><h2>Search History</h2>
+        <a href="#">Lorem Ipsum</a></div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Tasks for: "{{item.scratchpad}}"</h2>
+        {% ifequal task_list.count 0 %}
+            <p><i>None</i></p>
+        {% else %}
+            <ol>
+                {% for task in task_list|slice:":3" %}
+                    <li><a href="{% url todo-task_detail task.id %}">{{ task.title|truncatewords:20 }}</a></li>
+                {% endfor %}
+            </ol>
+        {% endifequal %}
+        <br/><span style="font-size:large;">Show All</span><br/>
+        <a class="todo" href="{% url todo-incomplete_tasks item.scratchpad.id item.scratchpad.tasks_list.slug %}">Incomplete</a><br/>
+        <a class="todo" href="{% url todo-completed_tasks item.scratchpad.id item.scratchpad.tasks_list.slug %}">Completed</a><br/>
+        </div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Scratchpad List</h2>
+        <ul>
+        {% for pad in pads|slice:":10" %}
+        <li><a href="{% url scratchpad-scratchpad_view pad.id %}">{{pad.title}}</a></li>
+        {% endfor %}
+        </ul><br/>
+        <span style="font-size:large;"><a href="{% url scratchpad-list-index %}">Show All</a></span>
+        <hr>
+        <h3>Create New Scratchpad</h3>
+        <form action="{% url scratchpad-new %}" method="POST" name"scrap">
+            <div class="fieldWrapper">
+            {{ form.title.errors }}
+            <label for="id_title">Name</label>
+            <br><br>
+            {{ form.title }}
+            <br><br>
+            </div>
+	    <input type="submit" value="Add">
+	    </form>
+        </div>
+    </div>
+{% endblock %}

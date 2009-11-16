@@ -1,0 +1,335 @@
+{% extends "main.html" %}
+{% load threadedcommentstags %}
+{% load oembed_tags %}
+
+{% block title %}Scratchpad: {{pad}}{% endblock %}
+{% block head %}
+<script src="/media/saaskit/js/ui.datepicker.js" type="text/javascript"></script>
+<link type="text/css" href="/media/saaskit/css/jquery-ui-1.7.1.custom.css" rel="Stylesheet" />
+<script type="text/javascript" src="/media/saaskit/js/jquery-ui-1.7.2.custom.min.js"></script>
+{% endblock %}
+{% block body %}
+<script type="text/javascript">
+function show_reply_form(comment_id, url, person_name) {
+    var comment_reply = $('#' + comment_id);
+    var to_add = $( new Array(
+    '<div class="response"><p>Reply to ' + person_name + ':</p>',
+    '<form method="POST" action="' + url + '">',
+    {% get_threaded_comment_form as form %}
+    '<ul>',  '{{ form.as_ul|oneline }}',
+    '<li><input type="submit" value="Submit Comment" /></li>',
+    '</ul>', '</form>', '</div>').join(''));
+    to_add.css("display", "none");
+    comment_reply.after(to_add);
+    to_add.slideDown(function() {
+        comment_reply.replaceWith(new Array('<a id="',
+        comment_id,'" href="javascript:hide_reply_form(\'',
+        comment_id, '\',\'', url, '\',\'', person_name,
+        '\')"><b>Stop Replying</b></a>').join(''));
+    });
+}
+function hide_reply_form(comment_id, url, person_name) {
+    var comment_reply = $('#' + comment_id);
+    comment_reply.next().slideUp(function (){
+        comment_reply.next('.response').remove();
+        comment_reply.replaceWith(new Array('<a id="',
+        comment_id,'" href="javascript:show_reply_form(\'',
+        comment_id, '\',\'', url, '\',\'', person_name,
+        '\')"><b>Reply</b></a>').join(''));
+    });
+}
+
+function itemclick(id){
+    $.ajax( 
+    { 
+        url: "/thc/comment/41/" + id, 
+        cache: false, 
+        success: function(message) 
+        { 
+            $('#tabs-2').empty().append(message); 
+            var $purl = "{% get_comment_url pad %}";
+            $purl = $purl.substring(0, $purl.length - 5) + "41/" + id + "/";
+            $('#iurl').val($purl); 
+        } 
+    }); 
+}
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // thedate.x comes from the edit_task view. If this is a new entry,
+    // thedate won't be present and datepicker will fall back on the default (today).    
+    $('#id_due_date').datepicker({defaultDate: new Date({{thedate.year}}, {{thedate.month}} - 1, {{thedate.day}}),});
+
+    // Initially hide the Add Notes and Add Task form
+    $('#AddTask').hide();
+    $('#AddNotes').hide();
+
+
+    // toggle slide to show the Add Notes form when link clicked, Hide Add Task also at the same time
+    $('#slideToggle1').click(function(){
+        if ($("#AddTask").is(":hidden")){}
+        else $(this).siblings('#AddTask').slideToggle();
+        $(this).siblings('#AddNotes').slideToggle();
+    });
+    $('#cnnote').click(function(){
+        $(this).parent('#AddNotes').slideToggle();
+    });
+
+    // toggle slide to show the Add Task form when link clicked
+    $('#slideToggle2').click(function(){
+        if ($("#AddNotes").is(":hidden")){}
+        else $(this).siblings('#AddNotes').slideToggle();
+        $(this).siblings('#AddTask').slideToggle();
+    });
+    $('#cntask').click(function(){
+        $(this).parent('#AddTask').slideToggle();
+    });
+    $('#AddTask2').click(function(){
+        if ($("#AddNotes").is(":hidden")){}
+        else $('#AddNotes').slideToggle();
+        $('#AddTask').slideToggle();
+    });
+
+    if ($("#msgs").is(":hidden")){}
+    else $('#msgs').animate({opacity: 1.0}, 5000).fadeOut('slow', function() {$(this).remove();});
+
+    $('#selscratch').click(function(){
+        $('#new_scratchpad').hide();
+        $('#id_scratchpad').parents().show();
+        $('#scratchpad_type').value = "select";
+    });
+
+    $('#selnew').click(function(){
+        $('#new_scratchpad').show();
+        $('#id_scratchpad').parent().parent().hide();
+        $('#scratchpad_type').value = "new";
+    });
+    
+    $('#padcom').dialog({
+                    autoOpen: false,
+                    width: 519,
+                    height: 500,
+                    resizable: false
+				});
+
+    var $tabs = $('#tabs').tabs();
+    
+    function commentpop(){
+        $('#obj_type').html('Scratchpad');
+        $tabs.tabs('select', 2);
+        $tabs.tabs('disable', 1);
+        $('#padcom').dialog('open');
+    }
+    
+    function itempop(){
+        $('#obj_type').html('<span class="selpad"><a href="#" class="postcomm">Scratchpad</a></span> / <span class="selnote"><a href="#" class="icomm">Note</a></span>');
+        $tabs.tabs('enable', 1);
+        $('.selpad').css('font-weight', 'bold');
+        $tabs.tabs('select', 1);
+        $('#padcom').dialog('open');
+    }
+    
+    $('#cmnt').click(commentpop);
+
+    $('.itemcomm').live('click', itempop);
+
+    $('.icomm').live('click', function(){
+        $('#comform').attr("action", $('#iurl').val());
+        $('.selpad').css('font-weight', 'normal');
+        $('.selnote').css('font-weight', 'bold');
+        $tabs.tabs('select', 0);
+        return false;
+    });
+
+    $('.postcomm').live('click', function(){
+        $('#comform').attr("action", "{% get_comment_url pad %}");
+        $('.selpad').css('font-weight', 'bold');
+        $('.selnote').css('font-weight', 'normal');
+        $tabs.tabs('select', 0);
+        return false;
+    });
+});
+</script>
+
+{% get_comment_count for pad as pad_comments %}
+<div class="block"><div class="bd">
+    <span class="asHeader">Scratchpad: {{pad}}</span> <a id="cmnt" href="#">Comments({{pad_comments}})</a> <a href="{% url scratchpad-scratchpad_view pad.id %}">Notes({{pad.item_set.count}})</a> <a href="{% url todo-incomplete_tasks pad.id pad.tasks_list.slug %}">Tasks({{pad.tasks_list.item_set.count}})</a>
+    <br/><br/>
+    <span id="slideToggle1" style="font-weight: bold;">&rarr;Add Notes&larr;</span> | <span id="slideToggle2" style="font-weight: bold;">&rarr;Add Tasks&larr;</span>
+    {% if messages %}
+    <ul class="messages" id="msgs">
+       {% for message in messages %}
+       <li>{{ message }}</li>
+       {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div id="padcom" title="Comments">
+        <div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Post a comment</a></li>
+				<li><a href="#tabs-2">Comments</a></li>
+				<li><a href="#tabs-3">Comments for the Scratchpad</a></li>
+			</ul>
+			<div id="tabs-1">
+                <p>Posting a Comment to the <span id="obj_type"></span>:</p>
+                <form method="POST" action="{% get_comment_url pad %}" id="comform">
+                    <table>
+                        {% get_threaded_comment_form as form %}
+                        {{ form.as_table }}
+                        <tr><td colspan=2><input type="submit" value="Submit Comment" /></td></tr>
+                        <input type="hidden" id="iurl" value="url">
+                    </table>
+                </form>
+            </div>
+			<div id="tabs-2"></div>
+			<div id="tabs-3">
+                {% get_threaded_comment_tree for pad as tree %}
+                    {% if tree|length_is:"0" %}
+                        <i>No comments yet</i>
+                    {% endif %}
+                    {% for comment in tree %}
+                        <div style="margin-left: {{ comment.depth }}em;" class="comment">
+                            {{ comment.user }} said:<br/>
+                            {% auto_transform_markup comment %}
+                        </div>
+		                <a id="c{{ comment.id }}" href="javascript:show_reply_form('c{{ comment.id }}','{% get_comment_url pad comment %}','{{ comment.user }}')"><b>Reply</b></a>
+
+                    {% endfor %}
+                    <br/><br/>
+                    <a href="#" class="postcomm"><b>Post a new comment to the Scratchpad</b></a>
+            </div>
+		</div>
+    </div>
+
+    <div id="AddNotes">
+        <br/>
+        <red>Adding Note... or</red> <span id="cnnote" style="font-weight: bold;">Cancel</span>
+        <form action="" method="POST" id="addto_scratchpad">        
+        <table class="nocolor" border="0" cellspacing="5" cellpadding="5">
+            <tr><td><label for="scratch_content">Content:</label></td><td><textarea cols=60 rows=5 id="scratch_content" name="content"></textarea></td></tr>
+            <tr><td></td>
+                <td><a href="#" id="selscratch">Select Scratchpad</a> |	<a href="#" id="selnew">New Scratchpad</a></td></tr>
+            <tr id="new_scratchpad" style="display:none"><td id="">
+            <label for="">Scratchpad:</label></td><td><input type="text" name="new_scratchpad"></td></tr>
+            {{ form2 }}
+            <tr><td><label for="comment_id">Comment:</label></td><td>{{ comment }} </td></tr>
+        </table>
+        <p><input type="submit" value="Submit" class="todo-button"></p>
+        <input type="hidden" id="scratchpad_type" name="scratchpad_type" value="select">
+        </form>
+    </div>
+
+    <div id="AddTask">
+        <br/>
+        Adding Task... or <span id="cntask" style="font-weight: bold;">Cancel</span>
+        <form action="" method="POST" name="task">        
+        <table class="nocolor" border="0" cellspacing="5" cellpadding="5">
+	       <tr>
+	           <td>{{ form1.title.errors }}</td>
+	           <td>{{ form1.due_date.errors }}</td>
+	       </tr>
+	       <tr>
+	           <td><label for="id_title">Task:</label> {{ form1.title }}</td>
+	           <td><label for="id_due_date">Due date:</label> {{ form1.due_date }}</td>
+	           <td><label for="id_assigned">Assign to:</label> {{ form1.assigned_to }}</td>
+	           <td><label for="id_notify">Notify*:</label> <input type="checkbox" checked="checked" name="notify" value="1" id="notify"></td>
+ 	       </tr>
+	       <tr>
+	           <td colspan="5"><label for="id_note">Note:</label> {{ form1.note }}
+	               <p class="minor">*Email notifications will only be sent if task is assigned to someone besides yourself.</p>
+	           </td>
+ 	       </tr>
+	    </table>
+
+        <input type="hidden" name="priority" value="999" id="id_priority">
+        <input type="hidden" name="created_by" value="{{ request.user.id }}" id="id_created_by">
+        <input type="hidden" name="list" value="{{ listid }}" id="id_list">
+        <input type="hidden" name="created_date" value="{{ created_date }}" id="id_created_date">
+
+	    <p><input type="submit" name="add_task" value="Add task" class="todo-button"></p>
+        </form>
+    </div>
+
+    <br/><br/>
+    {% ifnotequal pad.item_set.count 0 %}        
+        {% for item in pad.item_set.all reversed%}            
+            {% ifequal forloop.counter 1 %}
+            <p><b>List of Notes</b></p>
+            {% endifequal %}
+            <red><p><a href="{% url scratchpad-item item.id %}" style="font-size:105%;">{{ item }}</a> (Added by 'Lorem Ipsum' on 'Lorem Ipsum date') (<a href="#" onclick="javascript: {var answer = confirm('This will delete all its comments. The action is permanent and cannot be undone.');   if (answer)  window.location = '{% url scratchpad-item-delete item.id %}'; else return false;}">Delete?</a>)<br/>
+            <a href="#" style="font-size:"105%;">www.{{pad}}.com Lorem Ipsum</a><i> Source: Web (Lorem Ipsum)</i>
+            {% autoescape off %}
+            <div style="margin-left:2em;">{% oembed %}{{item.notes}}{% endoembed %}</div>
+            {% endautoescape %}
+            
+            {% get_comment_count for item as item_comments %} 
+            <a style="margin-left:2em;" href="#" id="note{{ item.id }}" class="itemcomm" onclick="javascript:itemclick({{ item.id }});">Comments({{ item_comments }})</a></p></red><hr>
+        {% endfor %}
+    {% else %}
+    <p><b>No Notes added</b></p>
+    {% endifnotequal %}
+
+</div></div>
+{% endblock %}
+{% block sidebar %}
+    <div class="block"> 
+        <div class="bd"><h2>Search History</h2>
+        <a href="#">Lorem Ipsum</a></div>
+    </div>
+    
+    <div class="block"> 
+        <div class="bd"><h2>Tasks for: "{{list.name}}"</h2>
+        {% ifequal task_list.count 0 %}
+            <p><i>None</i></p>
+        {% else %}
+            <ol>
+                {% for task in task_list|slice:":3" %}
+                    <li><a href="{% url todo-task_detail task.id %}">{{ task.title|truncatewords:20 }}</a></li>
+                {% endfor %}
+            </ol>
+        {% endifequal %}
+        <br/><span style="font-size:large;">Show All</span><br/>
+        <a class="todo" href="{% url todo-incomplete_tasks pad.id pad.tasks_list.slug %}">Incomplete</a><br/>
+        <a class="todo" href="{% url todo-completed_tasks pad.id pad.tasks_list.slug %}">Completed</a><br/><br/>
+        <span id="AddTask2" style="font-size:large;">Add new Task</span>
+        </div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Scratchpad List</h2>
+        <ul>
+        {% for pad in pads|slice:":10" %}
+        <li><a href="{% url scratchpad-scratchpad_view pad.id %}">{{pad.title}}</a></li>
+        {% endfor %}
+        </ul><br/>
+        <span style="font-size:large;"><a href="{% url scratchpad-list-index %}">Show All</a></span>
+        <hr>
+        <h3>Create New Scratchpad</h3>
+        <form action="{% url scratchpad-new %}" method="POST" name"scrap">
+            <div class="fieldWrapper">
+            {{ form.title.errors }}
+            <label for="id_title">Name</label>
+            <br><br>
+            {{ form.title }}
+            <br><br>
+            </div>
+	    <input type="submit" value="Add">
+	    </form>
+        </div>
+    </div>    
+{% endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+

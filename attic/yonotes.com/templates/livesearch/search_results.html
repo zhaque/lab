@@ -1,0 +1,97 @@
+{% extends "main.html" %}
+{% block title %}{{title}}{% endblock %}
+
+{% block search %}
+<form action='{% url livesearch_results api.slug %}' method='get'>
+{{ form.key_words }}
+<input type="submit" value="Search" />
+</form>
+{% endblock %}
+
+{% block navigation %}
+    {% for sapi in available_apis %}
+<li{% ifequal sapi.slug api.slug %} class="active"{% endifequal %}><a href="{% url livesearch_results sapi.slug %}?key_words={{q}}">{{ sapi.name }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+
+
+{% block pageheaderinfo %}{%endblock%}
+        
+{% block mainresult %}{%endblock%}
+
+{% block paginator %}
+<div class="bd">
+<ul class="pager">
+<li><a href="{% url livesearch_results api.slug %}?key_words={{q}}&page={{prev}}">&#171; Prev</a></li>
+{% for search_page in page_range %}
+<li {% ifequal search_page page%} class="active" {% endifequal %}><a href="{% url livesearch_results api.slug %}?key_words={{q}}&page={{search_page}}">{{search_page}}</a></li>
+{% endfor %}
+<li><a href="{% url livesearch_results api.slug %}?key_words={{q}}&page={{next}}">Next &#187;</a></li>
+</ul>
+</div>
+</div>
+{%endblock%}
+
+
+
+
+{% block sidebar %}
+                <div class="block"> 
+        <div class="bd"><h2>Search History</h2>
+        <a href="#">Lorem Ipsum</a></div>
+               </div>
+
+
+      <div class="block"> 
+        <div class="bd"><h2>Scratchpad List</h2>
+        <ul>
+        {% for pad in pads|slice:":10" %}
+        <li><a href="{% url scratchpad-scratchpad_view pad.id %}">{{pad.title}}</a></li>
+        {% endfor %}
+        </ul><br/>
+        <span style="font-size:large;"><a href="{% url scratchpad-list-index %}">Show All</a></span>
+        <hr>
+        <h3>Create New Scratchpad</h3>
+        <form action="{% url scratchpad-new %}" method="POST" name"scrap">
+            <div class="fieldWrapper">
+            {{ scrapform.title.errors }}
+            <label for="id_title">Name</label>
+            <br>
+            {{ scrapform.title }}
+            <br><br>
+            </div>
+	    <input type="submit" value="Add">
+	    </form>
+        </div>
+    </div>
+    
+      <div class="block">
+          <div class="bd">
+              <h2>To-do Lists</h2> 
+   <red><p><em>{{ item_count }} items in {{ list_count }} lists</em></p></red>
+
+   	<ul class="mainlist">
+   		{% for list in list_list %}
+   	        <li><a class="todo" href="{% url todo-incomplete_tasks list.id list.slug %}">{{ list.name }} - {{ list.group }}</a> ({{ list.incomplete_tasks.count }}/{{ list.item_set.count }})</li>
+   	    {% endfor %}
+   	</ul>
+          </div>
+      </div>
+
+   
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

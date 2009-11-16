@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% load threadedcommentstags %}
+{% load settings %}
+{% load smartif %}
+{% load mathfilters %}
+{% load uni_form %}
+
+{% block title %}Manage Scratchpad{% endblock %} 
+{% block body %}
+<div class="block"><div class="bd">
+<h1>Scratchpad List</h1>
+<br/>
+<table style="max-width:600px;">
+{% for pad in pads %}
+{% get_comment_count for pad as pad_comments %}
+<tr><td><a href="{% url scratchpad-scratchpad_view pad.id %}"><span style="font-size:large;">{{pad.title}}</span></a></td><td><a href="#">Comments({{pad_comments}})</a></td><td><a href="{% url scratchpad-scratchpad_view pad.id %}">Notes({{pad.item_set.count}})</a></td><td><a href="{% url todo-incomplete_tasks pad.id pad.tasks_list.slug %}">Tasks({{pad.tasks_list.item_set.count}})</a></td><td><a href="#" onclick="javascript: {var answer = confirm('This will delete all its notes and comments. The action is permanent and cannot be undone.');   if (answer)  window.location = '{% url scratchpad-delete pad.id %}'; else return false;}">Delete</a></td></tr>
+{% endfor %}
+</table>
+
+</div></div>
+{% endblock %}
+{% block sidebar %}
+
+{% endblock %}
+
+
+
+

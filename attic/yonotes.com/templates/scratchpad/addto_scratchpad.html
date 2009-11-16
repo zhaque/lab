@@ -1,0 +1,96 @@
+{% extends "main.html" %}
+{% block title %}Add Note to Scratchpad{% endblock %}
+{% block body %}
+<div class="block"><div class="bd">
+<h1>Add to Scratchpad(IS)</h1>
+	<form action="{% url scratchpad-save %}" method="POST" id="addto_scratchpad">
+	<table>
+	<tr><th><label for="scratch_content">Content:</label></th>
+	<td id="scratch_content">&nbsp;</td></tr>
+
+
+	<tr><td></td>
+        <th><label for="">
+
+	<a href="#" onclick="selscratchpad(2); return false;">Select scratchpad</a> | 
+	
+	<a href="#" onclick="selscratchpad(1); return false;">New Scratchpad</a>
+	</label>
+	<script>
+	function selscratchpad(t)
+	{
+               
+		if(t == 1)
+		{
+			document.getElementById("new_scratchpad").style.display = "";
+			document.getElementById("id_scratchpad").parentNode.parentNode.style.display = "none";
+			document.getElementById("scratchpad_type").value = "new";
+                       
+		}
+		else
+		{
+
+			document.getElementById("new_scratchpad").style.display = "none";
+			document.getElementById("id_scratchpad").parentNode.parentNode.style.display = "";
+			document.getElementById("scratchpad_type").value = "select";
+                        
+		}
+	}
+	</script>
+	<input type="hidden" id="scratchpad_type" name="scratchpad_type" value="select">
+	</th>
+	</tr>
+
+	<tr id="new_scratchpad" style="display:none"><th><label for="">Scratchpad:</label></th>
+	<td id=""><input type="text" name="new_scratchpad"></td></tr>
+
+	{{ form }}
+	<tr>
+	<th><label for="comment_id">Comment:</label></th>
+	<td>{{ comment }} </td></tr>
+	</table>
+	<p><input type="submit" value="Submit" class="todo-button"></p>
+	<script>
+	data = document.getElementById("addto_scratchpad").notes.value;
+	document.getElementById("scratch_content").innerHTML = data;
+	</script>
+	</form>
+</div></div>
+{% endblock %}
+{% block sidebar %}
+    <div class="block"> 
+        <div class="bd"><h2>Search History</h2>
+        <a href="#">Lorem Ipsum</a></div>
+    </div>
+    
+    <div class="block"> 
+        <div class="bd"><h2>Scratchpad List</h2>
+        <ul>
+        {% for pad in pads|slice:":10" %}
+        <li><a href="{% url scratchpad-scratchpad_view pad.id %}">{{pad.title}}</a></li>
+        {% endfor %}
+        </ul><br/>
+        <span style="font-size:large;"><a href="{% url scratchpad-list-index %}">Show All</a></span>
+        <hr>
+        <h3>Create New Scratchpad</h3>
+        <form action="{% url scratchpad-new %}" method="POST" name"scrap">
+            <div class="fieldWrapper">
+            {{ scrapform.title.errors }}
+            <label for="id_title">Name</label>
+            <br><br>
+            {{ scrapform.title }}
+            <br><br>
+            </div>
+	    <input type="submit" value="Add">
+	    </form>
+        </div>
+    </div>    
+{% endblock%}
+
+
+
+
+
+
+
+

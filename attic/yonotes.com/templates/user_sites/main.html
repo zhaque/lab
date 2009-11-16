@@ -1,0 +1,111 @@
+{% load compressed %}
+{% load class_if_reverse %}
+{% load settings %}
+{% load thumbnail %}
+{% load muathemes %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>{% block title %}Title{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+    <link rel="stylesheet" href="/media/saaskit/css/user_sites.css" type="text/css">
+    {% compressed_css request.muaccount.theme.color_scheme %}
+    {% compressed_js 'all' %}
+    {% block head %}
+    {% endblock %}
+ </head>
+  <body class="{% theme rounded_corners %}">
+    <div id="{% theme page_width %}" class="{% theme layout %}">
+      <div id="hd">
+        {% if request.muaccount.logo %}
+        <img src="{% thumbnail request.muaccount.logo 128x64 %}" id="site-logo">
+        {% endif %}
+        
+        {% if user.is_authenticated %}
+        <div id="user-nav">
+          <ul id="user-nav">
+          <li>Logged in: <a href="{% url sso %}?next={% setting MUACCOUNTS_DEFAULT_URL %}">{{user}}</a></li> | 
+          {% ifequal user request.muaccount.owner %}
+            <li><a href="{% url muaccounts_account_detail %}">Manage site</a></li> | 
+            
+            {% endifequal %}
+            <li><a href="{% url user_signout %}">Logout</a></li> 
+            </ul>
+	    {% ifequal user request.muaccount.owner %}
+            <ul id="owner-nav">
+            
+            </ul>
+            {% endifequal %}
+        </div>  
+          {% else %}
+         <div id="user-nav">
+          <ul id="user-nav">
+            <li><a href="{% url user_signin %}">Log in or Sign up</a></li>
+          </ul>
+        </div>
+         
+        
+        {% endif %}
+        <h2><a href="/">{{request.muaccount}}</a></h2>
+        <div id="search">{% block search %} {% endblock %}</div>
+        <div id="navigation" style="clear:both;">
+          <ul id="primary-navigation">            
+            {% if user.is_authenticated %}
+		{% ifequal user request.muaccount.owner %}
+	        <li><a href="">News</a></li>
+                <li><a href="">Twitter</a></li>
+                <li><a href="">Videos</a></li>
+                <li><a href="">Web</a></li>
+                <li><a href="">Images</a></li>	
+		{% else %}
+                <li><a href="">News</a></li>
+                <li><a href="">Twitter</a></li>
+                <li><a href="">Videos</a></li>
+                <li><a href="">Web</a></li>
+                <li><a href="">Images</a></li>
+		{% endifequal %}
+            {% endif %}
+            <li{% class_if_reverse / active %}><a href="/">Search</a></li>
+          </ul>
+         
+       </div>
+     </div>
+
+      <div id="bd">
+        <div id="yui-main"><div class="yui-b"><div class="yui-g">
+              {% block body %} {% endblock %}
+              {% block pageheaderinfo %}{%endblock%}
+              {% block mainresult %}{%endblock%}
+
+              {% block paginator %}{%endblock%}
+                       
+        </div></div></div>
+         <div id="sidebar" class="yui-b">
+            {% block sidebar %} {% endblock %}
+         </div>
+      </div>
+      <div id="ft"><div id="yui-main">
+	    <div class="footer-navigation">
+                <ul>
+                    <li><a href="/about">About CrowdSense</a></li> | 
+                    <li><a href="/support">Support</a></li> | 
+                    <li><a href="/contact">Contact us</a></li>
+                </ul>
+        </div>
+        <div class="pseudo-footer">
+                    <li><a href="/privacy" style="font-weight: 600;">Privacy & Copyright</a></li>
+        </div>
+      </div></div>
+</div>
+    
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>
+
+
+
+
+
+
+

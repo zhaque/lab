@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+
+{% block title %}{{request.muaccount}}{% endblock %} 
+
+{% block search %}
+<form action='{% url livesearch_search_combined %}' method='get'>
+{{ form.key_words }}
+<input type="submit" value="Search" />
+</form>
+{% endblock %}
+
+<p>Please <a href="{% url user_signin %}">log in or sign up</a> to search</p>
+{% block body %}
+<h2>Welcome to {{request.muaccount}}</h2>
+{% endblock %}
+{% block sidebar %}
+<div class="block">
+  <div class="bd">
+     <h2><a href="#">Scrapbooks</a></h2>
+     <h2><a href="#">Tasks</a></h2>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+

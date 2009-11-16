@@ -1,0 +1,9 @@
+
+{% block title %}{{title}}{% endblock %}
+
+{% block search %}
+<form action='{% url livesearch_results api.slug %}' method='get'>
+{{ form.key_words }}
+<input type="submit" value="Search" />
+</form>
+{% endblock %}

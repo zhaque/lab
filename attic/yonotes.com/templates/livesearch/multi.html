@@ -1,0 +1,140 @@
+{% extends "livesearch/search_results.html" %}
+{% block pageheaderinfo %}{%endblock%}
+
+{% block mainresult %}
+
+{% if results.errors %}
+<h2>Errors</h2>
+
+{% for result in results.errors %}
+<div style="margin-bottom:1em; ">
+<p style="font-size:110%;"><a href="{{ result.HelpUrl }}">{{ result.Code }}:&nbsp;{{ result.Message }}</a></p>
+<p>{{ result.Parameter }} - {{ result.Value }}</p>
+</div>
+<hr>
+{% endfor %}
+{% endif %}
+
+{% if results.spell %}
+<h2>Spell ({{ results.spell.Total }})</h2>
+{% for result in results.spell.Results %}
+<div style="margin-bottom:0.7em;}
+<p>{{ result.Value }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if results.related %}
+<h2>Related</h2>
+
+<p>{% for result in results.related %}
+<a href="{{ result.Url }}">{{ result.Title }}</a> | 
+{% endfor %}
+</p>
+
+{% endif %}
+
+{% if results.news %}
+<div class="block">
+<div class="bd">
+<h2>News ({{ results.news.Total }})</h2>
+{% for result in results.news.Results %}
+<div style="margin-bottom:1em; ">
+<p style="font-size:110%;"><a href="{{ result.Url }}">{{ result.Title }}</a></p>
+<p>{{ result.Source }}</p>
+<p style="margin-left:2.5em;">{{ result.Snippet }}</p>
+<span class="info">{{result.Date}}</span>
+</div>
+<hr>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if results.web %}
+<div class="block">
+<div class="bd">
+<h2>Web ({{ results.web.Total }})</h2>
+
+{% for result in results.web.Results %}
+<div style="margin-bottom:1em; ">
+<p style="font-size:110%;"><a href="{{ result.Url }}">{{ result.Title }}</a></p>
+<p><a href="{{ result.Url }}">{{ result.DisplayUrl }}</a></p>
+<p style="margin-left:2.5em;">{{ result.Description }} </p>
+<span class="info"> {{result.DateTime}}</span>
+</div>
+<hr>
+{% endfor %}
+</div>
+
+{% endif %}
+
+{% if results.images %}
+<div class="block">
+<div class="bd">
+<h2>Images ({{ results.images.Total }})</h2>
+<div class="gallery">
+{% for result in results.images.Results %}
+
+<a href="{{ result.Url|safe }}"><img src="{{ result.Thumbnail.Url|safe }}"></a>
+
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+{% if results.video %}
+<div class="block">
+<div class="bd">
+<h2>Video ({{ results.video.Total }})</h2>
+<div class="gallery">
+{% for result in results.video.Results %}
+<a href="{{ result.PlayUrl|safe }}"><img src="{{ result.StaticThumbnail.Url|safe }}"></a>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+{% if results.twitter %}
+<div class="block">
+<div class="bd">
+<h2>Twitter</h2>
+
+{% for result in results.twitter %}
+<div style="margin-bottom:1em;">
+<p style="font-size:110%">{{ result.text|safe }}</p>
+</div>
+<hr>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if results.google %}
+<div class="block">
+<div class="bd">
+<h2>Google</h2>
+
+{% for result in results.google %}
+<div style="margin-bottom:1em; ">
+<p style="font-size:110%;"><a href="{{ result.url }}">{{ result.title|safe }}</a></p>
+<p style="margin-left:2.5em">{{ result.content|safe }}</a></p>
+<span class="info"><a href="{{ result.cacheUrl }}">cached</a></span>
+</div>
+<hr>
+{% endfor %}
+</div>
+{% endif %}
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+

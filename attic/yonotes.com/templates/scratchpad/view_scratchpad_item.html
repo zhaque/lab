@@ -1,0 +1,136 @@
+{% extends "main.html" %}
+
+{% load threadedcommentstags %}
+
+{% block title %}Note Details: {{item}} {% endblock %}
+
+{% block head %}
+<script type="text/javascript">
+function show_reply_form(comment_id, url, person_name) {
+    var comment_reply = $('#' + comment_id);
+    var to_add = $( new Array(
+    '<div class="response"><p>Reply to ' + person_name + ':</p>',
+    '<form method="POST" action="' + url + '">',
+    {% get_threaded_comment_form as form %}
+    '<ul>',  '{{ form.as_ul|oneline }}',
+    '<li><input type="submit" value="Submit Comment" /></li>',
+    '</ul>', '</form>', '</div>').join(''));
+    to_add.css("display", "none");
+    comment_reply.after(to_add);
+    to_add.slideDown(function() {
+        comment_reply.replaceWith(new Array('<a id="',
+        comment_id,'" href="javascript:hide_reply_form(\'',
+        comment_id, '\',\'', url, '\',\'', person_name,
+        '\')">Stop Replying</a>').join(''));
+    });
+}
+function hide_reply_form(comment_id, url, person_name) {
+    var comment_reply = $('#' + comment_id);
+    comment_reply.next().slideUp(function (){
+        comment_reply.next('.response').remove();
+        comment_reply.replaceWith(new Array('<a id="',
+        comment_id,'" href="javascript:show_reply_form(\'',
+        comment_id, '\',\'', url, '\',\'', person_name,
+        '\')">Reply</a>').join(''));
+    });
+}
+</script>
+{% endblock %}
+
+{% block body %}
+
+<div class="block"><div class="bd">
+<h2>Note Details: {{item}}</h2>
+<h2>ScratchPad: <a href="{% url scratchpad-scratchpad_view item.scratchpad.id%}">{{item.scratchpad}}</a></h2>
+
+<h2>Contents:</h2>
+{% autoescape off %}
+<div>{{item.notes}}</div>
+{% endautoescape %}
+
+<hr>
+
+    <h3>Comments on This Note:</h3>
+    {% get_threaded_comment_tree for item as tree %}
+    {% for comment in tree %}
+        <div style="margin-left: {{ comment.depth }}em; margin-bottom:0.5em;" class="comment">
+            <p style="font-size:105%; font-weight:bold; margin-bottom:0.2em;">{{ comment.user }} said:</p>
+            <red><blockquote style="margin-left:1.5em; margin-bottom:0.2em; font-style:italic;">{% auto_transform_markup comment %}</blockquote></red>
+        
+		<red><a id="c{{ comment.id }}" href="javascript:show_reply_form('c{{ comment.id }}','{% get_comment_url item comment %}','{{ comment.name }}')" style="margin-left:1em;">Reply</a></red>
+       
+       </div>
+    {% endfor %}
+    <p>Reply to Original:</p>
+    <form method="POST" action="{% get_comment_url item %}">
+        <ul>
+        {% get_threaded_comment_form as form %}
+            {{ form.as_ul }}
+            <br />
+            <li><input type="submit" value="Submit Comment" /></li>
+        </ul>
+    </form>
+</div></div>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="block"> 
+        <div class="bd"><h2>Search History</h2>
+        <a href="#">Lorem Ipsum</a></div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Tasks for: "{{item.scratchpad}}"</h2>
+        {% ifequal task_list.count 0 %}
+            <p><i>None</i></p>
+        {% else %}
+            <ol>
+                {% for task in task_list|slice:":3" %}
+                    <li><a href="{% url todo-task_detail task.id %}">{{ task.title|truncatewords:20 }}</a></li>
+                {% endfor %}
+            </ol>
+        {% endifequal %}
+        <br/><span style="font-size:large;">Show All</span><br/>
+        <a class="todo" href="{% url todo-incomplete_tasks item.scratchpad.id list.slug %}">Incomplete</a><br/>
+        <a class="todo" href="{% url todo-completed_tasks item.scratchpad.id list.slug %}">Completed</a><br/>
+        </div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Scratchpad List</h2>
+        <ul>
+        {% for pad in pads|slice:":10" %}
+        <li><a href="{% url scratchpad-scratchpad_view pad.id %}">{{pad.title}}</a></li>
+        {% endfor %}
+        </ul><br/>
+        <span style="font-size:large;"><a href="{% url scratchpad-list-index %}">Show All</a></span>
+        <hr>
+        <h3>Create New Scratchpad</h3>
+        <form action="{% url scratchpad-new %}" method="POST" name"scrap">
+            <div class="fieldWrapper">
+            {{ scrapform.title.errors }}
+            <label for="id_title">Name</label>
+            <br><br>
+            {{ scrapform.title }}
+            <br><br>
+            </div>
+	    <input type="submit" value="Add">
+	    </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

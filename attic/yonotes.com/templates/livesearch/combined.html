@@ -1,0 +1,243 @@
+{% extends "main.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/media/saaskit/css/shadowbox.css" type="text/css">
+    <script type="text/javascript" src="/media/saaskit/js/sb/shadowbox.js"></script>
+    <script type="text/javascript">
+    Shadowbox.init({
+    players: ["html", "iframe", "qt", "img", "flv", "wmp"]});
+    </script>
+{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block search %}
+<form action='{% url livesearch_search_combined %}' method='get'>
+{{ form.key_words }}
+<input type="submit" value="Search" />
+</form>
+{% endblock %}
+
+{% block navigation %}
+    {% for sapi in available_apis %}
+<li><a href="{% url livesearch_results sapi.slug %}?key_words={{q}}">{{ sapi.name }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block pageheaderinfo %}{%endblock%}
+
+{% block mainresult %}
+<!-- Bing Spell -->
+{% if results.BingNewsRelatedSpell.result.spell %}
+<h2>Spell ({{ results.BingNewsRelatedSpell.result.spell.Total }})</h2>
+<dl>
+{% for result in results.BingNewsRelatedSpell.result.spell.Results %}
+<dt>{{ result.Value }}</dt>
+{% endfor %}
+{% endif %}
+<!-- Bing Spell end -->
+
+<!-- Bing Related -->
+{% if results.BingNewsRelatedSpell.result.related %}
+<h2>Related</h2>
+
+{% for result in results.BingNewsRelatedSpell.result.related %}
+<a href="{{ result.Url }}">{{ result.Title }}</a> | 
+{% endfor %}
+
+{% endif %}
+{% if results.BingNewsRelated.result.related %}
+<h2>Related</h2>
+
+{% for result in results.BingNewsRelated.result.related %}
+<a href="{{ result.Url }}">{{ result.Title }}</a> | 
+{% endfor %}
+
+{% endif %}
+<!-- Bing Related end -->
+
+<!-- Bing News -->
+{% if results.BingNewsRelatedSpell.result.news %}
+<div class="block">
+<div class="bd">
+<h2>News ({{ results.BingNewsRelatedSpell.result.news.Total }})</h2>
+
+{% for result in results.BingNewsRelatedSpell.result.news.Results %}
+<div style="margin-bottom:1em;}
+<p style="font-size:110%"><a href="{{ result.Url }}">{{ result.Title }}</a></p>
+<p>{{ result.Source }}</p>
+<p style="margin-left:2.5em;">{{ result.Snippet }}</p>
+<span class="info">{{result.Date}}</span>
+</div>
+<hr>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+{% if results.BingNewsRelated.result.news %}
+<div class="block">
+<div class="bd">
+<h2>News ({{ results.BingNewsRelated.result.news.Total }})</h2>
+
+{% for result in results.BingNewsRelated.result.news.Results %}
+<div style="margin-bottom:1em;}
+<p style="font-size:110%"><a href="{{ result.Url }}">{{ result.Title }}</a></p>
+<p>{{ result.Source }}</p>
+<p style="margin-left:2.5em;>{{ result.Snippet }}</p>
+<span class="info">{{result.Date}}</span>
+</div>
+<hr>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+{% if results.BingNews.result.news %}
+<div class="block">
+<div class="bd">
+<h2>News ({{ results.BingNews.result.news.Total }})</h2>
+
+{% for result in results.BingNews.result.news.Results %}
+<div style="margin-bottom:1em;">
+<p style="font-size:110%"><a href="{{ result.Url }}">{{ result.Title }}</a></p>
+<p>{{ result.Source }}</p> 
+<p style="margin-left:2.5em;">{ result.Snippet }}</p> 
+<span class="info">{{result.Date}}</span>
+</div>
+<hr>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+<!-- Bing News end -->
+
+<!-- Bing Web -->
+{% if results.BingWeb.result.web %}
+<div class="block">
+<div class="bd">
+<h2>Web ({{ results.BingWeb.result.web.Total }})</h2>
+
+{% for result in results.BingWeb.result.web.Results %}
+<div style="margin-bottom:1em;">
+<p style="font-size:110%;"><a href="{{ result.Url }}">{{ result.Title }}</a></p>
+<p><a href="{{ result.Url }}">{{ result.DisplayUrl }}</a><p>
+<p style="margin-left:2.5em;">{{ result.Description }}</p>
+<span class="info">{{result.DateTime}}</span>
+</div>
+<hr>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+<!-- Bing Web end -->
+
+<!-- Google -->
+{% if results.GoogleSearch.result.google %}
+<div class="block">
+<div class="bd">
+<h2>Google</h2>
+
+{% for result in results.GoogleSearch.result.google %}
+<div style="margin-bottom:1em;">
+<p style="font-size:110%"><a href="{{ result.url }}">{{ result.title|safe }}</a></p>
+<p style="margin-left:2.5em;>{{ result.content|safe }}</a></p>
+<span class="info"><a href="{{ result.cacheUrl }}">cached</a></span>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+<!-- Google end -->
+
+{%endblock%}
+
+{% block sidebar %}
+
+<!-- Twitter -->
+{% if results.TwitterSearch.result.twitter %}
+<div class="block">
+<div class="bd">
+<h2>Twitter</h2>
+
+{% for result in results.TwitterSearch.result.twitter %}
+<div>
+<p style="font-size:85%; text-indent:0.3em;">{{ result.text|safe }}</p>
+</div>
+{% endfor %}
+
+</div>
+</div>
+{% endif %}
+<!-- Twitter end -->
+
+<!-- Bing Images -->
+{% if results.BingImage.result.images %}
+<div class="block">
+ 
+  <div class="bd sidebarGallery">
+    <h2>Images ({{ results.BingImage.result.images.Total }})</h2>
+
+    
+    {% for result in results.BingImage.result.images.Results %}
+    <a href="{{ result.Url|safe }}" rel="shadowbox;options:{autoDimensions:true}"><img src="{{ result.Thumbnail.Url|safe }}"></a>
+    {% endfor %}
+    
+
+  </div>
+</div>
+{% endif %}
+<!-- Bing Images end -->
+<br>
+<!-- Bing Video -->
+{% if results.BingVideo.result.video %}
+<div class="block">
+  
+  <div class="bd sidebarGallery">
+    <h2>Video ({{ results.BingVideo.result.video.Total }})</h2>
+    
+    {% for result in results.BingVideo.result.video.Results %}
+    <a href="{{ result.PlayUrl|safe }}" rel="shadowbox;options:{autoDimensions:true}"><img src="{{ result.StaticThumbnail.Url|safe }}"></a>
+    {% endfor %}
+    
+  </div>
+</div>
+{% endif %}
+<!-- Bing Video end -->
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

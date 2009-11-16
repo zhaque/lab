@@ -1,0 +1,29 @@
+{% load threadedcommentstags %}
+
+{% if item %}
+    <b>Comments for '{{ item|truncatewords:30 }}'</b><br/><br/>
+    {% get_threaded_comment_tree for item as tree %}
+{% else %}
+    <b>Comments for '{{ pad|truncatewords:30 }}'</b><br/><br/>
+    {% get_threaded_comment_tree for pad as tree %}
+{% endif %}
+
+{% if tree|length_is:"0" %}
+    <i>No comments yet</i>
+{% endif %}
+{% for comment in tree %}
+    <div style="margin-left: {{ comment.depth }}em;" class="comment">
+        {{ comment.user }} said:<br/>
+        {% auto_transform_markup comment %}
+    </div>
+    {% if item %}
+        <a id="c{{ comment.id }}" href="javascript:show_reply_form('c{{ comment.id }}','{% get_comment_url item comment %}','{{ comment.user }}')"><b>Reply</b></a>
+    {% else %}
+        <a id="c{{ comment.id }}" href="javascript:show_reply_form('c{{ comment.id }}','{% get_comment_url pad comment %}','{{ comment.user }}')"><b>Reply</b></a>
+{% endif %}
+{% endfor %}
+{% if item %}
+    <br/><br/><a href="#" class="icomm"><b>Post a new comment to the Note</b></a>
+{% else %}
+    <br/><br/><a href="#" class="postcomm"><b>Post a new comment to the Scratchpad</b></a>
+{% endif %}

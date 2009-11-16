@@ -1,0 +1,82 @@
+{% extends "main.html" %}
+
+{% load settings %}
+{% load smartif %}
+{% load mathfilters %}
+{% load uni_form %}
+
+{% block title %}Account detail{% endblock %} 
+{% block body %}
+  <div class="block">
+    <div class="bd">
+      <h2>Site Settings</h2>
+      <form action="" method="POST" enctype="multipart/form-data" class="uniForm">
+      <table>
+        {{ form|as_uni_form }}
+       <tr><td> <input type="submit" value="Save"></td></tr>
+     </table>
+      </form>
+    </div>
+  </div>
+   <div class="block">
+  <div class="bd">
+    <h2>Your search engines</h2>
+    Enable/Disable search api's:
+    <form action="{% url saaskit_save_api %}" method="POST">
+    {% for api in search_apis %}
+      <div><input type="checkbox" value="{{ api.id }}" name="api_list" {% if object in api.muaccount.all %}checked="checked"{% endif %}/>{{ api.name }}</div>
+    {% endfor %}
+       <input type="submit" value="Save">
+     </form>
+  </div></div>
+
+  <div class="block">
+  <div class="bd">
+    <h2>Your search prefs</h2>
+    <form action="{% url saaskit_save_search_prefs %}" method="POST">
+      {{ search_prefs_form|as_uni_form }}
+      <input type="submit" value="Save">
+     </form>
+  </div></div>
+{% endblock %}
+{% block sidebar %}
+  <div class="block">
+    <div class="bd">
+    <h2>Members</h2>
+     <ol class="list">{% for member in object.members.all %}
+       <li>{{ member }}
+         <form class="inline-form" method="POST" action="{% url muaccounts_remove_member user_id=member.id %}">
+           <p><input type="submit" value="remove user"></p></form>
+       </li>
+       {% endfor %}</ol>
+     {% with object.members.all|length as member_count %}
+     {% if member_count < user.quotas.muaccount_members %}
+     <h3>Add user</h3>
+     <form action="" method="POST" class="uniForm">
+       {{add_user_form|as_uni_form}}
+       <input type="submit" value="Add user">
+     </form>
+     {% else %}
+     <p><a href="{% url sso %}?next={% setting MUACCOUNTS_DEFAULT_URL %}sub/">Upgrade your plan</a> to add
+       more users!</p>
+     {% endif %}{% endwith %}
+  </div></div>
+ 
+  <div class="block">
+  <div class="bd">
+   <h2>Your plan</h2>
+    Your current plan is
+    <em>{{user.get_subscription|default:"Free plan"}}</em>.
+    {% comment %}FIXME: hardcoded URL{% endcomment %}
+    <a href="{% url sso %}?next={% setting MUACCOUNTS_DEFAULT_URL %}sub/">Upgrade your plan</a>
+    to get access to more features!.
+  </div></div>
+
+ 
+{% endblock %}
+
+
+
+
+
+

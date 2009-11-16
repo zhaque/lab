@@ -1,0 +1,135 @@
+{% extends "main.html" %}
+{% load threadedcommentstags %}
+{% block title %}Your Scrapbooks{% endblock %}
+{% block head %}
+<link type="text/css" href="/media/saaskit/css/jquery-ui-1.7.1.custom.css" rel="Stylesheet" />
+<script type="text/javascript" src="/media/saaskit/js/jquery-ui-1.7.2.custom.min.js"></script>
+{% endblock %}
+{% block body %}
+
+<script type="text/javascript">
+function show_reply_form(comment_id, url, person_name) {
+    var comment_reply = $('#' + comment_id);
+    var to_add = $( new Array(
+    '<div class="response"><p>Reply to ' + person_name + ':</p>',
+    '<form method="POST" action="' + url + '">',
+    {% get_threaded_comment_form as form %}
+    '<ul>',  '{{ form.as_ul|oneline }}',
+    '<li><input type="submit" value="Submit Comment" /></li>',
+    '</ul>', '</form>', '</div>').join(''));
+    to_add.css("display", "none");
+    comment_reply.after(to_add);
+    to_add.slideDown(function() {
+        comment_reply.replaceWith(new Array('<a id="',
+        comment_id,'" href="javascript:hide_reply_form(\'',
+        comment_id, '\',\'', url, '\',\'', person_name,
+        '\')"><b>Stop Replying</b></a>').join(''));
+    });
+}
+function hide_reply_form(comment_id, url, person_name) {
+    var comment_reply = $('#' + comment_id);
+    comment_reply.next().slideUp(function (){
+        comment_reply.next('.response').remove();
+        comment_reply.replaceWith(new Array('<a id="',
+        comment_id,'" href="javascript:show_reply_form(\'',
+        comment_id, '\',\'', url, '\',\'', person_name,
+        '\')"><b>Reply</b></a>').join(''));
+    });
+}
+
+function padclick(id){
+    $.ajax( 
+    { 
+        url: "/thc/comment/40/" + id, 
+        cache: false, 
+        success: function(message) 
+        { 
+            $('#tabs-2').empty().append(message); 
+            var $purl = "/thc/comment/40/" + id + "/";
+            $('#comform').attr("action", $purl);
+        } 
+    }); 
+}
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#padcom').dialog({
+                    autoOpen: false,
+                    width: 519,
+                    height: 500,
+                    resizable: false
+				});
+
+    var $tabs = $('#tabs').tabs();
+   
+    function commentpop(){
+        $tabs.tabs('select', 1);
+        $('#padcom').dialog('open');
+    }
+
+    $('.cmnt').click(commentpop);
+
+    $('.postcomm').live('click', function(){
+        $tabs.tabs('select', 0);
+        return false;
+    });
+});
+</script>
+
+<div id="padcom" title="Comments">
+        <div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Post a comment</a></li>
+				<li><a href="#tabs-2">Comments for the Scratchpad</a></li>
+			</ul>
+			<div id="tabs-1">
+                <p>Posting a Comment to the Scratchpad:</p>
+                <form method="POST" action="" id="comform">
+                    <table>
+                        {% get_threaded_comment_form as form %}
+                        {{ form.as_table }}
+                        <tr><td colspan=2><input type="submit" value="Submit Comment" /></td></tr>
+                    </table>
+                </form>
+            </div>
+			<div id="tabs-2">                
+            </div>
+		</div>
+    </div>
+
+<div class="block"><div class="bd">
+<h2>Scratchpad List</h2>
+<br/>
+
+<table border="0" id="tasktable" style="max-width:600px;">
+{% for pad in pads %}
+{% get_comment_count for pad as pad_comments %}
+<tr class="{% cycle 'row1' 'row2' %}" id="{{ pad.id }}"><td><a href="{% url scratchpad-scratchpad_view pad.id %}"><span style="font-size:large;">{{pad.title}}</span></a></td><td><a href="#" class="cmnt" onclick="javascript:padclick({{ pad.id }});">Comments({{pad_comments}})</a></td><td><a href="{% url scratchpad-scratchpad_view pad.id %}">Notes({{pad.item_set.count}})</a></td><td><a href="{% url todo-incomplete_tasks pad.id pad.tasks_list.slug %}">Tasks({{pad.tasks_list.item_set.count}})</a></td>{% ifequal request.user request.muaccount.owner %}<td><a href="#" onclick="javascript: {var answer = confirm('This will delete all its notes and comments. The action is permanent and cannot be undone.');   if (answer)  window.location = '{% url scratchpad-delete pad.id %}'; else return false;}">Delete</a></td>{% endifequal %}</tr>
+{% endfor %}
+</table>
+
+</div></div>
+{% endblock %}
+{% block sidebar %}
+    <div class="block"> 
+        <div class="bd"><h2>Search History</h2>
+        <a href="#">Lorem Ipsum</a></div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Create New Scratchpad</h2>
+        <form action="{% url scratchpad-new %}" method="POST">
+	        <div class="fieldWrapper">
+            {{ form.title.errors }}
+            <label for="id_subject">Name</label>
+            <br>
+            {{ form.title }}
+            <br><br>
+            </div>
+	    <input type="submit" value="Add">
+	    </form>
+        </div>
+    </div>
+{% endblock%}
+

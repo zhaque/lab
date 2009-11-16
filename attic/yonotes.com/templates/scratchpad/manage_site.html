@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+
+{% load settings %}
+{% load smartif %}
+{% load mathfilters %}
+{% load uni_form %}
+
+{% block title %}Manage Site{% endblock %} 
+{% block body %}
+  <div class="block">
+    <div class="hd"><h2>Site Settings</h2></div><div class="bd">
+      <form action="" method="POST" enctype="multipart/form-data" class="uniForm">
+      <table>
+        <tr><td>Site Description</td><td><textarea cols=100 rows=5></textarea><td></tr>
+        <tr><td>Allow to create Scratchpads?</td><td><input type="checkbox" name="allowscratches" checked=true></td></tr>
+        <tr><td>Allow comments?</td><td><input type="checkbox" name="allowscratches" checked=true></td></tr>
+       <tr><td> <input type="submit" value="Save"></td></tr>
+     </table>
+      </form>
+</div></div>
+
+{% endblock %}
+{% block sidebar %}
+  
+{% endblock %}
+
+
+
+

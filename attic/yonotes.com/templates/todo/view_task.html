@@ -1,0 +1,173 @@
+{% extends "todo/base.html" %}
+
+{% block title %}Task: {{ task.title }}{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    // Initially hide the TaskEdit form
+    $('#TaskEdit').hide();
+
+    // toggle slide to show the Add Task form when link clicked
+    $('#slideToggle').click(function(){
+        $(this).siblings('#TaskEdit').slideToggle();
+    });
+});
+</script>
+
+<div class="block"><div class="bd">
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+{% ifequal auth_ok 1 %}
+
+<h2>Task Details: {{ task }}</h2>
+
+
+<form action="" method="POST">
+<p style="margin-bottom:2px;" id="slideToggle" >&rarr; Click to edit details &larr;</p>
+
+<p><strong>Scratchpad:</strong> <a href="{% url todo-incomplete_tasks task.list.id task.list.slug %}" class="showlink">{{ task.list }}</a><br /></p>
+
+<p>
+<strong>Assigned to:</strong> {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}({{ task.assigned_to }})<br />
+<strong>Due date:</strong>  {{ task.due_date }}<br />
+<strong>Completed:</strong> {{ form.completed }}<br />
+</p>
+
+
+{% if task.note %}
+<p><strong>Note:</strong> {{ task.note|safe|linebreaks }}</p>
+{% endif %}
+
+<div id="TaskEdit">
+<h3>Edit Task</h3>
+
+<table>
+    {{ form.management_form }}
+
+
+    {{ form.id }}
+<tr>
+    <td>Task:</td>
+    <td>{{ form.title }}  </td>
+</tr>
+
+
+
+<tr>
+    <td>Created:</td>
+    <td>{{ form.created_date }}  </td>
+</tr>
+
+<tr>
+    <td>Due:</td>
+    <td>{{ form.due_date }}  </td>
+</tr>
+
+
+
+
+
+<tr>
+    <td>Assigned to:</td>
+    <td>{{ form.assigned_to }}  </td>
+</tr>
+
+<tr>
+    <td valign="top">Note:</td>
+    <td>{{ form.note }}  </td>
+</tr>
+
+<tr>
+    <td>Priority:</td>
+    <td>{{ form.priority }}  </td>
+</tr>
+
+</table>
+<p><input type="submit" class="todo-button" name="edit_task" value="Edit task"></p>
+</div>
+
+
+<hr />
+
+
+<h3>Add comment</h3>
+
+    <red><p><textarea name="comment-body" rows="8" cols="40"></textarea></p></red>
+    <p><input class="todo-button"type="submit" value="Submit"></p>
+
+</form>
+
+<h3>Comments({{comment_list.count}})</h3>
+
+{% for comment in comment_list %}
+    <p><strong>{{ comment.author.first_name }} {{ comment.author.last_name }}, {{ comment.date|date:"F d Y" }}</strong> </p>
+    {{ comment.body|safe|linebreaks }}
+{% endfor %}
+
+
+
+{% endifequal %}
+</div></div>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="block"> 
+        <div class="bd"><h2>Search History</h2>
+        <a href="#">Lorem Ipsum</a></div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Tasks for: "{{task.list.name}}"</h2>
+        {% ifequal task_list.count 0 %}
+            <p><i>None</i></p>
+        {% else %}
+            <ol>
+                {% for task in task_list|slice:":3" %}
+                    <li><a href="{% url todo-task_detail task.id %}">{{ task.title|truncatewords:20 }}</a></li>
+                {% endfor %}
+            </ol>
+        {% endifequal %}
+        <br/><span style="font-size:large;">Show All</span><br/>
+        <a class="todo" href="{% url todo-incomplete_tasks task.list.id task.list.slug %}">Incomplete</a><br/>
+        <a class="todo" href="{% url todo-completed_tasks task.list.id task.list.slug %}">Completed</a><br/>
+        </div>
+    </div>
+
+    <div class="block"> 
+        <div class="bd"><h2>Scratchpad List</h2>
+        <ul>
+        {% for pad in pads|slice:":10" %}
+        <li><a href="{% url scratchpad-scratchpad_view pad.id %}">{{pad.title}}</a></li>
+        {% endfor %}
+        </ul><br/>
+        <span style="font-size:large;"><a href="{% url scratchpad-list-index %}">Show All</a></span>
+        <hr>
+        <h3>Create New Scratchpad</h3>
+        <form action="{% url scratchpad-new %}" method="POST" name"scrap">
+            <div class="fieldWrapper">
+            {{ scrapform.title.errors }}
+            <label for="id_title">Name</label>
+            <br>
+            {{ scrapform.title }}
+            <br><br>
+            </div>
+	    <input type="submit" value="Add">
+	    </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
